@@ -47,14 +47,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="B2BTecnologyDataBase.cs" />
+    <Compile Include="Map\ClienteMap.cs" />
+    <Compile Include="Map\ContatoMap.cs" />
+    <Compile Include="Map\ContratoMap.cs" />
+    <Compile Include="Map\EnderecoMap.cs" />
+    <Compile Include="Map\EquipamentoMap.cs" />
+    <Compile Include="Map\PagamentoMap.cs" />
+    <Compile Include="Map\VendedoresMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Map\" />
+    <ProjectReference Include="..\B2BTecnology.Financeiro.Entidades\B2BTecnology.Financeiro.Entidades.csproj">
+      <Project>{1e0e3ff1-8301-4ae7-9e77-8c548c9c38a6}</Project>
+      <Name>B2BTecnology.Financeiro.Entidades</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

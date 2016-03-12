@@ -4,7 +4,7 @@ namespace B2BTecnology.Financeiro.Entidades
 {
     public class Pagamento
     {
-        public int CodigoPagamento { get; set; }
+        public int IdPagamento { get; set; }
         public DateTime DataPagamento { get; set; }
         public decimal ValorGasto { get; set; }
         public decimal ValorPago { get; set; }

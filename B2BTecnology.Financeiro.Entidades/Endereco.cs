@@ -16,5 +16,8 @@ namespace B2BTecnology.Financeiro.Entidades
         public string Bairro { get; set; }
         public string Cidade { get; set; }
         public string Estado { get; set; }
+
+        public virtual Cliente Cliente { get; set; }
+        public virtual Vendedores Vendedores { get; set; }
     }
 }

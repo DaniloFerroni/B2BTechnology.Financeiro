@@ -13,5 +13,8 @@ namespace B2BTecnology.Financeiro.Entidades
         public string Email { get; set; }
         public string Telefone { get; set; }
         public string Celular { get; set; }
+
+        public virtual Cliente Cliente { get; set; }
+        public virtual Vendedores Vendedores { get; set; }
     }
 }

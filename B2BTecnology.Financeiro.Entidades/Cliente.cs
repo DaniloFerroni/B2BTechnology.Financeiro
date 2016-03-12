@@ -13,5 +13,6 @@ namespace B2BTecnology.Financeiro.Entidades
 
         public virtual Endereco Endereco { get; set; }
         public virtual Contato Contato { get; set; }
+        public virtual Contrato Contrato { get; set; }
     }
 }

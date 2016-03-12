@@ -11,9 +11,11 @@ namespace B2BTecnology.Financeiro.Entidades
         public decimal Comissao { get; set; }
         public int TipoVendedor { get; set; }
         public bool Ativo { get; set; }
-        public int Superior { get; set; }
+        public int SuperiorId { get; set; }
 
         public virtual Endereco Endereco { get; set; }
         public virtual Contato Contato { get; set; }
+        public virtual Vendedores Superior { get; set; }
+        public virtual Contrato Contrato { get; set; }
     }
 }
