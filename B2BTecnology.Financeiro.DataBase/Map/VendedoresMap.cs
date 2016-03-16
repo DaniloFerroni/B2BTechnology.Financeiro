@@ -21,17 +21,13 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(v => v.Nome).HasMaxLength(500).HasColumnName("NOME");
             Property(v => v.SuperiorId).HasColumnName("ID_SUPERIOR");
 
-            HasKey(c => c.ContatoId)
-                .HasRequired(c => c.Contato)
-                .WithRequiredDependent(c => c.Vendedores);
+            HasRequired(v => v.Contato)
+                .WithMany(v => v.Vendedores)
+                .HasForeignKey(v => v.ContatoId);
 
-            HasKey(c => c.EnderecoId)
-                .HasRequired(c => c.Endereco)
-                .WithRequiredDependent(c => c.Vendedores);
-
-            HasKey(c => c.SuperiorId)
-                .HasRequired(c => c.Superior)
-                .WithRequiredDependent();
+            HasRequired(v => v.Endereco)
+                .WithMany(v => v.Vendedores)
+                .HasForeignKey(v => v.EnderecoId);
         }
     }
 }

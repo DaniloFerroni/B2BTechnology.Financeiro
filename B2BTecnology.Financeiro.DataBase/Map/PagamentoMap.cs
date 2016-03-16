@@ -18,9 +18,9 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(p => p.ContratoId).HasColumnName("ID_CONTRATO");
             Property(p => p.Pago).HasColumnName("FL_PAGO");
 
-            HasKey(p => p.ContratoId)
-                .HasRequired(p => p.Contrato)
-                .WithRequiredDependent(p => p.Pagamento);
+            HasRequired(p => p.Contrato)
+                .WithMany(p => p.Pagamentos)
+                .HasForeignKey(p => p.ContratoId);
         }
     }
 }

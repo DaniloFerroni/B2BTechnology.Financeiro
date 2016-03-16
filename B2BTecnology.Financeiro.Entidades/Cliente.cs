@@ -1,4 +1,6 @@
 ﻿
+using System.Collections.Generic;
+
 namespace B2BTecnology.Financeiro.Entidades
 {
     public class Cliente
@@ -13,6 +15,6 @@ namespace B2BTecnology.Financeiro.Entidades
 
         public virtual Endereco Endereco { get; set; }
         public virtual Contato Contato { get; set; }
-        public virtual Contrato Contrato { get; set; }
+        public virtual List<Contrato> Contratos { get; set; }
     }
 }

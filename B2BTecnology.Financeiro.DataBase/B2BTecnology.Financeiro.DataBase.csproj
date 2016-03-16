@@ -46,15 +46,28 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="B2BTecnologyDataBase.cs" />
-    <Compile Include="Map\ClienteMap.cs" />
+    <Compile Include="B2BSolution.cs" />
+    <Compile Include="Map\ClienteMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Map\ContatoMap.cs" />
-    <Compile Include="Map\ContratoMap.cs" />
-    <Compile Include="Map\EnderecoMap.cs" />
-    <Compile Include="Map\EquipamentoMap.cs" />
-    <Compile Include="Map\PagamentoMap.cs" />
-    <Compile Include="Map\VendedoresMap.cs" />
+    <Compile Include="Map\ContratoMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Map\EnderecoMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Map\EquipamentoMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Map\PagamentoMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Map\VendedoresMap.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\ClienteRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -19,13 +19,13 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(c => c.Ativo).HasColumnName("FL_ATIVO");
             Property(c => c.Documento).HasMaxLength(14).HasColumnName("DOCUMENTO");
 
-            HasKey(c => c.ContatoId)
-                .HasRequired(c => c.Contato)
-                .WithRequiredDependent(c => c.Cliente);
+            HasRequired(c => c.Contato)
+                .WithMany(c => c.Clientes)
+                .HasForeignKey(c => c.ContatoId);
 
-            HasKey(c => c.EnderecoId)
-                .HasRequired(c => c.Endereco)
-                .WithRequiredDependent(c => c.Cliente);
+            HasRequired(c => c.Endereco)
+                .WithMany(c => c.Clientes)
+                .HasForeignKey(c => c.EnderecoId);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace B2BTecnology.Financeiro.Entidades
 {
@@ -14,7 +10,7 @@ namespace B2BTecnology.Financeiro.Entidades
         public string Telefone { get; set; }
         public string Celular { get; set; }
 
-        public virtual Cliente Cliente { get; set; }
-        public virtual Vendedores Vendedores { get; set; }
+        public virtual List<Cliente> Clientes { get; set; }
+        public virtual List<Vendedores> Vendedores { get; set; }
     }
 }
