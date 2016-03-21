@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2BTecnology.Financeiro.Web", "B2BTecnology.Financeiro.Web\B2BTecnology.Financeiro.Web.csproj", "{12A0CFC9-22D5-44CA-8B77-60C07C01D260}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2BTecnology.Financeiro.Entidades", "B2BTecnology.Financeiro.Entidades\B2BTecnology.Financeiro.Entidades.csproj", "{1E0E3FF1-8301-4AE7-9E77-8C548C9C38A6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2BTecnology.Financeiro.DataBase", "B2BTecnology.Financeiro.DataBase\B2BTecnology.Financeiro.DataBase.csproj", "{9E561440-F179-4ACD-AFBB-0824EB586F49}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2BTecnology.Financeiro.Negocio", "B2BTecnology.Financeiro.Negocio\B2BTecnology.Financeiro.Negocio.csproj", "{84FB0652-A318-4853-96FB-DB9BCF8017FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "B2BTecnology.Financeiro.Web", "B2BTecnology.Financeiro.Web\B2BTecnology.Financeiro.Web.csproj", "{A577915D-F824-42C7-857B-3A78C48C7C7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{12A0CFC9-22D5-44CA-8B77-60C07C01D260}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{12A0CFC9-22D5-44CA-8B77-60C07C01D260}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{12A0CFC9-22D5-44CA-8B77-60C07C01D260}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{12A0CFC9-22D5-44CA-8B77-60C07C01D260}.Release|Any CPU.Build.0 = Release|Any CPU
 		{1E0E3FF1-8301-4AE7-9E77-8C548C9C38A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1E0E3FF1-8301-4AE7-9E77-8C548C9C38A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1E0E3FF1-8301-4AE7-9E77-8C548C9C38A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{84FB0652-A318-4853-96FB-DB9BCF8017FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{84FB0652-A318-4853-96FB-DB9BCF8017FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{84FB0652-A318-4853-96FB-DB9BCF8017FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A577915D-F824-42C7-857B-3A78C48C7C7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A577915D-F824-42C7-857B-3A78C48C7C7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A577915D-F824-42C7-857B-3A78C48C7C7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A577915D-F824-42C7-857B-3A78C48C7C7E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

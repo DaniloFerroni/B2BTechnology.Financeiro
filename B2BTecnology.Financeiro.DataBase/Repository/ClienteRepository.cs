@@ -1,30 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity.ModelConfiguration.Configuration;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using B2BTecnology.Financeiro.Entidades;
 
 namespace B2BTecnology.Financeiro.DataBase.Repository
 {
-    public class ClienteRepository
+    public class ClienteRepository : BaseRepository<B2BSolution, Cliente>
     {
-        private readonly B2BSolution _context = new B2BSolution();
-
-        public Contrato GetCliente(int idCliente)
+        public Cliente GetCliente(int idCliente)
         {
-            return _context.Contratos.FirstOrDefault(c => c.IdContrato == idCliente);
+            LazyLoadingEnabled();
+            return DbSet
+                .Include("Contato")
+                .Include("Endereco")
+                .FirstOrDefault(c => c.IdCliente == idCliente);
         }
 
-        public List<Pagamento> GetAll()
+        public List<Cliente> GetAll()
         {
-            return _context.Pagamentos.ToList();
+            LazyLoadingEnabled();
+            return DbSet.ToList();
         }
 
-        public List<Contato> GetAllContato()
+        public void Salvar(Cliente cliente)
         {
-            return _context.Contatos.ToList();
+            var informacoesPessoais = new InformacoesPessoais();
+            informacoesPessoais.Salvar(cliente.Contato, cliente.Endereco);
         }
     }
 }
