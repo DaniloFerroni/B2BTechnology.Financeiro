@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "Cliente";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Clientes
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">B2B Tecnology</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-dashboard fa-fw"></i> Cliente
+            </li>
+        </ol>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label class="control-label">CPF/CNPJ: </label>
+            <input class="form-control">
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label">Tipo de Pessoa: </label>
+            <br/>
+            <div class="radio-inline">
+                <input type="radio" name="pessoa" value="P" /> Pessoa Física
+            </div>
+            <div class="radio-inline">
+                <input type="radio" name="pessoa" value="J" /> Pessoa Jurídica
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>Nome: </label>
+            <div class="form-group input-group">
+                <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
+                <input type="text" class="form-control">
+            </div>
+        </div>    
+        <div class="form-group col-md-6">
+            <label>Clientes: </label>
+            <select class="form-control">
+                <option>1</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Partials/_Endereco")
+@Html.Partial("Partials/_Contato")
+@Html.Partial("Partials/_InformacoesContratuais")
+@Html.Partial("Partials/_Equipamentos")

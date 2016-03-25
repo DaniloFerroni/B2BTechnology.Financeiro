@@ -3,40 +3,70 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - B2B Tecnology</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/css/sb-admin.css" rel="stylesheet" />
+    <link href="~/css/plugins/morris.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/css/B2BTecnology.css" rel="stylesheet" />
+
+</head>
+    <body>
+           
+        <div id="wrapper">
+        
+            <div id="page-wrapper">
+                <div class="container-fluid">
+
+                    @RenderBody()
+
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/Home">B2B Tecnology</a>
+                </div>
+                <!-- Top Menu Items -->
+                <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <ul class="nav navbar-nav side-nav">
+                        <li>
+                            <a href="/Cliente" class="active"><i class="fa fa-dashboard fa-fw"></i> Cliente</a>
+                        </li>
+                        <li>
+                            <a href="/Vendedores"><i class="fa fa-bar-chart-o fa-fw"></i> Vendedores</a>
+                        </li>
+                        <li>
+                            <a href="/Equipamentos"><i class="fa fa-table fa-fw"></i> Equipamentos</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-edit fa-fw"></i> Lançamentos</a>
+                        </li>
+                        <li>
+                            <a href="/Pagamento"><i class="fa fa-wrench fa-fw"></i> Pagamentos</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/bootstrap")
+        <script src="~/js/jquery.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+
+        <script src="~/js/plugins/morris/morris.min.js"></script>
+        <script src="~/js/plugins/morris/raphael.min.js"></script>
+        <script src="~/js/plugins/morris/morris-data.js"></script>    
+
+    </body>
 </html>
