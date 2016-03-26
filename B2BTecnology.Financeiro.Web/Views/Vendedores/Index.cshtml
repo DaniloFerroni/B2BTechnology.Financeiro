@@ -1,8 +1,82 @@
-﻿
+﻿@model B2BTecnology.Financeiro.DTO.VendedoresDTO
+
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Vendedores</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Vendedores
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">B2B Tecnology</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Vendedores
+            </li>
+        </ol>
+    </div>
+</div>
 
+@*@Html.ValidationSummary()*@
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label class="control-label">CPF/CNPJ: </label>
+            <input class="form-control" id="Documento" name="Documento" type="text" value="@Model.Documento" />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label">Tipo de Pessoa: </label>
+            <br />
+            <div class="radio-inline">
+                <input type="radio" name="pessoa" value="@(Model.TipoVendedor == 1)" /> Vendedor
+            </div>
+            <div class="radio-inline">
+                <input type="radio" name="pessoa" value="@(Model.TipoVendedor == 2)" /> Canal
+            </div>
+            @Html.Hidden("TipoPessoa", Model.TipoVendedor)
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>Nome: </label>
+            <div class="form-group input-group">
+                <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
+                <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome" />
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Gestor Vendas: </label>
+            <select class="form-control">
+                <option>1</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-3">
+            <label>Comissão: </label>
+            <input class="form-control" id="Comissao" name="Comissao" type="text" value="@Model.Comissao" />            
+        </div>
+    </div>
+</div>
+
+@Html.Partial("Partials/_Endereco", Model.Endereco)
+@Html.Partial("Partials/_Contato", Model.Contato)
+
+<div class="panel-footer">
+
+    <input type="submit" value="Salvar" class="btn btn-default" />
+
+
+</div>

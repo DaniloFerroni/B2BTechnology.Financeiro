@@ -1,4 +1,6 @@
-﻿<div class="row">
+﻿@model B2BTecnology.Financeiro.DTO.ContratoDTO
+
+<div class="row">
     <div class="col-lg-12">
         <h4 class="page-header">
             Informações Contratuais
@@ -10,7 +12,7 @@
     <div class="col-lg-12 ">
         <div class="form-group col-lg-5">
             <label class="control-label">Data Contrato: </label>
-            <input class="form-control">
+            <input class="form-control datepicker" id="DataContrato" name="Contrato.DataContrato" type="text" value="@Model.DataContrato" />
         </div>
         <div class="form-group col-md-6">
             <label class="control-label">Dia Vencimento: </label>
@@ -24,6 +26,7 @@
             <div class="radio-inline">
                 <input type="radio" name="vencimento" value="15" /> 15
             </div>
+            <input type="hidden" name="Contrato.DiaVencimento" value="@Model.DiaVencimento" />
         </div>
     </div>
 </div>
@@ -32,11 +35,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-lg-5">
             <label class="control-label">Cadência Fixa: </label>
-            <input class="form-control">
+            <input class="form-control" id="CadenciaFixa" name="Contrato.CadenciaFixa" type="text" value="@Model.CadenciaFixa" />
         </div>
         <div class="form-group col-lg-5">
             <label class="control-label">Cadência Movel: </label>
-            <input class="form-control">
+            <input class="form-control" id="CadenciaMovel" name="Contrato.CadenciaMovel" type="text" value="@Model.CadenciaMovel" />
         </div>
     </div>
 </div>
@@ -45,11 +48,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-lg-5">
             <label class="control-label">Consúmo Mínimo: </label>
-            <input class="form-control">
+            <input class="form-control" id="ValorConsumoMinimo" name="Contrato.ValorConsumoMinimo" type="text" value="@Model.ValorConsumoMinimo" />
         </div>
         <div class="form-group col-lg-5">
             <label class="control-label">Mensalidade: </label>
-            <input class="form-control">
+            <input class="form-control numeral" id="ValorMensalidade" name="Contrato.ValorMensalidade" type="text" value="@Model.ValorMensalidade" />
         </div>
     </div>
 </div>
@@ -71,6 +74,7 @@
             <div class="radio-inline">
                 <input type="radio" name="prazocontratual" value="I" /> Indetermindo
             </div>
+            <input type="hidden" name="Contrato.PrazoContratual" value="@Model.PrazoContratual" />
         </div>
     </div>
 </div>
@@ -87,23 +91,23 @@
     <div class="col-lg-12 ">
         <div class="form-group col-lg-1">
             <label class="control-label">Local: </label>
-            <input class="form-control">
+            <input class="form-control numeral" id="ValorTarifaLocal" name="Contrato.ValorTarifaLocal" type="text" value="@Model.ValorTarifaLocal" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">LDN: </label>
-            <input class="form-control">
+            <input class="form-control numeral" id="ValorTarifaLdn" name="Contrato.ValorTarifaLdn" type="text" value="@Model.ValorTarifaLdn" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">VC1: </label>
-            <input class="form-control">
+            <input class="form-control numeral" id="ValorTarifaVc1" name="Contrato.ValorTarifaVc1" type="text" value="@Model.ValorTarifaVc1" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">VC2: </label>
-            <input class="form-control">
+            <input class="form-control numeral" id="ValorTarifaVc2" name="Contrato.ValorTarifaVc2" type="text" value="@Model.ValorTarifaVc2" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">VC3: </label>
-            <input class="form-control">
+            <input class="form-control numeral" id="ValorTarifaVc3" name="Contrato.ValorTarifaVc3" type="text" value="@Model.ValorTarifaVc3" />
         </div>
     </div>
 </div>

@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace B2BTecnology.Financeiro.Negocio
 {
-    public class Class1
+    public class ClienteService
     {
+        
     }
 }

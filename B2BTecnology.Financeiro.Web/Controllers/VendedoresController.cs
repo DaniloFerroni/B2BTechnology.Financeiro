@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using B2BTecnology.Financeiro.DTO;
 
 namespace B2BTecnology.Financeiro.Web.Controllers
 {
@@ -11,7 +12,13 @@ namespace B2BTecnology.Financeiro.Web.Controllers
         // GET: Vendedores
         public ActionResult Index()
         {
-            return View();
+            var vendedores = new VendedoresDTO
+            {
+                Contato = new ContatoDTO(),
+                Endereco = new EnderecoDTO()
+            };
+
+            return View(vendedores);
         }
     }
 }

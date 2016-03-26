@@ -139,6 +139,30 @@
     <Content Include="css\bootstrap-rtl.min.css" />
     <Content Include="css\bootstrap.css" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\jquery-ui\external\jquery\jquery.js" />
+    <Content Include="css\jquery-ui\images\ui-bg_diagonals-thick_8_333333_40x40.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_glass_40_111111_1x400.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_glass_55_1c1c1c_1x400.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_highlight-hard_100_f9f9f9_1x100.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_highlight-hard_40_aaaaaa_1x100.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_highlight-soft_50_aaaaaa_1x100.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_inset-hard_45_cd0a0a_1x100.png" />
+    <Content Include="css\jquery-ui\images\ui-bg_inset-hard_55_ffeb80_1x100.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_222222_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_4ca300_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_bbbbbb_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_ededed_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_ffcf29_256x240.png" />
+    <Content Include="css\jquery-ui\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="css\jquery-ui\index.html" />
+    <Content Include="css\jquery-ui\jquery-ui.css" />
+    <Content Include="js\jquery-ui.js" />
+    <Content Include="css\jquery-ui\jquery-ui.min.css" />
+    <Content Include="js\jquery-ui.min.js" />
+    <Content Include="css\jquery-ui\jquery-ui.structure.css" />
+    <Content Include="css\jquery-ui\jquery-ui.structure.min.css" />
+    <Content Include="css\jquery-ui\jquery-ui.theme.css" />
+    <Content Include="css\jquery-ui\jquery-ui.theme.min.css" />
     <Content Include="css\plugins\morris.css" />
     <Content Include="css\sb-admin-rtl.css" />
     <Content Include="css\sb-admin.css" />
@@ -150,6 +174,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="js\agency.js" />
+    <Content Include="js\B2BTecnology.js" />
     <Content Include="js\bootstrap.js" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\cbpAnimatedHeader.js" />
@@ -157,7 +182,37 @@
     <Content Include="js\classie.js" />
     <Content Include="js\contact_me.js" />
     <Content Include="js\jqBootstrapValidation.js" />
+    <Content Include="js\jquery-1.12.2.min.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="js\Numeral\languages.min.js" />
+    <Content Include="js\Numeral\languages\be-nl.min.js" />
+    <Content Include="js\Numeral\languages\chs.min.js" />
+    <Content Include="js\Numeral\languages\cs.min.js" />
+    <Content Include="js\Numeral\languages\da-dk.min.js" />
+    <Content Include="js\Numeral\languages\de-ch.min.js" />
+    <Content Include="js\Numeral\languages\de.min.js" />
+    <Content Include="js\Numeral\languages\en-gb.min.js" />
+    <Content Include="js\Numeral\languages\es-ES.min.js" />
+    <Content Include="js\Numeral\languages\es.min.js" />
+    <Content Include="js\Numeral\languages\et.min.js" />
+    <Content Include="js\Numeral\languages\fi.min.js" />
+    <Content Include="js\Numeral\languages\fr-CA.min.js" />
+    <Content Include="js\Numeral\languages\fr-ch.min.js" />
+    <Content Include="js\Numeral\languages\fr.min.js" />
+    <Content Include="js\Numeral\languages\hu.min.js" />
+    <Content Include="js\Numeral\languages\it.min.js" />
+    <Content Include="js\Numeral\languages\ja.min.js" />
+    <Content Include="js\Numeral\languages\nl-nl.min.js" />
+    <Content Include="js\Numeral\languages\pl.min.js" />
+    <Content Include="js\Numeral\languages\pt-br.min.js" />
+    <Content Include="js\Numeral\languages\pt-pt.min.js" />
+    <Content Include="js\Numeral\languages\ru-UA.min.js" />
+    <Content Include="js\Numeral\languages\ru.min.js" />
+    <Content Include="js\Numeral\languages\sk.min.js" />
+    <Content Include="js\Numeral\languages\th.min.js" />
+    <Content Include="js\Numeral\languages\tr.min.js" />
+    <Content Include="js\Numeral\languages\uk-UA.min.js" />
+    <Content Include="js\Numeral\numeral.min.js" />
     <Content Include="js\plugins\flot\excanvas.min.js" />
     <Content Include="js\plugins\flot\flot-data.js" />
     <Content Include="js\plugins\flot\jquery.flot.js" />
@@ -235,10 +290,12 @@
     <Content Include="Views\Vendedores\Index.cshtml" />
     <Content Include="Views\Equipamentos\Index.cshtml" />
     <Content Include="Views\Pagamento\Index.cshtml" />
-    <Content Include="Views\Cliente\Partials\_Contato.cshtml" />
-    <Content Include="Views\Cliente\Partials\_Endereco.cshtml" />
+    <Content Include="Views\Shared\Partials\_Contato.cshtml" />
+    <Content Include="Views\Shared\Partials\_Endereco.cshtml" />
     <Content Include="Views\Cliente\Partials\_InformacoesContratuais.cshtml" />
     <Content Include="Views\Cliente\Partials\_Equipamentos.cshtml" />
+    <Content Include="Views\Shared\Partials\_Confirmacao.cshtml" />
+    <Content Include="Views\Cliente\Listar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -247,6 +304,16 @@
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\B2BTecnology.Financeiro.DTO\B2BTecnology.Financeiro.DTO.csproj">
+      <Project>{55ac1dbd-1f1d-4331-a445-d3133c068cf0}</Project>
+      <Name>B2BTecnology.Financeiro.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\B2BTecnology.Financeiro.Negocio\B2BTecnology.Financeiro.Negocio.csproj">
+      <Project>{84fb0652-a318-4853-96fb-db9bcf8017fb}</Project>
+      <Name>B2BTecnology.Financeiro.Negocio</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

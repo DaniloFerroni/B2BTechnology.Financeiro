@@ -2,3 +2,28 @@
     margin-top: 0px;
     background-color: #ffffff;
 }
+
+.input-validation-error {
+    border: 1px solid #a94442;
+    background-color: #fee;
+}
+
+.field-validation-error {
+    color: #a94442;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+.validation-summary-errors {
+    color: #a94442;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+label {
+    font-weight: normal !important;
+}
