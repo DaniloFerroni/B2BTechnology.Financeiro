@@ -64,4 +64,10 @@ $(function () {
         $('#deleteModal .modal-body span').text('');
     };
 
+    geral.Redirect = function(url) {
+
+        window.location = url;
+
+    };
+
 });

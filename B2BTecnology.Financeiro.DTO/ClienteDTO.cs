@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace B2BTecnology.Financeiro.DTO
 {
@@ -20,6 +21,7 @@ namespace B2BTecnology.Financeiro.DTO
 
         public EnderecoDTO Endereco { get; set; }
         public ContatoDTO Contato { get; set; }
-        public ContratoDTO Contrato { get; set; }
+        public List<ContratoDTO> Contratos { get; set; }
+        public EquipamentosDTO Equipamento { get; set; }
     }
 }

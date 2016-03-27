@@ -1,15 +1,18 @@
-﻿@model B2BTecnology.Financeiro.DTO.ClienteDTO
+﻿@using B2BTecnology.Financeiro.DTO
+@model B2BTecnology.Financeiro.DTO.ClienteDTO
 
 @{
     ViewBag.Title = "Cliente";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 @using (Html.BeginForm("/Salvar", "Cliente", FormMethod.Post))
 {
 
     @Html.Hidden("IdCliente", Model.IdCliente)
-    
+
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">
@@ -25,56 +28,54 @@
             </ol>
         </div>
     </div>
-    
-    @Html.Partial("Error");
-    
-    <div class="row">
-        <div class="col-lg-12 ">
-            <div class="form-group col-md-5">
-                <label class="control-label">CPF/CNPJ: </label>
-                <input class="form-control" id="Documento" name="Documento" type="text" value="@Model.Documento"/>
-            </div>
-            <div class="form-group col-md-6">
-                <label class="control-label">Tipo de Pessoa: </label>
-                <br/>
-                <div class="radio-inline">
-                    <input type="radio" name="pessoa" value="@(Model.TipoPessoa == "F")" /> Pessoa Física
-                </div>
-                <div class="radio-inline">
-                    <input type="radio" name="pessoa" value="@(Model.TipoPessoa == "J")" /> Pessoa Jurídica
-                </div>
-                @Html.Hidden("TipoPessoa", Model.TipoPessoa)
-            </div>
-        </div>
-    </div>
 
-    <div class="row">
-        <div class="col-lg-12 ">
-            <div class="form-group col-md-5">
-                <label>Nome: </label>
-                <div class="form-group input-group">
-                    <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
-                    <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome" />
-                </div>
-            </div>    
-            <div class="form-group col-md-6">
-                <label>Clientes: </label>
-                <select class="form-control">
-                    <option>1</option>
-                </select>
-            </div>
-        </div>
-    </div>
+    @Html.Partial("Error")
+    @Html.Partial("Partials/_Detalhes")
 
-    @Html.Partial("Partials/_Endereco", Model.Endereco)
-    @Html.Partial("Partials/_Contato", Model.Contato)
-    @Html.Partial("Partials/_InformacoesContratuais", Model.Contrato)
-    @Html.Partial("Partials/_Equipamentos")
+}
 
-    <div class="panel-footer">
 
-        <input type="submit" value="Salvar" class="btn btn-default" />
 
-    </div>
+@section scripts{
+
+    <script>
+
+        $(function () {
+
+            $("#pesquisarCliente").click(function () {
+
+                geral.Redirect("/Cliente/Detalhe/" + $("#Documento").val());
+
+            });
+
+            $("#pesquisarClienteNome").click(function () {
+
+                $.getJSON("/Cliente/PesquisarClientesPorNome", { nome: $("#Nome").val() }, function (data) {
+
+                    $("#nomesClientes").empty();
+                    $("#nomesClientes").append("<option value=''>Selecione</option>");
+                    $(data).each(function () {
+
+                        var documento = $(this).prop("Documento");
+                        var nome = $(this).prop("Nome");
+
+                        $("#nomesClientes").append("<option value='" + documento + "'>"+ nome +"</option>");
+
+                    });
+
+
+                });
+
+            });
+
+            $("#nomesClientes").change(function () {
+                
+                geral.Redirect("/Cliente/Detalhe/" + $(this).val());
+
+            });
+
+        });
+
+    </script>
 
 }

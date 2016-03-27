@@ -1,0 +1,56 @@
+﻿@using B2BTecnology.Financeiro.DTO
+@model B2BTecnology.Financeiro.DTO.ClienteDTO
+
+<div id="paginaCliente">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label class="control-label">CPF/CNPJ: </label>
+                <div class="form-group input-group">
+                    <span class="input-group-btn"><button class="btn btn-default" id="pesquisarCliente" type="button"><i class="fa fa-search"></i></button></span>
+                    <input class="form-control" id="Documento" name="Documento" type="text" value="@Model.Documento" />
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label class="control-label">Tipo de Pessoa: </label>
+                <br />
+                <div class="radio-inline">
+                    <input type="radio" name="pessoa" value="@(Model.TipoPessoa == "F")" @((Model.TipoPessoa == "F") ? "checked": "") /> Pessoa Física
+                </div>
+                <div class="radio-inline">
+                    <input type="radio" name="pessoa" value="@(Model.TipoPessoa == "J")" @((Model.TipoPessoa == "J") ? "checked" : "") /> Pessoa Jurídica
+                </div>
+                @Html.Hidden("TipoPessoa", Model.TipoPessoa)
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label>Nome: </label>
+                <div class="form-group input-group">
+                    <span class="input-group-btn"><button class="btn btn-default" id="pesquisarClienteNome" type="button"><i class="fa fa-search"></i></button></span>
+                    <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome" />
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Clientes: </label>
+                <select class="form-control" id="nomesClientes">
+                    <option value=''>Selecione</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    @Html.Partial("Partials/_Endereco", Model.Endereco)
+    @Html.Partial("Partials/_Contato", Model.Contato)
+    @Html.Partial("Partials/_InformacoesContratuais", Model.Contratos.FirstOrDefault() ?? new ContratoDTO())
+
+
+    <div class="panel-footer">
+
+        <input type="submit" value="Salvar" class="btn btn-default" />
+
+    </div>
+</div>

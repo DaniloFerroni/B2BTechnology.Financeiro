@@ -6,19 +6,23 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 {
     public class ClienteRepository : BaseRepository<B2BSolution, Cliente>
     {
-        public Cliente GetCliente(int idCliente)
+        public Cliente GetCliente(string documento)
         {
             LazyLoadingEnabled();
             return DbSet
                 .Include("Contato")
                 .Include("Endereco")
-                .FirstOrDefault(c => c.IdCliente == idCliente);
+                .Include("Contratos")
+                .FirstOrDefault(c => c.Documento == documento);
         }
 
         public List<Cliente> GetAll()
         {
             LazyLoadingEnabled();
-            return DbSet.ToList();
+            return DbSet
+                    .Include("Contratos")
+                    .Include("Contratos.Vendedores")
+                    .ToList();
         }
 
         public void Salvar(Cliente cliente)

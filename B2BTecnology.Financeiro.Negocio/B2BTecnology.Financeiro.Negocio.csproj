@@ -30,6 +30,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper">
+      <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -40,7 +43,26 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClienteService.cs" />
+    <Compile Include="EquipamentosService.cs" />
+    <Compile Include="Map\Mapeamento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\B2BTecnology.Financeiro.DataBase\B2BTecnology.Financeiro.DataBase.csproj">
+      <Project>{9e561440-f179-4acd-afbb-0824eb586f49}</Project>
+      <Name>B2BTecnology.Financeiro.DataBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\B2BTecnology.Financeiro.DTO\B2BTecnology.Financeiro.DTO.csproj">
+      <Project>{55ac1dbd-1f1d-4331-a445-d3133c068cf0}</Project>
+      <Name>B2BTecnology.Financeiro.DTO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\B2BTecnology.Financeiro.Entidades\B2BTecnology.Financeiro.Entidades.csproj">
+      <Project>{1e0e3ff1-8301-4ae7-9e77-8c548c9c38a6}</Project>
+      <Name>B2BTecnology.Financeiro.Entidades</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,29 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using B2BTecnology.Financeiro.DTO;
+using B2BTecnology.Financeiro.Negocio;
 
 namespace B2BTecnology.Financeiro.Web.Controllers
 {
     public class ClienteController : Controller
     {
+        private readonly ClienteService _clienteService = new ClienteService();
+
         // GET: Cliente
         public ActionResult Index()
         {
-            var cliente = new ClienteDTO
-            {
-                Documento = "1234567890",
-                Endereco = new EnderecoDTO
-                {
-                    Rua = "testetstetestete"
-                },
-                Contrato = new ContratoDTO(),
-                Contato = new ContatoDTO()
-            };
-
-            return View(cliente);
+            return View(CarregarClientes(new ClienteDTO()));
         }
 
         public ActionResult Salvar(ClienteDTO cliente)
@@ -32,25 +21,44 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             if(!ModelState.IsValid)
                 return View("Index", cliente);
 
+
+
             return RedirectToAction("Index");
         }
 
         public ActionResult Listar()
         {
-            var lista = new List<ClienteDTO>
-            {
-                new ClienteDTO
-                {
-                    IdCliente = 1,
-                    Nome = "Danilo",
-                    Documento = "1234567890",
-                    Contrato = new ContratoDTO
-                    {
-                        NomeVendedor = "Teste"
-                    }
-                }
-            };
-            return View(lista);
+            var clientes = _clienteService.Todos();
+            return View(clientes);
         }
+
+        [Route("Cliente/Detalhe/{documento}")]
+        public ActionResult Detalhe(string documento)
+        {
+            var cliente = _clienteService.Pesquisar(documento);
+            
+            return View("Index", CarregarClientes(cliente));
+        }
+
+        public JsonResult PesquisarClientesPorNome(string nome)
+        {
+            var clientes = _clienteService.Clientes(nome);
+
+            return Json(clientes, JsonRequestBehavior.AllowGet);
+        }
+
+        private ClienteDTO CarregarClientes(ClienteDTO cliente)
+        {
+            if (cliente.IdCliente != 0) return cliente;
+
+            return new ClienteDTO
+            {
+                Endereco = new EnderecoDTO(),
+                Contratos = new List<ContratoDTO>(),
+                Contato = new ContatoDTO(),
+                Equipamento = new EquipamentosDTO()
+            };
+        }
+
     }
 }

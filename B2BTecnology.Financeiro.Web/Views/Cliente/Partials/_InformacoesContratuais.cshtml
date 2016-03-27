@@ -1,4 +1,5 @@
-﻿@model B2BTecnology.Financeiro.DTO.ContratoDTO
+﻿@using B2BTecnology.Financeiro.DTO
+@model B2BTecnology.Financeiro.DTO.ContratoDTO
 
 <div class="row">
     <div class="col-lg-12">
@@ -18,13 +19,13 @@
             <label class="control-label">Dia Vencimento: </label>
             <br />
             <div class="radio-inline">
-                <input type="radio" name="vencimento" value="5" /> 5
+                <input type="radio" name="vencimento" value="5" @((Model.DiaVencimento == 5) ? "checked" : "") /> 5
             </div>
             <div class="radio-inline">
-                <input type="radio" name="vencimento" value="10" /> 10
+                <input type="radio" name="vencimento" value="10" @((Model.DiaVencimento == 10) ? "checked" : "") /> 10
             </div>
             <div class="radio-inline">
-                <input type="radio" name="vencimento" value="15" /> 15
+                <input type="radio" name="vencimento" value="15" @((Model.DiaVencimento == 15) ? "checked" : "") /> 15
             </div>
             <input type="hidden" name="Contrato.DiaVencimento" value="@Model.DiaVencimento" />
         </div>
@@ -63,16 +64,16 @@
             <label class="control-label">Prazo Contratual: </label>
             <br />
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="6" /> 6 Meses
+                <input type="radio" name="prazocontratual" value="6" @((Model.PrazoContratual == Enumeradores.PrazoContratual.SeisMeses.GetHashCode()) ? "checked" : "") /> 6 Meses
             </div>
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="12" /> 12 Meses
+                <input type="radio" name="prazocontratual" value="12" @((Model.PrazoContratual == Enumeradores.PrazoContratual.DozeMeses.GetHashCode()) ? "checked" : "") /> 12 Meses
             </div>
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="24" /> 24 Meses
+                <input type="radio" name="prazocontratual" value="24" @((Model.PrazoContratual == Enumeradores.PrazoContratual.VinteQuatroMeses.GetHashCode()) ? "checked" : "") /> 24 Meses
             </div>
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="I" /> Indetermindo
+                <input type="radio" name="prazocontratual" value="I" @((Model.PrazoContratual == Enumeradores.PrazoContratual.Indeterminado.GetHashCode()) ? "checked" : "") /> Indetermindo
             </div>
             <input type="hidden" name="Contrato.PrazoContratual" value="@Model.PrazoContratual" />
         </div>
@@ -108,6 +109,49 @@
         <div class="form-group col-lg-1">
             <label class="control-label">VC3: </label>
             <input class="form-control numeral" id="ValorTarifaVc3" name="Contrato.ValorTarifaVc3" type="text" value="@Model.ValorTarifaVc3" />
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">
+            Equipamentos:
+        </h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>Equipamentos: </label>
+            <select class="form-control">
+                <option>1</option>
+            </select>
+        </div>
+        <div class="form-group col-md-5">
+            <label>Valor Instalação: </label>
+            <input type="text" class="form-control numeral" value="@Model.ValorInstalacao">
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <h4 class="page-header">
+            Gerente de Contas:
+        </h4>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-6">
+            <label>Vendedores: </label>
+            <select class="form-control">
+                <option>1</option>
+            </select>
         </div>
     </div>
 </div>

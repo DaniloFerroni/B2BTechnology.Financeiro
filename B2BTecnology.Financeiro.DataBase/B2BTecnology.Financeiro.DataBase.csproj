@@ -71,6 +71,7 @@
     <Compile Include="Repository\ClienteRepository.cs" />
     <Compile Include="Repository\ContatoRepository.cs" />
     <Compile Include="Repository\EnderecoRepository.cs" />
+    <Compile Include="Repository\EquipamentosRepository.cs" />
     <Compile Include="Repository\InformacoesPessoais.cs" />
     <Compile Include="Repository\IRepository.cs" />
   </ItemGroup>
