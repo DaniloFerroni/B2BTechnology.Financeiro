@@ -40,12 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ComissaoDTO.cs" />
     <Compile Include="ContratoDTO.cs" />
     <Compile Include="ClienteDTO.cs" />
     <Compile Include="ContatoDTO.cs" />
     <Compile Include="EnderecoDTO.cs" />
     <Compile Include="Enumeradores.cs" />
     <Compile Include="EquipamentosDTO.cs" />
+    <Compile Include="PagamentoDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VendedoresDTO.cs" />
   </ItemGroup>

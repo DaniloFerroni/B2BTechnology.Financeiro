@@ -1,8 +1,127 @@
-﻿
+﻿@model B2BTecnology.Financeiro.Web.Models.PagametoViewModel
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Pagamentos";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Pagamentos</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Pagamentos
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">B2B Tecnology</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-wrench fa-fw"></i> Pagamentos
+            </li>
+        </ol>
+    </div>
+</div>
 
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-2">
+            <label class="control-label">Mês Pagamento: </label>
+            <select class="form-control">
+                <option>Selecione</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-11">
+            <label class="control-label">Cliente: </label>
+            <select class="form-control">
+                <option>Selecione</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label class="control-label">Valor Gasto: </label>
+            <input class="form-control numeral" id="ValorGasto" name="ValorGasto" type="text" value="@Model.Pagamento.ValorGasto" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-11 form-inline">
+            <label class="control-label">Valor Consumo Mínimo: </label>
+            <label class="label-default" id="ValorConsumoMinimo" name="Contrato.ValorConsumoMinimo" type="text">@Model.Pagamento.Contrato.ValorConsumoMinimo</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5 form-inline">
+            <label class="control-label">Valor ValorMensalidade: </label>
+            <label class="label-default" id="ValorMensalidade" name="Contrato.ValorMensalidade" type="text">@Model.Pagamento.Contrato.ValorMensalidade</label>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5 form-inline">
+            <label class="control-label">Valor à Pagar: </label>
+            <label class="label-default" id="ValorPago" name="ValorPago" type="text">@Model.Pagamento.ValorPago</label>
+        </div>
+        <div class="form-group col-md-6 form-inline">
+            <label class="control-label">Manter Valor Gasto?: </label>
+            <input class="checkbox" type="checkbox" value="" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5 form-inline">
+            <label class="control-label">Pago: </label>
+            <input type="checkbox" class="checkbox" value="" />
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-12">
+            <div class="table-responsive">
+                <table id="tabelaEquipamentos" class="table table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th style="width: 12%">Código Contrato</th>
+                            <th style="width: 30%">Nome</th>
+                            <th style="width: 16%">Data Pagamento</th>
+                            <th style="width: 16%">Valor Pago</th>
+                            <th style="width: 10%">Pago</th>
+                            <th style="width: 10%"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Pagamentos.Count(); i++)
+                        {
+                            var pagamento = Model.Pagamentos.ToList()[i];
+                            <tr id="@(string.Format("row-{0}", pagamento.Contrato.IdContrato))">
+                                <td><label name="@(string.Format("Pagamentos[{0}].Marca", i))">@pagamento.Contrato.IdContrato</label></td>
+                                <td><label name="@(string.Format("Pagamentos[{0}].DataPagamento", i))">@pagamento.DataPagamento</label></td>
+                                <td><label name="@(string.Format("EquPagamentosipamentos[{0}].ValorPago", i))">@pagamento.ValorPago</label></td>
+                                <td><label name="@(string.Format("Pagamentos[{0}].Pago", i))">@pagamento.Pago</label></td>
+                                <td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

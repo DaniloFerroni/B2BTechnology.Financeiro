@@ -74,6 +74,8 @@
     <Compile Include="Repository\EquipamentosRepository.cs" />
     <Compile Include="Repository\InformacoesPessoais.cs" />
     <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Repository\PagamentoRepository.cs" />
+    <Compile Include="Repository\VendedoresRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
