@@ -14,5 +14,19 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             LazyLoadingEnabled();
             return DbSet.ToList();
         }
+
+        public void Inserir(List<Equipamentos> equipamentos)
+        {
+            equipamentos.ForEach(e => DbSet.Add(e));
+
+            Context.SaveChanges();
+        }
+
+        public void Excluir(List<Equipamentos> equipamentos)
+        {
+            equipamentos.ForEach(e => DbSet.Remove(e));
+
+            Context.SaveChanges();
+        }
     }
 }

@@ -33,7 +33,14 @@
     <Reference Include="AutoMapper">
       <HintPath>..\packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,10 +51,15 @@
   <ItemGroup>
     <Compile Include="ClienteService.cs" />
     <Compile Include="ComissaoService.cs" />
+    <Compile Include="ContatoService.cs" />
+    <Compile Include="ContratoService.cs" />
+    <Compile Include="DadosPessoais.cs" />
+    <Compile Include="EnderecoService.cs" />
     <Compile Include="EquipamentosService.cs" />
     <Compile Include="Financas.cs" />
     <Compile Include="Map\Mapeamento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VendedoresService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\B2BTecnology.Financeiro.DataBase\B2BTecnology.Financeiro.DataBase.csproj">
@@ -64,6 +76,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

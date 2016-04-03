@@ -5,26 +5,23 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 {
     public class EnderecoRepository : BaseRepository<B2BSolution, Endereco>
     {
-        public void Salvar(Endereco endereco)
+        public void Incluir(Endereco endereco)
         {
-            if (endereco.IdEndereco == 0)
-                Inserir(endereco);
-            else
-                Alterar(endereco);
-
-            endereco.IdEndereco = Context.SaveChanges();
+            DbSet.Add(endereco);
+            Context.SaveChanges();
         }
 
-        private void Alterar(Endereco endereco)
+        public void Alterar(Endereco endereco)
         {
-            var enderecoAtual = DbSet.First(c => c.IdEndereco == endereco.IdEndereco);
-            enderecoAtual.Estado = endereco.Estado;
-            enderecoAtual.Cep = endereco.Cep;
-            enderecoAtual.Bairro = endereco.Bairro;
-            enderecoAtual.Cidade = endereco.Cidade;
-            enderecoAtual.Numero = endereco.Numero;
-            enderecoAtual.Rua = endereco.Rua;
-            enderecoAtual.Complemento = endereco.Complemento;
+            //var enderecoAtual = DbSet.First(c => c.IdEndereco == endereco.IdEndereco);
+            //endereco.Estado = endereco.Estado;
+            //endereco.Cep = endereco.Cep;
+            //endereco.Bairro = endereco.Bairro;
+            //endereco.Cidade = endereco.Cidade;
+            //endereco.Numero = endereco.Numero;
+            //endereco.Rua = endereco.Rua;
+            //endereco.Complemento = endereco.Complemento;
+            Context.SaveChanges();
         }
     }
 }

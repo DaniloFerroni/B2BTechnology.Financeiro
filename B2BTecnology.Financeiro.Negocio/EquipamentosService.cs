@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using AutoMapper;
 using B2BTecnology.Financeiro.DataBase.Repository;
 using B2BTecnology.Financeiro.DTO;
+using B2BTecnology.Financeiro.Entidades;
 using B2BTecnology.Financeiro.Negocio.Map;
 
 namespace B2BTecnology.Financeiro.Negocio
@@ -17,6 +19,36 @@ namespace B2BTecnology.Financeiro.Negocio
             var equipamentosDto = Mapper.Map<List<EquipamentosDTO>>(equipamentos);
 
             return equipamentosDto;
+        }
+
+        public void Salvar(List<EquipamentosDTO> equipamentosAlterados)
+        {
+            var incluidos = equipamentosAlterados.Where(e => e.IdEquipamento == 0).ToList();
+            Incluir(incluidos);
+
+            var equipamentos = _equipamentosRepository.GetAll();
+
+            var excluidos = equipamentos.Where(atual => !equipamentosAlterados.Exists(e => e.IdEquipamento != 0 && e.IdEquipamento == atual.IdEquipamento)).ToList();
+            
+            Excluir(excluidos);
+        }
+
+        private void Incluir(List<EquipamentosDTO> equipamentos)
+        {
+            var incluidos = equipamentos.Select(e => new Equipamentos
+            {
+                IdEquipamento = e.IdEquipamento,
+                Marca = e.Marca,
+                Modelo = e.Modelo,
+                NumeroSerie = e.NumeroSerie
+            }).ToList();
+
+            _equipamentosRepository.Inserir(incluidos);
+        }
+
+        private void Excluir(List<Equipamentos> equipamentos)
+        {
+            _equipamentosRepository.Excluir(equipamentos);
         }
     }
 }

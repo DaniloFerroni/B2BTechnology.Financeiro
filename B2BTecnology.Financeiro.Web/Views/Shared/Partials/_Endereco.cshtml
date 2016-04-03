@@ -8,6 +8,8 @@
     </div>
 </div>
 
+@Html.Hidden("Endereco.IdEndereco", Model.IdEndereco)
+
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-lg-5">
@@ -62,9 +64,9 @@
         $('#Estado').val('');
 
         var cep = $('#Cep').val().replace('-', '');
-
+        
         $.getJSON('http://cep.republicavirtual.com.br/web_cep.php?cep=' + cep + '&formato=jsonp', {}, function (data) {
-
+            
             if (data.resultado_txt == 'sucesso - cep completo') {
                 $('#Rua').val(data.tipo_logradouro + ' ' + data.logradouro);
                 $('#Bairro').val(data.bairro);

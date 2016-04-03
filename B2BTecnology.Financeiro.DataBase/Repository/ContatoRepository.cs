@@ -5,23 +5,22 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 {
     public class ContatoRepository : BaseRepository<B2BSolution, Contato>
     {
-        public void Salvar(Contato contato)
+        public void Incluir(Contato contato)
         {
-            if (contato.IdContato == 0)
-                Inserir(contato);
-            else
-                Alterar(contato);
+            DbSet.Add(contato);
 
-            contato.IdContato = Context.SaveChanges();
+            Context.SaveChanges();
         }
 
-        private void Alterar(Contato contato)
+        public void Alterar(Contato contato)
         {
-            var contatoAtual = DbSet.First(c => c.IdContato == contato.IdContato);
-            contatoAtual.Celular = contato.Celular;
-            contatoAtual.Email = contato.Email;
-            contatoAtual.Telefone = contato.Telefone;
-            contatoAtual.Nome = contato.Nome;
+            //var contatoAtual = DbSet.First(c => c.IdContato == contato.IdContato);
+            contato.Celular = contato.Celular;
+            contato.Email = contato.Email;
+            contato.Telefone = contato.Telefone;
+            contato.Nome = contato.Nome;
+            
+            Context.SaveChanges();
         }
     }
 }

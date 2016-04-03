@@ -13,7 +13,7 @@ namespace B2BTecnology.Financeiro.Negocio.Map
             Mapper.CreateMap<Endereco, EnderecoDTO>();
             Mapper.CreateMap<Cliente, ClienteDTO>();
             Mapper.CreateMap<Equipamentos, EquipamentosDTO>();
-            Mapper.CreateMap<Vendedores, VendedoresDTO>();
+            Mapper.CreateMap<Vendedores, VendedoresDTO>().ForMember(c => c.Contrato, option => option.Ignore()); ;
         }
     }
 }

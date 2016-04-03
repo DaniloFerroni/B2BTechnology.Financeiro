@@ -19,5 +19,14 @@ namespace B2BTecnology.Financeiro.Web.Controllers
 
             return View(equipamentos);
         }
+
+        [HttpPost]
+        public ActionResult Salvar(List<EquipamentosDTO> equipamentos)
+        {
+            _equipamentosService.Salvar(equipamentos);
+
+            TempData["success"] = true;
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -6,6 +6,18 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 {
     public class ClienteRepository : BaseRepository<B2BSolution, Cliente>
     {
+        public void Incluir(Cliente cliente)
+        {
+            DbSet.Add(cliente);
+            Context.SaveChanges();
+        }
+
+        public void Alterar(Cliente cliente)
+        {
+            
+            Context.SaveChanges();
+        }
+
         public Cliente GetCliente(string documento)
         {
             LazyLoadingEnabled();
@@ -23,12 +35,6 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
                     .Include("Contratos")
                     .Include("Contratos.Vendedores")
                     .ToList();
-        }
-
-        public void Salvar(Cliente cliente)
-        {
-            var informacoesPessoais = new InformacoesPessoais();
-            informacoesPessoais.Salvar(cliente.Contato, cliente.Endereco);
         }
     }
 }

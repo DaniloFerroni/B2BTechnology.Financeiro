@@ -23,21 +23,21 @@ namespace B2BTecnology.Financeiro.Negocio
 
         public List<VendedoresDTO> Vendedores()
         {
-            var vendedores = _vendedoresRepository.GetTodos();
+            var vendedores = _vendedoresRepository.Todos();
             var vendedoresDto = Mapper.Map<List<VendedoresDTO>>(vendedores);
             return vendedoresDto;
         }
 
         public List<VendedoresDTO> Canais()
         {
-            var canais = _vendedoresRepository.GetTodos().Where(v => v.TipoVendedor == Enumeradores.TipoVendedores.Canal.GetHashCode());
+            var canais = _vendedoresRepository.Todos().Where(v => v.TipoVendedor == Enumeradores.TipoVendedores.Canal.GetHashCode());
             var vendedoresDto = Mapper.Map<List<VendedoresDTO>>(canais);
             return vendedoresDto;
         }
 
         public List<VendedoresDTO> Gerentes()
         {
-            var gerentes = _vendedoresRepository.GetTodos().Where(v => v.TipoVendedor == Enumeradores.TipoVendedores.Vendedor.GetHashCode());
+            var gerentes = _vendedoresRepository.Todos().Where(v => v.TipoVendedor == Enumeradores.TipoVendedores.Vendedor.GetHashCode());
             var vendedoresDto = Mapper.Map<List<VendedoresDTO>>(gerentes);
             return vendedoresDto;
         }

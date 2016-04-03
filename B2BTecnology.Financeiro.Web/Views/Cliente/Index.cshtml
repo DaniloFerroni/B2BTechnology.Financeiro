@@ -6,43 +6,91 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-@using (Html.BeginForm("/Salvar", "Cliente", FormMethod.Post))
+@section BeginBody
 {
+    <form id="clienteForm" role="form" action="/Cliente/Salvar/" method="post">
+}
 
-    @Html.Hidden("IdCliente", Model.IdCliente)
 
-    <div class="row">
-        <div class="col-lg-12">
-            <h1 class="page-header">
-                Clientes
-            </h1>
-            <ol class="breadcrumb">
-                <li>
-                    <a href="/Home">B2B Tecnology</a>
-                </li>
-                <li class="active">
-                    <i class="fa fa-dashboard fa-fw"></i> Cliente
-                </li>
-            </ol>
+@Html.Hidden("IdCliente", Model.IdCliente)
+@Html.Hidden("ContatoId", Model.ContatoId)
+@Html.Hidden("EnderecoId", Model.EnderecoId)
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Clientes
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">B2B Tecnology</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-dashboard fa-fw"></i> Cliente
+            </li>
+        </ol>
+    </div>
+</div>
+
+@Html.Partial("Error")
+@Html.Partial("ErrorMessage")
+@Html.Partial("Success")
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label class="control-label">CPF/CNPJ: </label>
+            <div class="form-group input-group">
+                <span class="input-group-btn"><button class="btn btn-default" id="pesquisarCliente" type="button"><i class="fa fa-search"></i></button></span>
+                <input class="form-control" id="Documento" name="Documento" maxlength="18" type="text" value="@Model.Documento" />
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label">Tipo de Pessoa: </label>
+            <br />
+            <div class="radio-inline">
+                <input type="radio" id="pessoaFisica" name="pessoa" value="F" @((Model.TipoPessoa == "F") ? "checked" : "") /> Pessoa Física
+            </div>
+            <div class="radio-inline">
+                <input type="radio" id="pessoaJuridica" name="pessoa" value="J" @((Model.TipoPessoa == "J" || Model.IdCliente == 0) ? "checked" : "") /> Pessoa Jurídica
+            </div>
+            @Html.Hidden("TipoPessoa", Model.TipoPessoa)
         </div>
     </div>
+</div>
 
-    @Html.Partial("Error")
-    @Html.Partial("Partials/_Detalhes")
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>Nome: </label>
+            <div class="form-group input-group">
+                <span class="input-group-btn"><button class="btn btn-default" id="pesquisarClienteNome" type="button"><i class="fa fa-search"></i></button></span>
+                <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome" />
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label>Clientes: </label>
+            <select class="form-control" id="nomesClientes">
+                <option value=''>Selecione</option>
+            </select>
+        </div>
+    </div>
+</div>
 
-}
+@Html.Partial("Partials/_Endereco", Model.Endereco)
+@Html.Partial("Partials/_Contato", Model.Contato)
+@Html.Partial("Partials/_InformacoesContratuais", Model.Contratos.FirstOrDefault() ?? new ContratoDTO())
+
 
 @section actions{
     <div class="actions">
-
-        <input type="submit" value="Salvar" class="btn btn-default" />
-
+        <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
     </div>
 }
 
-
+@section EndBody
+{
+    </form>
+}
 
 @section scripts{
 
@@ -52,7 +100,7 @@
 
             $("#pesquisarCliente").click(function () {
 
-                geral.Redirect("/Cliente/Detalhe/" + $("#Documento").val());
+                geral.Redirect("/Cliente/Detalhe/" + $("#Documento").unmask().val());
 
             });
 
@@ -67,7 +115,7 @@
                         var documento = $(this).prop("Documento");
                         var nome = $(this).prop("Nome");
 
-                        $("#nomesClientes").append("<option value='" + documento + "'>"+ nome +"</option>");
+                        $("#nomesClientes").append("<option value='" + documento + "'>" + nome + "</option>");
 
                     });
 
@@ -77,11 +125,29 @@
             });
 
             $("#nomesClientes").change(function () {
-                
-                geral.Redirect("/Cliente/Detalhe/" + $(this).val());
+
+                geral.Redirect("/Cliente/Detalhe/" + $(this).unmask().val());
 
             });
 
+            $("input[name='vencimento']").change(function() {
+
+                $("#DiaVencimento").val($(this).val());
+
+            });
+
+            $("input[name='prazocontratual']").change(function () {
+
+                $("#prazoContratual").val($(this).val());
+
+            });
+
+            $("input[name='pessoa']").change(function () {
+
+                $("#TipoPessoa").val($(this).val());
+
+            });
+            
         });
 
     </script>

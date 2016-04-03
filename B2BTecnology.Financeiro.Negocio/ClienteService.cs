@@ -41,20 +41,74 @@ namespace B2BTecnology.Financeiro.Negocio
         {
             var clienteExiste = _clienteRepository.GetCliente(cliente.Documento);
 
-            if (clienteExiste.IdCliente == 0)
-                Inserir();
+            SalvarContato(cliente.Contato, clienteExiste != null ? clienteExiste.Contato : new Contato());
+            SalvarEndereco(cliente.Endereco, clienteExiste != null ? clienteExiste.Endereco : new Endereco());
+
+            if (clienteExiste == null)
+                Inserir(cliente);
             else
                 Alterar(cliente, clienteExiste);
         }
 
-        private void Inserir()
+        private void Inserir(ClienteDTO clienteDto)
         {
-            
+            var cliente = Cliente(clienteDto);
+            _clienteRepository.Incluir(cliente);
+
+            var contrato = clienteDto.Contratos.First();
+            contrato.ClienteId = cliente.IdCliente;
+            SalvarContrato(contrato, new Contrato());
         }
 
-        private void Alterar(ClienteDTO clienteAlterado, Cliente cliente)
+        private void Alterar(ClienteDTO clienteDto, Cliente cliente)
         {
+            var clienteAlteracao = ClienteAlteracao(clienteDto, cliente);
+            _clienteRepository.Alterar(clienteAlteracao);
+            var contrato = clienteDto.Contratos.First();
+            SalvarContrato(contrato, cliente.Contratos.First());
+        }
+
+        private Cliente Cliente(ClienteDTO clienteDto)
+        {
+            return new Cliente
+            {
+                Ativo = clienteDto.Ativo,
+                ContatoId = clienteDto.Contato.IdContato,
+                Documento = clienteDto.Documento,
+                EnderecoId = clienteDto.Endereco.IdEndereco,
+                Nome = clienteDto.Nome,
+                TipoPessoa = clienteDto.TipoPessoa
+            };
+        }
+
+        private Cliente ClienteAlteracao(ClienteDTO clienteDto, Cliente cliente)
+        {
+            cliente.Ativo = clienteDto.Ativo;
+            cliente.ContatoId = clienteDto.Contato.IdContato;
+            cliente.Documento = clienteDto.Documento;
+            cliente.EnderecoId = clienteDto.Endereco.IdEndereco;
+            cliente.Nome = clienteDto.Nome;
+            cliente.TipoPessoa = clienteDto.TipoPessoa;
             
+            return cliente;
+        }
+
+        private void SalvarContrato(ContratoDTO contratoDto, Contrato contrato)
+        {
+            var contratoRepository = new ContratoService();
+            contratoRepository.Salvar(contratoDto, contrato);
+        }
+
+        private void SalvarContato(ContatoDTO contatoDto, Contato atual)
+        {
+            DadosPessoais<ContatoDTO, Contato> contatoService = new ContatoService();
+            contatoService.Salvar(contatoDto, atual);
+        }
+
+        private void SalvarEndereco(EnderecoDTO enderecoDto, Endereco atual)
+        {
+            DadosPessoais<EnderecoDTO, Endereco> enderecoService = new EnderecoService();
+            enderecoService.Salvar(enderecoDto, atual);
         }
     }
 }

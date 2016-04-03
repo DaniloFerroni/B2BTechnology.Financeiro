@@ -9,17 +9,21 @@
     </div>
 </div>
 
+@Html.Hidden("Contratos[0].IdContrato", Model.IdContrato)
+@Html.Hidden("Contratos[0].ClienteId", Model.ClienteId)
+
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-lg-5">
             <label class="control-label">Data Contrato: </label>
-            <input class="form-control datepicker" id="DataContrato" name="Contrato.DataContrato" type="text" value="@Model.DataContrato" />
+            <input class="form-control datepicker" id="DataContrato" name="Contratos[0].DataContrato" maxlength="10" type="text" value="@(Model.DataContrato == null ? "" : @Model.DataContrato.Value.ToString("dd/MM/yyyy"))" />
         </div>
         <div class="form-group col-md-6">
             <label class="control-label">Dia Vencimento: </label>
             <br />
             <div class="radio-inline">
-                <input type="radio" name="vencimento" value="5" @((Model.DiaVencimento == 5) ? "checked" : "") /> 5
+                <input type="radio" name="vencimento" value="5" @((Model.DiaVencimento == 5 ||
+                                                                        Model.IdContrato == 0) ? "checked" : "") /> 5
             </div>
             <div class="radio-inline">
                 <input type="radio" name="vencimento" value="10" @((Model.DiaVencimento == 10) ? "checked" : "") /> 10
@@ -27,7 +31,7 @@
             <div class="radio-inline">
                 <input type="radio" name="vencimento" value="15" @((Model.DiaVencimento == 15) ? "checked" : "") /> 15
             </div>
-            <input type="hidden" name="Contrato.DiaVencimento" value="@Model.DiaVencimento" />
+            <input type="hidden" id="DiaVencimento" name="Contratos[0].DiaVencimento" value="@Model.DiaVencimento" />
         </div>
     </div>
 </div>
@@ -36,11 +40,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-lg-5">
             <label class="control-label">Cadência Fixa: </label>
-            <input class="form-control" id="CadenciaFixa" name="Contrato.CadenciaFixa" type="text" value="@Model.CadenciaFixa" />
+            <input class="form-control" id="CadenciaFixa" name="Contratos[0].CadenciaFixa" type="text" value="@Model.CadenciaFixa" />
         </div>
         <div class="form-group col-lg-5">
             <label class="control-label">Cadência Movel: </label>
-            <input class="form-control" id="CadenciaMovel" name="Contrato.CadenciaMovel" type="text" value="@Model.CadenciaMovel" />
+            <input class="form-control" id="CadenciaMovel" name="Contratos[0].CadenciaMovel" type="text" value="@Model.CadenciaMovel" />
         </div>
     </div>
 </div>
@@ -49,11 +53,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-lg-5">
             <label class="control-label">Consúmo Mínimo: </label>
-            <input class="form-control" id="ValorConsumoMinimo" name="Contrato.ValorConsumoMinimo" type="text" value="@Model.ValorConsumoMinimo" />
+            <input class="form-control numeral" id="ValorConsumoMinimo" name="Contratos[0].ValorConsumoMinimo" type="text" value="@Model.ValorConsumoMinimo" />
         </div>
         <div class="form-group col-lg-5">
             <label class="control-label">Mensalidade: </label>
-            <input class="form-control numeral" id="ValorMensalidade" name="Contrato.ValorMensalidade" type="text" value="@Model.ValorMensalidade" />
+            <input class="form-control numeral" id="ValorMensalidade" name="Contratos[0].ValorMensalidade" type="text" value="@Model.ValorMensalidade" />
         </div>
     </div>
 </div>
@@ -64,18 +68,19 @@
             <label class="control-label">Prazo Contratual: </label>
             <br />
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="6" @((Model.PrazoContratual == Enumeradores.PrazoContratual.SeisMeses.GetHashCode()) ? "checked" : "") /> 6 Meses
+                <input type="radio" name="prazocontratual" value="1" @((Model.PrazoContratual == Enumeradores.PrazoContratual.SeisMeses.GetHashCode() ||
+                                                                        Model.IdContrato == 0) ? "checked" : "") /> 6 Meses                
             </div>
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="12" @((Model.PrazoContratual == Enumeradores.PrazoContratual.DozeMeses.GetHashCode()) ? "checked" : "") /> 12 Meses
+                <input type="radio" name="prazocontratual" value="2" @((Model.PrazoContratual == Enumeradores.PrazoContratual.DozeMeses.GetHashCode()) ? "checked" : "") /> 12 Meses
             </div>
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="24" @((Model.PrazoContratual == Enumeradores.PrazoContratual.VinteQuatroMeses.GetHashCode()) ? "checked" : "") /> 24 Meses
+                <input type="radio" name="prazocontratual" value="3" @((Model.PrazoContratual == Enumeradores.PrazoContratual.VinteQuatroMeses.GetHashCode()) ? "checked" : "") /> 24 Meses
             </div>
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="I" @((Model.PrazoContratual == Enumeradores.PrazoContratual.Indeterminado.GetHashCode()) ? "checked" : "") /> Indetermindo
+                <input type="radio" name="prazocontratual" value="4" @((Model.PrazoContratual == Enumeradores.PrazoContratual.Indeterminado.GetHashCode()) ? "checked" : "") /> Indetermindo
             </div>
-            <input type="hidden" name="Contrato.PrazoContratual" value="@Model.PrazoContratual" />
+            <input type="hidden" id="prazoContratual" name="Contratos[0].PrazoContratual" value="@Model.PrazoContratual" />
         </div>
     </div>
 </div>
@@ -92,23 +97,23 @@
     <div class="col-lg-12 ">
         <div class="form-group col-lg-1">
             <label class="control-label">Local: </label>
-            <input class="form-control numeral" id="ValorTarifaLocal" name="Contrato.ValorTarifaLocal" type="text" value="@Model.ValorTarifaLocal" />
+            <input class="form-control numeral" id="ValorTarifaLocal" name="Contratos[0].ValorTarifaLocal" maxlength="4" type="text" value="@Model.ValorTarifaLocal.ToString("N2")" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">LDN: </label>
-            <input class="form-control numeral" id="ValorTarifaLdn" name="Contrato.ValorTarifaLdn" type="text" value="@Model.ValorTarifaLdn" />
+            <input class="form-control numeral" id="ValorTarifaLdn" name="Contratos[0].ValorTarifaLdn" maxlength="4" type="text" value="@Model.ValorTarifaLdn.ToString("N2")" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">VC1: </label>
-            <input class="form-control numeral" id="ValorTarifaVc1" name="Contrato.ValorTarifaVc1" type="text" value="@Model.ValorTarifaVc1" />
+            <input class="form-control numeral" id="ValorTarifaVc1" name="Contratos[0].ValorTarifaVc1" maxlength="4" type="text" value="@Model.ValorTarifaVc1.ToString("N2")" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">VC2: </label>
-            <input class="form-control numeral" id="ValorTarifaVc2" name="Contrato.ValorTarifaVc2" type="text" value="@Model.ValorTarifaVc2" />
+            <input class="form-control numeral" id="ValorTarifaVc2" name="Contratos[0].ValorTarifaVc2" maxlength="4" type="text" value="@Model.ValorTarifaVc2.ToString("N2")" />
         </div>
         <div class="form-group col-lg-1">
             <label class="control-label">VC3: </label>
-            <input class="form-control numeral" id="ValorTarifaVc3" name="Contrato.ValorTarifaVc3" type="text" value="@Model.ValorTarifaVc3" />
+            <input class="form-control numeral" id="ValorTarifaVc3" name="Contratos[0].ValorTarifaVc3" maxlength="4" type="text" value="@Model.ValorTarifaVc3.ToString("N2")" />
         </div>
     </div>
 </div>
@@ -126,13 +131,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
             <label>Equipamentos: </label>
-            <select class="form-control">
-                <option>1</option>
-            </select>
+            @Html.DropDownList("Contratos[0].EquipamentoId", (IEnumerable<SelectListItem>)ViewBag.Equipamentos, new { @class = "form-control" })
         </div>
         <div class="form-group col-md-5">
             <label>Valor Instalação: </label>
-            <input type="text" class="form-control numeral" value="@Model.ValorInstalacao">
+            <input type="text" class="form-control numeral" name="Contratos[0].ValorInstalacao" value="@Model.ValorInstalacao.ToString("N2")">
         </div>
     </div>
 </div>
@@ -149,9 +152,7 @@
     <div class="col-lg-12 ">
         <div class="form-group col-md-6">
             <label>Vendedores: </label>
-            <select class="form-control">
-                <option>1</option>
-            </select>
+            @Html.DropDownList("Contratos[0].VendedorId", (IEnumerable<SelectListItem>)ViewBag.Vendedores, new { @class = "form-control" })
         </div>
     </div>
 </div>

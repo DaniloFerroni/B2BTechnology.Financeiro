@@ -1,8 +1,15 @@
-﻿@model  IEnumerable<B2BTecnology.Financeiro.DTO.EquipamentosDTO>
+﻿
+@using System.Linq
+@model  System.Collections.Generic.IEnumerable<B2BTecnology.Financeiro.DTO.EquipamentosDTO>
 
 @{
     ViewBag.Title = "Equipamentos";
     Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section BeginBody
+{
+    <form role="form" class="form-inline" action="/Equipamentos/Salvar/" method="post">
 }
 
 <div class="row">
@@ -20,7 +27,8 @@
         </ol>
     </div>
 </div>
-
+        
+@Html.Partial("Success")
 
 <div class="row">
     <div class="col-lg-12 ">
@@ -39,7 +47,6 @@
     </div>
 </div>
 
-
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-md-12">
@@ -57,10 +64,16 @@
                         @for (int i = 0; i < Model.Count(); i++)
                         {
                             var equipamento = Model.ToList()[i];
-                            <tr id="@(string.Format("row-{0}", equipamento.IdEquipamento))">
-                                <td><label name="@(string.Format("Equipamentos[{0}].Marca", i))">@equipamento.Marca</label></td>
-                                <td><label name="@(string.Format("Equipamentos[{0}].Modelo", i))">@equipamento.Modelo</label></td>
-                                <td><label name="@(string.Format("Equipamentos[{0}].NumeroSerie", i))">@equipamento.NumeroSerie</label></td>
+                            <tr id="@(string.Format("row-{0}", i))">
+                                <td>
+                                    @Html.Hidden("Equipamentos[" + i + "].Marca", equipamento.Marca)
+                                    @Html.Hidden("Equipamentos[" + i + "].Modelo", equipamento.Modelo)
+                                    @Html.Hidden("Equipamentos[" + i + "].NumeroSerie", equipamento.NumeroSerie)
+                                    @Html.Hidden("Equipamentos[" + i + "].IdEquipamento", equipamento.IdEquipamento)
+                                    <label>@equipamento.Marca</label>
+                                </td>
+                                <td><label>@equipamento.Modelo</label></td>
+                                <td><label>@equipamento.NumeroSerie</label></td>
                                 <td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>
                             </tr>
                         }
@@ -70,14 +83,18 @@
         </div>
     </div>
 </div>
-
 @Html.Partial("Partials/_Confirmacao")
 
-<div class="panel-footer">
+@section actions{
+    <div class="actions">
+        <input type="submit" value="Salvar" class="btn btn-default" />
+    </div>
+}
 
-    <input type="button" id="Salvar" value="Salvar" class="btn btn-default" />
-
-</div>
+@section EndBody
+{
+</form>
+}
 
 @section scripts
 {
@@ -87,18 +104,31 @@
 
             $("#inserir").click(function () {
 
+                if ($("#Marca").val() == '' ||
+                    $("#Modelo").val() == '' ||
+                    $("#NumeroSerie").val() == '') return;
+
                 var index = $("#tabelaEquipamentos tbody tr").length;
 
                 var idLinha = "row-" + index;
-                var labelMarca = "<label name='Equipamentos[" + index + "].Marca'>" + $("#Marca").val() + "</label>";
-                var labelModelo = "<label name='Equipamentos[" + index + "].Modelo'>" + $("#Modelo").val() + "</label>";
-                var labelNumeroSerie = "<label name='Equipamentos[" + index + "].NumeroSerie'>" + $("#NumeroSerie").val() + "</label>";
+                var hidden = "<input type='hidden' name='Equipamentos[" + index + "].Marca' value='" + $("#Marca").val() + "'/>";
+                var hidden1 = "<input type='hidden' name='Equipamentos[" + index + "].Modelo' value='" + $("#Modelo").val() + "'/>";
+                var hidden2 = "<input type='hidden' name='Equipamentos[" + index + "].NumeroSerie' value='" + $("#NumeroSerie").val() + "'/>";
+                var hidden3 = "<input type='hidden' name='Equipamentos[" + index + "].IdEquipamento' value='0'/>";
+                var labelMarca = "<label >" + $("#Marca").val() + "</label>";
+                var labelModelo = "<label >" + $("#Modelo").val() + "</label>";
+                var labelNumeroSerie = "<label >" + $("#NumeroSerie").val() + "</label>";
 
-                var linha = '<tr id="' + idLinha + '"><td>' + labelMarca + '</td><td>' + labelModelo + '</td><td>' + labelNumeroSerie + '</td><td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td></tr>';
+                var linha = '<tr id="' + idLinha + '"><td>' +
+                hidden + hidden1 + hidden2 + hidden3 + labelMarca + '</td><td>' + labelModelo + '</td><td>' + labelNumeroSerie + '</td><td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td></tr>';
 
                 $("#tabelaEquipamentos tbody").append(linha);
 
                 ExcluirEquipamento();
+
+                $("#Marca").val('');
+                $("#Modelo").val('');
+                $("#NumeroSerie").val('');
             });
 
             ExcluirEquipamento();
@@ -106,7 +136,7 @@
             $("#deleteModal .modal-footer .btn-success").click(function () {
 
                 geral.ModalConfirmarExluisao();
-                
+
                 AjusteNames();
 
             });
@@ -114,10 +144,10 @@
         });
 
         function AjusteNames() {
-            
+
             $("table tbody tr").each(function (index) {
 
-                $(this).find('td label').each(function () {
+                $(this).find('td input[type="hidden"]').each(function () {
 
                     var name = $(this).attr('name');
                     var propriedade = name.split('.')[1];
@@ -130,7 +160,7 @@
         }
 
         function ExcluirEquipamento() {
-            
+
             $("table tbody button").click(function () {
 
                 var id = $(this).closest('tr').attr('id');

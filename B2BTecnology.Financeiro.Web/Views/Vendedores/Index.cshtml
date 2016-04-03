@@ -1,9 +1,19 @@
-﻿@model B2BTecnology.Financeiro.DTO.VendedoresDTO
+﻿@using B2BTecnology.Financeiro.DTO
+@model B2BTecnology.Financeiro.DTO.VendedoresDTO
 
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+@section BeginBody
+{
+    <form id="clienteForm" role="form" action="/Vendedores/Salvar/" method="post">
+}
+
+@Html.Hidden("IdVendedor", Model.IdVendedor)
+@Html.Hidden("ContatoId", Model.ContatoId)
+@Html.Hidden("EnderecoId", Model.EnderecoId)
 
 <div class="row">
     <div class="col-lg-12">
@@ -20,25 +30,30 @@
         </ol>
     </div>
 </div>
-
-@*@Html.ValidationSummary()*@
+        
+@Html.Partial("Error")
+@Html.Partial("ErrorMessage")
+@Html.Partial("Success")
 
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
             <label class="control-label">CPF/CNPJ: </label>
-            <input class="form-control" id="Documento" name="Documento" type="text" value="@Model.Documento" />
+            <div class="form-group input-group">
+                <span class="input-group-btn"><button class="btn btn-default" id="pesquisarCliente" type="button"><i class="fa fa-search"></i></button></span>
+                <input class="form-control" id="Documento" name="Documento" maxlength="18" type="text" value="@Model.Documento" />
+            </div>
         </div>
         <div class="form-group col-md-6">
             <label class="control-label">Tipo de Pessoa: </label>
             <br />
             <div class="radio-inline">
-                <input type="radio" name="pessoa" value="@(Model.TipoVendedor == 1)" /> Vendedor
+                <input type="radio" name="tipoVendedor" value="@(Enumeradores.TipoVendedores.Vendedor.GetHashCode())" @((Model.TipoVendedor == Enumeradores.TipoVendedores.Vendedor.GetHashCode()) ? "checked" : "") /> Vendedor
             </div>
             <div class="radio-inline">
-                <input type="radio" name="pessoa" value="@(Model.TipoVendedor == 2)" /> Canal
+                <input type="radio" id="canal"  name="tipoVendedor" value="@(Enumeradores.TipoVendedores.Canal.GetHashCode())" @((Model.TipoVendedor == Enumeradores.TipoVendedores.Canal.GetHashCode() || Model.IdVendedor == 0) ? "checked" : "") /> Canal
             </div>
-            @Html.Hidden("TipoPessoa", Model.TipoVendedor)
+            @Html.Hidden("TipoVendedor", Model.TipoVendedor)
         </div>
     </div>
 </div>
@@ -49,15 +64,25 @@
         <div class="form-group col-md-5">
             <label>Nome: </label>
             <div class="form-group input-group">
-                <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
+                <span class="input-group-btn"><button class="btn btn-default" type="button" id="pesquisarVendedoresNome"><i class="fa fa-search"></i></button></span>
                 <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome" />
             </div>
         </div>
         <div class="form-group col-md-6">
-            <label>Gestor Vendas: </label>
-            <select class="form-control">
-                <option>1</option>
+            <label>Vendedores: </label>
+            <select class="form-control" id="nomesVendedores">
+                <option value=''>Selecione</option>
             </select>
+        </div>
+    </div>
+</div>
+        
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-6">
+            <label>Gestor de Vendas: </label>
+            @Html.DropDownList("SuperiorId", (IEnumerable<SelectListItem>)ViewBag.GestorVendas, new { @class = "form-control" })
         </div>
     </div>
 </div>
@@ -66,7 +91,8 @@
     <div class="col-lg-12 ">
         <div class="form-group col-md-3">
             <label>Comissão: </label>
-            <input class="form-control" id="Comissao" name="Comissao" type="text" value="@Model.Comissao" />            
+            <input class="form-control" id="Comissao" type="text" disabled="disabled" value="@Model.Comissao.ToString("N2")" />
+            <input type="hidden" name="Comissao" value="@Model.Comissao" />
         </div>
     </div>
 </div>
@@ -74,9 +100,76 @@
 @Html.Partial("Partials/_Endereco", Model.Endereco)
 @Html.Partial("Partials/_Contato", Model.Contato)
 
-<div class="panel-footer">
-
-    <input type="submit" value="Salvar" class="btn btn-default" />
 
 
-</div>
+@section actions{
+    <div class="actions">
+        <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
+    </div>
+}
+
+@section EndBody
+{
+</form>
+}
+
+@section scripts{
+
+    <script>
+
+        $(function() {
+
+            $("#pesquisarCliente").click(function() {
+
+                geral.Redirect("/Vendedores/Detalhe/" + $("#Documento").unmask().val());
+
+            });
+
+        });
+
+        $("#pesquisarVendedoresNome").click(function() {
+
+            $.getJSON("/Vendedores/PesquisarClientesPorNome", { nome: $("#Nome").val() }, function(data) {
+
+                $("#nomesVendedores").empty();
+                $("#nomesVendedores").append("<option value=''>Selecione</option>");
+                $(data).each(function() {
+
+                    var documento = $(this).prop("Documento");
+                    var nome = $(this).prop("Nome");
+
+                    $("#nomesVendedores").append("<option value='" + documento + "'>" + nome + "</option>");
+
+                });
+
+
+            });
+
+        });
+
+        $("#nomesVendedores").change(function() {
+
+            geral.Redirect("/Vendedores/Detalhe/" + $(this).unmask().val());
+
+        });
+
+
+        if ($("#canal").is(":checked")) {
+            $("#Comissao").val("5,00");
+            $("input[name='Comissao']").val("5,00");
+        }
+
+        $("input[name='tipoVendedor']").click(function() {
+
+            if ($(this).val() == "2") {
+                $("#Comissao").val("5,00");
+                $("input[name='Comissao']").val("5,00");
+            } else {
+                $("#Comissao").val("10,00");
+                $("input[name='Comissao']").val("10,00");
+            }
+        });
+
+    </script>
+
+}

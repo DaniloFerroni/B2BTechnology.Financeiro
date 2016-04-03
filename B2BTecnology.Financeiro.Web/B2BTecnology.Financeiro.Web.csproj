@@ -134,6 +134,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PagamentoController.cs" />
     <Compile Include="Controllers\VendedoresController.cs" />
+    <Compile Include="Extencion\ExtencionClass.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +194,8 @@
     <Content Include="js\jqBootstrapValidation.js" />
     <Content Include="js\jquery-1.12.2.min.js" />
     <Content Include="js\jquery.js" />
+    <Content Include="js\Mascara\jquery.mask.js" />
+    <Content Include="js\Mascara\jquery.mask.min.js" />
     <Content Include="js\Numeral\languages.min.js" />
     <Content Include="js\Numeral\languages\be-nl.min.js" />
     <Content Include="js\Numeral\languages\chs.min.js" />
@@ -308,6 +311,8 @@
     <Content Include="Views\Cliente\Listar.cshtml" />
     <Content Include="Views\Cliente\Partials\_Detalhes.cshtml" />
     <Content Include="Views\Comissao\Index.cshtml" />
+    <Content Include="Views\Shared\Success.cshtml" />
+    <Content Include="Views\Shared\ErrorMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

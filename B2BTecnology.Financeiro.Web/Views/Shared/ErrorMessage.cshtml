@@ -1,0 +1,16 @@
+﻿@{
+    var errorMessage = (ViewBag.Error ?? TempData["ErrorMessage"]) ?? "";
+    Layout = null;
+}
+
+@if (!string.IsNullOrEmpty(errorMessage))
+{
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="alert alert-danger" role="alert">
+                @errorMessage
+            </div>
+        </div>
+    </div>
+}
+

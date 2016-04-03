@@ -30,6 +30,21 @@ $(function () {
 
     });
 
+    if ($("#pessoaFisica").is(":checked"))
+        $("#Documento").mask("999.999.999-99");
+
+    if ($("#pessoaJuridica").is(":checked"))
+        $("#Documento").mask("99.999.999/9999-99");
+
+
+    $("input[name='pessoa']").click(function () {
+        if ($(this).val() == "F")
+            $("#Documento").mask("999.999.999-99");
+        else
+            $("#Documento").mask("99.999.999/9999-99");
+    });
+
+
     $(".datepicker").datepicker({
         currentText: 'Hoje',
         monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho',
