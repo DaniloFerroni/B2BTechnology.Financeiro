@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="B2BTecnology.Financeiro.Negocio.ClienteService" Collapsed="true">
+    <Position X="1" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAgAAAAACAACABQAEAAgAAAAAIABAEAAAAIA=</HashCode>
+      <FileName>ClienteService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.ComissaoService" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGABAAAA=</HashCode>
+      <FileName>ComissaoService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.ContatoService" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAABAAAAACAAAADgABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContatoService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.ContratoService" Collapsed="true">
+    <Position X="7.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAAAAAAAACAABABAABAAAAhAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ContratoService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.DadosPessoais&lt;T, E&gt;" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAABAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>DadosPessoais.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.EnderecoService" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAgAAACBAAABAABAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>EnderecoService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.EquipamentosService" Collapsed="true">
+    <Position X="5.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAHAAAAAAABAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>EquipamentosService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.Financas" Collapsed="true">
+    <Position X="11" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAIBAAAAAAAQAAAAAAAARAAAAACAAAAAA=</HashCode>
+      <FileName>Financas.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.PagamentosService" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAEAABAAAAAAAA=</HashCode>
+      <FileName>PagamentosService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.VendedoresService" Collapsed="true">
+    <Position X="3.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIACAAAAAgAAABACAAEBBQAAAACAAAAAAgAgAAAAAAA=</HashCode>
+      <FileName>VendedoresService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="B2BTecnology.Financeiro.Negocio.Map.Mapeamento" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Map\Mapeamento.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

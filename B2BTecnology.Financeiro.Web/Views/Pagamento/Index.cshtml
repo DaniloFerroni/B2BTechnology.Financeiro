@@ -5,6 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section BeginBody
+{
+    <form id="clienteForm" role="form" action="/Pagamento/Salvar/" method="post">
+}
+
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header">
@@ -19,109 +24,213 @@
             </li>
         </ol>
     </div>
-</div>
+</div>        
 
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-2">
-            <label class="control-label">Mês Pagamento: </label>
-            <select class="form-control">
-                <option>Selecione</option>
-            </select>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-11">
-            <label class="control-label">Cliente: </label>
-            <select class="form-control">
-                <option>Selecione</option>
-            </select>
-        </div>
-    </div>
-</div>
+@Html.Partial("ErrorMessage")
+@Html.Partial("Success")
 
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
-            <label class="control-label">Valor Gasto: </label>
-            <input class="form-control numeral" id="ValorGasto" name="ValorGasto" type="text" value="@Model.Pagamento.ValorGasto" />
+            <label class="control-label">Mês Pagamento: </label>
+            @Html.DropDownList("Mes", (IEnumerable<SelectListItem>)ViewBag.Meses, new { @class = "form-control", @style = "background-color: #FFFFFF;" })
+        </div>
+        <div class="form-group col-md-6">
+            <label class="control-label">Cliente: </label>
+            @Html.DropDownList("ClienteId", (IEnumerable<SelectListItem>)ViewBag.Clientes, new { @class = "form-control", @style = "background-color: #FFFFFF;" })
         </div>
     </div>
 </div>
 
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-11 form-inline">
-            <label class="control-label">Valor Consumo Mínimo: </label>
-            <label class="label-default" id="ValorConsumoMinimo" name="Contrato.ValorConsumoMinimo" type="text">@Model.Pagamento.Contrato.ValorConsumoMinimo</label>
-        </div>
-    </div>
+@Html.Partial("Partials/_Confirmacao")
+<div id="detalhe">
+    @Html.Partial("Partials/Detalhe", Model)
 </div>
 
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-5 form-inline">
-            <label class="control-label">Valor ValorMensalidade: </label>
-            <label class="label-default" id="ValorMensalidade" name="Contrato.ValorMensalidade" type="text">@Model.Pagamento.Contrato.ValorMensalidade</label>
-        </div>
+@section actions{
+        
+    <div class="actions">
+        <a class="hidden-print" style="margin-left: 10px" target="_blank" title="Download"><i class="fa fa-download">Gerar PDF</i></a>
+        <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
     </div>
-</div>
+}
 
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-5 form-inline">
-            <label class="control-label">Valor à Pagar: </label>
-            <label class="label-default" id="ValorPago" name="ValorPago" type="text">@Model.Pagamento.ValorPago</label>
-        </div>
-        <div class="form-group col-md-6 form-inline">
-            <label class="control-label">Manter Valor Gasto?: </label>
-            <input class="checkbox" type="checkbox" value="" />
-        </div>
-    </div>
-</div>
+@section EndBody
+{
+</form>
+}
 
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-5 form-inline">
-            <label class="control-label">Pago: </label>
-            <input type="checkbox" class="checkbox" value="" />
-        </div>
-    </div>
-</div>
+@section scripts
+{
+    <script>
 
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-12">
-            <div class="table-responsive">
-                <table id="tabelaEquipamentos" class="table table-hover table-striped">
-                    <thead>
-                        <tr>
-                            <th style="width: 12%">Código Contrato</th>
-                            <th style="width: 30%">Nome</th>
-                            <th style="width: 16%">Data Pagamento</th>
-                            <th style="width: 16%">Valor Pago</th>
-                            <th style="width: 10%">Pago</th>
-                            <th style="width: 10%"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (int i = 0; i < Model.Pagamentos.Count(); i++)
-                        {
-                            var pagamento = Model.Pagamentos.ToList()[i];
-                            <tr id="@(string.Format("row-{0}", pagamento.Contrato.IdContrato))">
-                                <td><label name="@(string.Format("Pagamentos[{0}].Marca", i))">@pagamento.Contrato.IdContrato</label></td>
-                                <td><label name="@(string.Format("Pagamentos[{0}].DataPagamento", i))">@pagamento.DataPagamento</label></td>
-                                <td><label name="@(string.Format("EquPagamentosipamentos[{0}].ValorPago", i))">@pagamento.ValorPago</label></td>
-                                <td><label name="@(string.Format("Pagamentos[{0}].Pago", i))">@pagamento.Pago</label></td>
-                                <td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-</div>
+        $(function () {
+
+            ManterManterValorGasto();
+            ExcluirPagamento();
+            HiddenCheckValue();
+            $("#ClienteId, #Mes").on("change", function () {
+
+                CarregarDetalhe();
+
+                $(".actions a").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
+
+            });
+
+            $("#deleteModal .modal-footer .btn-success").click(function () {
+
+                geral.ModalConfirmarExluisao();
+
+                AjusteNames();
+
+            });
+
+
+        });
+
+        function CarregarDetalhe() {
+
+            if ($("#ClienteId :selected").val() == 0) return;
+
+            $.ajax({
+
+                type: "GET",
+                url: "/Pagamento/Detalhe",
+                data: {
+
+                    data: $("#Mes :selected").val(),
+                    clienteId: $("#ClienteId :selected").val()
+
+                }
+
+            })
+            .done(function (data) {
+
+                $("#detalhe").empty();
+                $("#detalhe").html(data);
+                ClinckIncluir();
+                geral.ConverterDecimal();
+                CompararConsumoMinimo();
+                ManterManterValorGasto();
+                ExcluirPagamento();
+                HiddenCheckValue();
+
+            });
+        }
+
+        function HiddenCheckValue() {
+
+            $("#tabelaPagamentos tbody tr td input[type='checkbox']").change(function () {
+
+                var name = $(this).attr("id");
+
+                $("input[name='" + name + "']").val($(this).is(":checked"));
+
+            });
+        }
+
+        function ManterManterValorGasto() {
+
+            $("#ManterValorGasto").change(function() {
+                var manterValorGasto = $("#ManterValorGasto").is(":checked");
+
+                if (manterValorGasto) {
+                    $("#ValorPago").text(numeral($("#ValorGasto").val()).format('0,0.00'));
+                } else {
+                    $("#ValorPago").text(numeral($("#ValorConsumoMinimo").text()).format('0,0.00'));
+                }
+            });
+
+        }
+
+        function CompararConsumoMinimo() {
+
+            $("#ValorGasto").keyup(function () {
+
+                if (numeral($(this).val()) > numeral($("#ValorConsumoMinimo").text())) {
+                    $("#ValorPago").text(numeral($(this).val()).format('0,0.00'));
+                } else {
+                    $("#ValorPago").text(numeral($("#ValorConsumoMinimo").text()).format('0,0.00'));
+                }
+
+            });
+
+        }
+
+        function ClinckIncluir() {
+
+            $("#inserir").click(function () {
+
+                IncluirPagamento();
+
+            });
+
+        }
+
+        function IncluirPagamento() {
+
+            var i = $("#tabelaPagamentos tbody tr").length;
+            var checked = $("#Pago").is(":checked") ? "checked='checked'" : "";
+            var linha = '<tr id="row-' + i + '">' +
+                    '<td>' +
+                        '<input type="hidden" value="0" name="Pagamentos[' + i + '].IdPagamento" />' +
+                        '<input type="hidden" value="' + $("#ValorGasto").val() + '" name="Pagamentos[' + i + '].ValorGasto" />' +
+                        '<label >0</label>' +
+                    '</td>' +
+                    '<td>' +
+                        '<input type="hidden" value="' + $("#ClienteId :selected").val() + '" name="Pagamentos[' + i + '].Contrato.ClienteId" />' +
+                        '<label>' + $("#ClienteId :selected").text() + '</label>' +
+                    '</td>' +
+                    '<td>' +
+                        '<input type="hidden" value="' + $("#Mes").val() + '" name="Pagamentos[' + i + '].DataPagamento" />' +
+                        '<label >' + $("#Mes :selected").text() + '</label>' +
+                    '</td>' +
+                    '<td>' +
+                        '<input type="hidden" value="' + $("#ValorGasto").val() + '" name="Pagamentos[' + i + '].ValorGasto" />' +
+                        '<input type="hidden" value="' + $("#ValorPago").text() + '" name="Pagamentos[' + i + '].ValorPago" />' +
+                        '<label >' + $("#ValorPago").text() + '</label>' +
+                    '</td>' +
+                    '<td>' +
+                        '<input type="hidden" value="' + $("#Pago").is(":checked") + '" name="Pagamentos[' + i + '].Pago" />' +
+                        '<input type="checkbox" id="Pagamentos[' + i + '].Pago" ' + checked + ' value="' + $("#Pago").val() + '" />' +
+                    '</td>' +
+                    '<td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>' +
+                '</tr>';
+
+            $("#tabelaPagamentos tbody").append(linha);
+            ExcluirPagamento();
+
+        }
+
+        function ExcluirPagamento() {
+
+            $("#tabelaPagamentos tbody button").click(function () {
+
+                var id = $(this).closest('tr').attr('id');
+                var nome = $($(this).closest('tr').find('td')[1]).text();
+
+                geral.ModalExluir('Excluir - Pagamento', id, nome);
+
+            });
+
+        }
+
+        function AjusteNames() {
+
+            $("table tbody tr").each(function (index) {
+
+                $(this).find('td input[type="hidden"]').each(function () {
+
+                    var name = $(this).attr('name');
+                    var propriedade = name.split('.')[1];
+                    $(this).attr('name', 'Pagamentos[' + index + '].' + propriedade);
+
+                });
+
+            });
+
+        }
+
+
+    </script>
+}

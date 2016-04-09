@@ -53,5 +53,7 @@ namespace B2BTecnology.Financeiro.DTO
         public decimal? ValorMensalidade { get; set; }
 
         public string NomeVendedor { get; set; }
+        public string NomeCliente { get; set; }
     }
 }
+

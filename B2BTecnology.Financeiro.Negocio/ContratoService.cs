@@ -1,11 +1,13 @@
 ﻿using System;
+using AutoMapper;
 using B2BTecnology.Financeiro.DataBase.Repository;
 using B2BTecnology.Financeiro.DTO;
 using B2BTecnology.Financeiro.Entidades;
+using B2BTecnology.Financeiro.Negocio.Map;
 
 namespace B2BTecnology.Financeiro.Negocio
 {
-    public class ContratoService
+    public class ContratoService : Mapeamento
     {
         private static readonly ContratoRepository _contratoRepository = new ContratoRepository();
 
@@ -72,6 +74,14 @@ namespace B2BTecnology.Financeiro.Negocio
             contrato.DataContrato = (DateTime) contratoDto.DataContrato;
             contrato.ClienteId = contratoDto.ClienteId;
             contrato.CadenciaMovel = contratoDto.CadenciaMovel;
+        }
+
+        public ContratoDTO ContratoCliente(int clienteId)
+        {
+            var contrato = _contratoRepository.GetContratoCliente(clienteId);
+            var contratoDto = Mapper.Map<ContratoDTO>(contrato);
+
+            return contratoDto;
         }
     }
 }

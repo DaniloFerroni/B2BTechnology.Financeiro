@@ -28,6 +28,16 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
                 .FirstOrDefault(c => c.Documento == documento);
         }
 
+        public Cliente GetClienteId(int clienteId)
+        {
+            LazyLoadingEnabled();
+            return DbSet
+                .Include("Contato")
+                .Include("Contratos")
+                .First(c => c.IdCliente == clienteId);
+        }
+
+
         public List<Cliente> GetAll()
         {
             LazyLoadingEnabled();

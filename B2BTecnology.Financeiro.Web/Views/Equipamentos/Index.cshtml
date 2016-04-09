@@ -100,76 +100,76 @@
 {
     <script>
 
-        $(function () {
+    $(function () {
 
-            $("#inserir").click(function () {
+        $("#inserir").click(function () {
 
-                if ($("#Marca").val() == '' ||
-                    $("#Modelo").val() == '' ||
-                    $("#NumeroSerie").val() == '') return;
+            if ($("#Marca").val() == '' ||
+                $("#Modelo").val() == '' ||
+                $("#NumeroSerie").val() == '') return;
 
-                var index = $("#tabelaEquipamentos tbody tr").length;
+            var index = $("#tabelaEquipamentos tbody tr").length;
 
-                var idLinha = "row-" + index;
-                var hidden = "<input type='hidden' name='Equipamentos[" + index + "].Marca' value='" + $("#Marca").val() + "'/>";
-                var hidden1 = "<input type='hidden' name='Equipamentos[" + index + "].Modelo' value='" + $("#Modelo").val() + "'/>";
-                var hidden2 = "<input type='hidden' name='Equipamentos[" + index + "].NumeroSerie' value='" + $("#NumeroSerie").val() + "'/>";
-                var hidden3 = "<input type='hidden' name='Equipamentos[" + index + "].IdEquipamento' value='0'/>";
-                var labelMarca = "<label >" + $("#Marca").val() + "</label>";
-                var labelModelo = "<label >" + $("#Modelo").val() + "</label>";
-                var labelNumeroSerie = "<label >" + $("#NumeroSerie").val() + "</label>";
+            var idLinha = "row-" + index;
+            var hidden = "<input type='hidden' name='Equipamentos[" + index + "].Marca' value='" + $("#Marca").val() + "'/>";
+            var hidden1 = "<input type='hidden' name='Equipamentos[" + index + "].Modelo' value='" + $("#Modelo").val() + "'/>";
+            var hidden2 = "<input type='hidden' name='Equipamentos[" + index + "].NumeroSerie' value='" + $("#NumeroSerie").val() + "'/>";
+            var hidden3 = "<input type='hidden' name='Equipamentos[" + index + "].IdEquipamento' value='0'/>";
+            var labelMarca = "<label >" + $("#Marca").val() + "</label>";
+            var labelModelo = "<label >" + $("#Modelo").val() + "</label>";
+            var labelNumeroSerie = "<label >" + $("#NumeroSerie").val() + "</label>";
 
-                var linha = '<tr id="' + idLinha + '"><td>' +
+            var linha = '<tr id="' + idLinha + '"><td>' +
                 hidden + hidden1 + hidden2 + hidden3 + labelMarca + '</td><td>' + labelModelo + '</td><td>' + labelNumeroSerie + '</td><td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td></tr>';
 
-                $("#tabelaEquipamentos tbody").append(linha);
-
-                ExcluirEquipamento();
-
-                $("#Marca").val('');
-                $("#Modelo").val('');
-                $("#NumeroSerie").val('');
-            });
+            $("#tabelaEquipamentos tbody").append(linha);
 
             ExcluirEquipamento();
 
-            $("#deleteModal .modal-footer .btn-success").click(function () {
+            $("#Marca").val('');
+            $("#Modelo").val('');
+            $("#NumeroSerie").val('');
+        });
 
-                geral.ModalConfirmarExluisao();
+        ExcluirEquipamento();
 
-                AjusteNames();
+        $("#deleteModal .modal-footer .btn-success").click(function () {
+
+            geral.ModalConfirmarExluisao();
+
+            AjusteNames();
+
+        });
+
+    });
+
+    function AjusteNames() {
+
+        $("table tbody tr").each(function (index) {
+
+            $(this).find('td input[type="hidden"]').each(function () {
+
+                var name = $(this).attr('name');
+                var propriedade = name.split('.')[1];
+                $(this).attr('name', 'Equipamentos[' + index + '].' + propriedade);
 
             });
 
         });
 
-        function AjusteNames() {
+    }
 
-            $("table tbody tr").each(function (index) {
+    function ExcluirEquipamento() {
 
-                $(this).find('td input[type="hidden"]').each(function () {
+        $("table tbody button").click(function () {
 
-                    var name = $(this).attr('name');
-                    var propriedade = name.split('.')[1];
-                    $(this).attr('name', 'Equipamentos[' + index + '].' + propriedade);
+            var id = $(this).closest('tr').attr('id');
+            var serie = $($(this).closest('tr').find('td')[2]).text();
+            geral.ModalExluir('Excluir - Equipamento', id, serie);
 
-                });
+        });
 
-            });
-
-        }
-
-        function ExcluirEquipamento() {
-
-            $("table tbody button").click(function () {
-
-                var id = $(this).closest('tr').attr('id');
-                var serie = $($(this).closest('tr').find('td')[2]).text();
-                geral.ModalExluir('Excluir - Equipamento', id, serie);
-
-            });
-
-        }
+    }
 
     </script>
 }

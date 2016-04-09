@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using B2BTecnology.Financeiro.DataBase.Repository;
 using B2BTecnology.Financeiro.DTO;
 using B2BTecnology.Financeiro.Entidades;
 using B2BTecnology.Financeiro.Negocio.Map;
+using TipoPdf = B2BTecnology.Financeiro.DTO.Enumeradores.TipoPdf;
 
 namespace B2BTecnology.Financeiro.Negocio
 {
@@ -40,6 +39,12 @@ namespace B2BTecnology.Financeiro.Negocio
             var gerentes = _vendedoresRepository.Todos().Where(v => v.TipoVendedor == Enumeradores.TipoVendedores.Vendedor.GetHashCode());
             var vendedoresDto = Mapper.Map<List<VendedoresDTO>>(gerentes);
             return vendedoresDto;
+        }
+
+        public byte[] GerarArquivo<T>(List<T> pagamentos, string nome, DateTime mes, TipoPdf tipoPdf)
+        {
+            var arquivo = new Arquivo();
+            return arquivo.GerarPdf(pagamentos, nome, mes, tipoPdf);
         }
 
     }

@@ -16,5 +16,11 @@ namespace B2BTecnology.Financeiro.DTO
             Vendedor = 1,
             Canal = 2
         }
+
+        public enum TipoPdf
+        {
+            Pagamento = 1,
+            Comissao = 2
+        }
     }
 }

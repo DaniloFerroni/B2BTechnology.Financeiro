@@ -313,6 +313,9 @@
     <Content Include="Views\Comissao\Index.cshtml" />
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\Shared\ErrorMessage.cshtml" />
+    <Content Include="Views\Comissao\Partials\_Comissoes.cshtml" />
+    <Content Include="Views\Pagamento\Partials\Detalhe.cshtml" />
+    <Content Include="Views\Shared\Partials\_Progress.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,5 +25,11 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             LazyLoadingEnabled();
             return DbSet.First(c => c.IdContrato == idContrato);
         }
+
+        public Contrato GetContratoCliente(int idCliente)
+        {
+            LazyLoadingEnabled();
+            return DbSet.First(c => c.ClienteId == idCliente);
+        }
     }
 }

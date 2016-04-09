@@ -21,5 +21,40 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
         {
             return DbSet.FirstOrDefault(p => p.Contrato.Vendedores.IdVendedor == canal && p.DataPagamento == mes);
         }
+
+        public List<Pagamento> PagamentosPorCliente(int cliente, DateTime mes)
+        {
+            LazyLoadingEnabled();
+            return DbSet
+                .Include("Contrato")
+                .Include("Contrato.Cliente")
+                .Where(p => p.Contrato.ClienteId == cliente && p.DataPagamento == mes).ToList();
+        }
+
+        public void Incluir(List<Pagamento> pagamentos)
+        {
+            foreach (var pagamento in pagamentos)
+            {
+                DbSet.Add(pagamento);
+            }
+
+            Context.SaveChanges();
+        }
+
+        public void Excluir(List<Pagamento> pagamentos)
+        {
+            foreach (var pagamento in pagamentos)
+            {
+                DbSet.Remove(pagamento);
+            }
+
+            Context.SaveChanges();
+        }
+
+
+        public void Alterar()
+        {
+            Context.SaveChanges();
+        }
     }
 }

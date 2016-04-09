@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using B2BTecnology.Financeiro.DataBase.Repository;
 using B2BTecnology.Financeiro.DTO;
 using B2BTecnology.Financeiro.Entidades;
 

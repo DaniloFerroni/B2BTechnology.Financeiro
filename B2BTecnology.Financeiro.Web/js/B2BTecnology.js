@@ -1,5 +1,31 @@
 ﻿var geral = [];
 
+geral.ConverterDecimal = function () {
+
+    $(".numeral").focusout(function () {
+
+        var valor = numeral($(this).val()).format('0,0.00');
+        $(this).val(valor);
+
+    });
+
+};
+
+geral.ConverterValorDecimalDuasCasas = function (controle) {
+
+    var valor = numeral($(controle).val()).format('0,0.00');
+    $(controle).val(valor);
+
+};
+
+
+geral.ConverterLabelValorDecimalDuasCasas = function (controle) {
+
+    var valor = numeral($(controle).text()).format('0,0.00');
+    $(controle).text(valor);
+
+};
+
 $(function () {
 
     numeral.language('pt-br', {
@@ -23,13 +49,8 @@ $(function () {
 
     numeral.language('pt-br');
 
-    $(".numeral").focusout(function() {
-        
-        var valor = numeral($(this).val()).format('0,0.00');
-        $(this).val(valor);
-
-    });
-
+    geral.ConverterDecimal();
+    
     if ($("#pessoaFisica").is(":checked"))
         $("#Documento").mask("999.999.999-99");
 
@@ -84,5 +105,25 @@ $(function () {
         window.location = url;
 
     };
+
+    geral.preloader = {
+        show: function() {
+            $('div[class="navbar-header"]').show();
+            $('div[class="navbar-header"]').show();
+        },
+        hide: function() {
+            $('div[class="navbar-header"]').hide();
+            $('div[class="navbar-header"]').hide();
+        }
+    };
+
+    //$(document).bind("ajaxSend", function () {
+
+    //    geral.preloader.hide();
+    //}).bind("ajaxComplete", function () {
+
+    //    geral.preloader.show();
+
+    //});
 
 });
