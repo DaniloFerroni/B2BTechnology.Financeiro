@@ -8,44 +8,42 @@ namespace B2BTecnology.Financeiro.Negocio
 {
     public class ComissaoService : Financas
     {
-        public override List<ComissaoDTO> ComissaoCanal(string canal, DateTime mes)
+        public override List<ComissaoDTO> ComissaoCanal(int? canal, DateTime mes, int vendedor)
         {
-            int idCanal;
-            int.TryParse(canal, out idCanal);
+            canal = canal ?? vendedor;
 
-            var codigo = idCanal == 0 ? (int?)null : Convert.ToInt32(canal);
-
-            var listaComissao = _pagamentoRepository.PagamentosEfetuadosPorCanal(codigo, mes)
+            var listaComissao = _pagamentoRepository.PagamentosEfetuadosPorCanal(canal, mes)
                 .Select(c => new ComissaoDTO
                 {
                     CodigoPagamento = c.IdPagamento,
                     NomeCliente = c.Contrato.Cliente.Nome,
-                    ValorPagar = ValorPago(c.Contrato.Vendedores.IdVendedor, mes),
+                    ValorPagar = c.ValorPago,//ValorPago(c.Contrato.Vendedores.IdVendedor, mes),
                     Pago = c.Pago,
-                    Comissao = Comissao(c.Contrato, idCanal, mes),
-                });
-            return listaComissao.ToList();
+                    Comissao = Comissao(c.Contrato, canal ?? 0, mes, c),
+                }).ToList();
+            return listaComissao;
         }
 
-        private string ValorPago(int canal, DateTime mes)
+        private decimal ValorPago(int canal, DateTime mes)
         {
             var pagamento = _pagamentoRepository.PagamentoMes(canal, mes);
 
-            return pagamento == null ? "" : pagamento.ValorPago.ToString("C");
+            return pagamento == null ? 0 : pagamento.ValorPago;
         }
 
-        private string Comissao(Contrato contrato, int idVendedor, DateTime mes)
+        private decimal Comissao(Contrato contrato, int idVendedor, DateTime mes, Pagamento pagamentos)
         {
             var pagamento = _pagamentoRepository.PagamentoMes(idVendedor, mes);
             var vendedor = _vendedoresRepository.GetVendedores(idVendedor);
 
-            if (pagamento == null) return "";
+            if (pagamento == null) return (((pagamentos.ValorPago - (pagamentos.ValorPago * (decimal)0.06)) * 5) / 100);
             var percentualComissao = contrato.Vendedores.Comissao;
-            if (vendedor == null) return "";
+            if (vendedor == null) return 0;
 
             return vendedor.TipoVendedor == (int)Enumeradores.TipoVendedores.Vendedor && contrato.Vendedores.TipoVendedor == (int)Enumeradores.TipoVendedores.Canal ?
-                (((pagamento.ValorPago - pagamento.ValorPago * (decimal)0.06) * 5) / 100).ToString("C") :
-                (((pagamento.ValorPago - pagamento.ValorPago * (decimal)0.06) * percentualComissao) / 100).ToString("C");
+                (((pagamento.ValorPago - (pagamento.ValorPago * (decimal)0.06)) * 5) / 100) :
+                (((pagamento.ValorPago - (pagamento.ValorPago * (decimal)0.06)) * percentualComissao) / 100);
+
         }
     }
 }

@@ -66,6 +66,9 @@
 
         $(function () {
 
+            if ($("#ClienteId :selected").val() != 0)
+                gerarPdfUrl();
+
             ManterManterValorGasto();
             ExcluirPagamento();
             HiddenCheckValue();
@@ -73,8 +76,8 @@
 
                 CarregarDetalhe();
 
-                $(".actions a").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
-
+                gerarPdfUrl();
+                
             });
 
             $("#deleteModal .modal-footer .btn-success").click(function () {
@@ -87,6 +90,10 @@
 
 
         });
+
+        function gerarPdfUrl() {
+            $(".actions a").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
+        }
 
         function CarregarDetalhe() {
 

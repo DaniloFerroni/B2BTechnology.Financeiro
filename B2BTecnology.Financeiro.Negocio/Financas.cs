@@ -15,7 +15,7 @@ namespace B2BTecnology.Financeiro.Negocio
         protected readonly PagamentoRepository _pagamentoRepository = new PagamentoRepository();
         protected readonly VendedoresRepository _vendedoresRepository = new VendedoresRepository();
 
-        public virtual List<ComissaoDTO> ComissaoCanal(string canal, DateTime mes)
+        public virtual List<ComissaoDTO> ComissaoCanal(int? canal, DateTime mes, int vendedor)
         {
             return new List<ComissaoDTO>();
         }

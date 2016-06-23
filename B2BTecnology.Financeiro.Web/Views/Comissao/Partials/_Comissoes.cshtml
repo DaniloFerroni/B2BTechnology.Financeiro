@@ -19,9 +19,11 @@
                             var comissao = Model.ToList()[i];
                             <tr id="@(string.Format("row-{0}", comissao.CodigoPagamento))">
                                 <td><label name="@(string.Format("Comissao[{0}].Marca", i))">@comissao.NomeCliente</label></td>
-                                <td><label name="@(string.Format("Comissao[{0}].DataPagamento", i))">@comissao.ValorPagar</label></td>
-                                <td><label name="@(string.Format("Comissao[{0}].ValorPago", i))">@comissao.Pago</label></td>
-                                <td><label name="@(string.Format("Comissao[{0}].Pago", i))">@comissao.Comissao</label></td>
+                                <td><label name="@(string.Format("Comissao[{0}].DataPagamento", i))">@comissao.ValorPagar.ToString("C")</label></td>
+                                <td>
+                                    @Html.CheckBox(string.Format("Comissao[{0}].ValorPago", i), comissao.Pago, new { @disabled = "disabled" })
+                                </td>
+                                <td><label name="@(string.Format("Comissao[{0}].Pago", i))">@comissao.Comissao.ToString("C")</label></td>
                             </tr>
                         }
                     </tbody>

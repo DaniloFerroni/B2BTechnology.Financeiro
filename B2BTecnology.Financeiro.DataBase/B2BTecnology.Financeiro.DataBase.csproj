@@ -63,6 +63,7 @@
     <Compile Include="Map\PagamentoMap.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Map\UsuarioMap.cs" />
     <Compile Include="Map\VendedoresMap.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -75,6 +76,7 @@
     <Compile Include="Repository\EquipamentosRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\PagamentoRepository.cs" />
+    <Compile Include="Repository\UsuarioRepository.cs" />
     <Compile Include="Repository\VendedoresRepository.cs" />
   </ItemGroup>
   <ItemGroup>

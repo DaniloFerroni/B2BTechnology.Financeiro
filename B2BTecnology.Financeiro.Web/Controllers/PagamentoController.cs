@@ -9,6 +9,7 @@ using B2BTecnology.Financeiro.Web.Models;
 
 namespace B2BTecnology.Financeiro.Web.Controllers
 {
+    [Authorize]
     public class PagamentoController : Controller
     {
         private static readonly Financas _financeiro = new PagamentosService();
@@ -95,7 +96,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             {
                 new SelectListItem
                 {
-                    Value = null,
+                    Value = "0",
                     Text = "Selecione"
                 }
             };

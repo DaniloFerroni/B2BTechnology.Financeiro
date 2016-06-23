@@ -11,6 +11,7 @@ using B2BTecnology.Financeiro.Web.Extencion;
 
 namespace B2BTecnology.Financeiro.Web.Controllers
 {
+    [Authorize]
     public class ClienteController : Controller
     {
         private readonly ClienteService _clienteService = new ClienteService();

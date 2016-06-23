@@ -1,0 +1,130 @@
+﻿@model B2BTecnology.Financeiro.DTO.UsuarioDTO
+
+@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/css/sb-admin.css" rel="stylesheet" />
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    @*<link href="~/css/B2BTecnology.css" rel="stylesheet" />*@
+</head>
+<body>
+    <style type="text/css">
+        .form-control:focus {
+            border-color: #bfbfbf;
+            outline: 0;
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    </style>
+    <div class="container" style="margin-top: 40px">
+        <div class="row">
+
+            <div class="col-sm-6 col-md-4 col-md-offset-4">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <strong> B2B Technology - Autenticação</strong>
+                    </div>
+                    <div class="panel-body">
+
+                        @using (Html.BeginForm("Login", "Autenticacao", FormMethod.Post))
+                        {
+                            @Html.ValidationSummary();
+                            <fieldset>
+                                <div class="row">
+                                    <div class="center-block">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-10  col-md-offset-1 ">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-user"></i>
+                                                </span>
+                                                <input type="text" id="login" name="Login" placeholder="Informe seu login" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-lock"> </i>
+                                                </span>
+                                                <input type="password" id="password" name="Senha" placeholder="Informe sua senha" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="submit" class="btn btn-lg btn-default btn-block" value="Acessar" id="btnLogin">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-12 col-md-10  col-md-offset-1 ">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label>
+                                                    <input type="checkbox" id="ckbLembrarUsuario" class="checkbox-inline" /> Lembrar meu Usuário
+                                                </label>
+                                            </div>
+                                            <br />
+                                            @*<div class="input-group">
+                                                <label>
+                                                    @Html.CheckBoxFor(model => model.LembrarUsuario, new { @class = "checkbox-inline" })
+                                                    Conectar-me Automáticamente
+                                                </label>
+                                            </div>*@
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </fieldset>
+                        }
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script language="javascript">
+
+    $(function() {
+        var user = localStorage.getItem("user");
+        if (user != "" && user != null)
+        {
+            $("#login").val(user);
+            $("#ckbLembrarUsuario").attr("checked", true);
+        }
+
+        $("form").submit(function() {
+            SetLocations($("#login").val());
+        });
+
+
+        $("#ckbLembrarUsuario").click(function () {
+
+            if (!$(this).is(":checked"))
+                localStorage.clear();
+        });
+
+
+    });
+
+    function SetLocations(login) {
+        localStorage.setItem("user", $("#ckbLembrarUsuario").is(":checked") ? login : "");
+    }
+
+</script>

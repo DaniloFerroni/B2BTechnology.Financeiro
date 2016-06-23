@@ -5,8 +5,8 @@ namespace B2BTecnology.Financeiro.DTO
     {
         public int CodigoPagamento { get; set; }
         public string NomeCliente { get; set; }
-        public string ValorPagar { get; set; }
+        public decimal ValorPagar { get; set; }
         public bool Pago { get; set; }
-        public string Comissao { get; set; }
+        public decimal Comissao { get; set; }
     }
 }

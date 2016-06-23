@@ -49,6 +49,7 @@
     <Compile Include="Equipes.cs" />
     <Compile Include="Pagamento.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Usuario.cs" />
     <Compile Include="Vendedores.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

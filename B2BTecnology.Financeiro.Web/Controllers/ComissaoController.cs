@@ -8,6 +8,7 @@ using B2BTecnology.Financeiro.Negocio;
 
 namespace B2BTecnology.Financeiro.Web.Controllers
 {
+    [Authorize]
     public class ComissaoController : Controller
     {
         private static readonly Financas _financeiro = new ComissaoService();
@@ -19,11 +20,21 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             return View(new List<ComissaoDTO>());
         }
 
-        public PartialViewResult Pesquisar(DateTime data, string vendedor, string canal)
+        public PartialViewResult Pesquisar(DateTime data, int vendedor, int? canal)
         {
-            
+            var comissaoService = (ComissaoService)_financeiro;
+            var comissaoDto = comissaoService.ComissaoCanal(canal, data, vendedor);
 
-            return PartialView("Partials/_Comissoes", new List<ComissaoDTO>());
+            return PartialView("Partials/_Comissoes", comissaoDto);
+        }
+
+        public FileResult BaixarArquivo(DateTime data, int vendedor, int? canal)
+        {
+            var comissaoService = (ComissaoService)_financeiro;
+            var comissaoDto = comissaoService.ComissaoCanal(canal, data, vendedor);
+            var nome = _financeiro.Vendedores().First(v => v.IdVendedor == (canal ?? vendedor)).Nome;
+            byte[] filedata = _financeiro.GerarArquivo(comissaoDto, nome, data, Enumeradores.TipoPdf.Comissao);
+            return File(filedata, System.Net.Mime.MediaTypeNames.Application.Octet, string.Format("{0}_{1}.pdf", nome, data.ToString("y")));
         }
 
         private void CarregarViewBag()
@@ -81,6 +92,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             for (int i = -2; i <= 2; i++)
             {
                 var mesSelecionado = DateTime.Now.AddMonths(i);
+                mesSelecionado = mesSelecionado.AddDays(-(mesSelecionado.Day - 1));
                 meses.Add(
                     new SelectListItem
                     {

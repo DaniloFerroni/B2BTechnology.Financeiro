@@ -17,6 +17,7 @@ namespace B2BTecnology.Financeiro.Negocio.Map
             Mapper.CreateMap<Equipamentos, EquipamentosDTO>();
             Mapper.CreateMap<Vendedores, VendedoresDTO>().ForMember(c => c.Contrato, option => option.Ignore()); ;
             Mapper.CreateMap<Pagamento, PagamentoDTO>();
+            Mapper.CreateMap<Usuario, UsuarioDTO>();
         }
     }
 }

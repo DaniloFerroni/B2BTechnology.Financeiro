@@ -8,6 +8,7 @@ using B2BTecnology.Financeiro.Negocio;
 
 namespace B2BTecnology.Financeiro.Web.Controllers
 {
+    [Authorize]
     public class EquipamentosController : Controller
     {
         private readonly EquipamentosService _equipamentosService = new EquipamentosService();
