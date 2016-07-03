@@ -13,6 +13,7 @@ namespace B2BTecnology.Financeiro.Negocio
         {
 
             // Alteração Feature/0001
+            // Alteração Release 0.1.0
             var usuario = UsuarioRepository.GetUsuario(login, senha);
 
             usuario = usuario ?? new Usuario();
