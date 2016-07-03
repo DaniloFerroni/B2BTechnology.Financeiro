@@ -11,6 +11,8 @@ namespace B2BTecnology.Financeiro.Negocio
 
         public static UsuarioDTO AcessoLogin(string login, string senha)
         {
+
+            // Alteração Feature/0001
             var usuario = UsuarioRepository.GetUsuario(login, senha);
 
             usuario = usuario ?? new Usuario();
