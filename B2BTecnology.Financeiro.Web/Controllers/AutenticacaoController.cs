@@ -15,6 +15,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
     public class AutenticacaoController : Controller
     {
         // GET: Autenticacao
+        // Alteração Feature 0001
         public ActionResult Login()
         {
             return View();
