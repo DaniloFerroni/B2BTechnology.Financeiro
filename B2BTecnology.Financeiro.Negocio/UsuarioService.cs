@@ -1,6 +1,6 @@
-﻿using AutoMapper;
-using B2BTecnology.Financeiro.DataBase.Repository;
+﻿using B2BTecnology.Financeiro.DataBase.Repository;
 using B2BTecnology.Financeiro.DTO;
+using B2BTecnology.Financeiro.Entidades;
 using B2BTecnology.Financeiro.Negocio.Map;
 
 namespace B2BTecnology.Financeiro.Negocio
@@ -12,6 +12,9 @@ namespace B2BTecnology.Financeiro.Negocio
         public static UsuarioDTO AcessoLogin(string login, string senha)
         {
             var usuario = UsuarioRepository.GetUsuario(login, senha);
+
+            usuario = usuario ?? new Usuario();
+            
             var usuarioDto = new UsuarioDTO
             {
                 UsuarioId = usuario.UsuarioId,
