@@ -68,7 +68,8 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             var paramentosService = (PagamentosService) _financeiro;
             var pagamentos = paramentosService.PagamentosEfetuados(data, clienteId);
             byte[] filedata = _financeiro.GerarArquivo(pagamentos, nome, data, Enumeradores.TipoPdf.Pagamento);
-            return File(filedata, System.Net.Mime.MediaTypeNames.Application.Octet, string.Format("{0}_{1}.pdf", nome, data.ToString("y")));
+
+            return filedata == null ? null : File(filedata, System.Net.Mime.MediaTypeNames.Application.Octet, string.Format("{0}_{1}.pdf", nome, data.ToString("y")));
         }
 
         private void CarregarViewBag()

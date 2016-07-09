@@ -62,7 +62,7 @@ namespace B2BTecnology.Financeiro.Negocio
                  .AppendLine("<body style='font-size: 8px;'>")
                  .AppendLine("<div>")
                  .AppendLine("<div >")
-                 .AppendLine(@"<img src='C:\Danilo\Projetos\GerarPDF\GerarPDF\Ass email.jpg' height='50px' width='50px' />")
+                 .AppendLine(@"<img src='http://assets.lwsite.com.br/uploads/widget_image/image/287/586/287586/topo_site.png' height='100px' width='520px' />")
                  .AppendLine("</div>")
                  .AppendLine("<div>")
                  .AppendLine("<p>")
