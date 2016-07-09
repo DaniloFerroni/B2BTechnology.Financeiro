@@ -49,9 +49,17 @@
 
 @section actions{
         
-    <div class="actions">
-        <a class="hidden-print" style="margin-left: 10px" target="_blank" title="Download"><i class="fa fa-download">Gerar PDF</i></a>
-        <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
+    <div class="actions form-inline form-group">
+        @*<button id="lnkDownload" type="button" style="margin-top: 15px; margin-left: 15px;" class="btn btn-default"><i class="fa fa-download"></i> Gerar PDF</button>*@
+
+
+        <div id="divDownload" style="width: 150px">
+            <a id="lnkDownload" class="hidden-print" style="margin-left: 10px" target="_blank" title="Download"><i class="fa fa-download">Gerar PDF</i></a>
+        </div>
+        <div style="width: 100px; float: right">
+            <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
+
+        </div>
     </div>
 }
 
@@ -88,11 +96,11 @@
 
             });
 
-
+            HabilitarDownload();
         });
 
         function gerarPdfUrl() {
-            $(".actions a").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
+            $("#lnkDownload").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
         }
 
         function CarregarDetalhe() {
@@ -121,6 +129,7 @@
                 ManterManterValorGasto();
                 ExcluirPagamento();
                 HiddenCheckValue();
+                HabilitarDownload();
 
             });
         }
@@ -177,9 +186,20 @@
             $("#inserir").click(function () {
 
                 IncluirPagamento();
+                HabilitarDownload();
 
             });
 
+        }
+
+        function HabilitarDownload() {
+
+            gerarPdfUrl();
+            if ($("#tabelaPagamentos tbody tr").length > 0)
+                $("#divDownload").show();
+            else 
+                $("#divDownload").hide();
+            
         }
 
         function IncluirPagamento() {
@@ -225,6 +245,8 @@
                 var nome = $($(this).closest('tr').find('td')[1]).text();
 
                 geral.ModalExluir('Excluir - Pagamento', id, nome);
+
+                HabilitarDownload();
 
             });
 
