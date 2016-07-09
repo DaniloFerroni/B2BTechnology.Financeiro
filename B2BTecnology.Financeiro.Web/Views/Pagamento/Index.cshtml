@@ -141,11 +141,8 @@
             $("#ManterValorGasto").change(function() {
                 var manterValorGasto = $("#ManterValorGasto").is(":checked");
 
-                if (manterValorGasto) {
-                    $("#ValorPago").text(numeral($("#ValorGasto").val()).format('0,0.00'));
-                } else {
-                    $("#ValorPago").text(numeral($("#ValorConsumoMinimo").text()).format('0,0.00'));
-                }
+                ValorPagar(manterValorGasto);
+
             });
 
         }
@@ -154,14 +151,25 @@
 
             $("#ValorGasto").keyup(function () {
 
-                if (numeral($(this).val()) > numeral($("#ValorConsumoMinimo").text())) {
-                    $("#ValorPago").text(numeral($(this).val()).format('0,0.00'));
-                } else {
-                    $("#ValorPago").text(numeral($("#ValorConsumoMinimo").text()).format('0,0.00'));
-                }
+                ValorPagar(numeral($(this).val()) > numeral($("#ValorConsumoMinimo").text()));
 
             });
 
+        }
+
+        function ValorPagar(manterValorGasto) {
+
+            var valorCalculo = 0;
+
+            if (manterValorGasto) {
+                valorCalculo = numeral($("#ValorGasto").val());
+            } else {
+                valorCalculo = numeral($("#ValorConsumoMinimo").text());
+            }
+
+            var mensalidade = numeral($("#ValorMensalidade").text());
+        
+            $("#ValorPago").text(numeral(mensalidade + valorCalculo).format('0,0.00'));
         }
 
         function ClinckIncluir() {
