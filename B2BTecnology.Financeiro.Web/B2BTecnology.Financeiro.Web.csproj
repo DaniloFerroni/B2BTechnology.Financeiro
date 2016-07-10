@@ -167,6 +167,7 @@
     <Content Include="css\jquery-ui\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\jquery-ui\index.html" />
     <Content Include="css\jquery-ui\jquery-ui.css" />
+    <Content Include="Imagens\Logo.jpg" />
     <Content Include="js\jquery-ui.js" />
     <Content Include="css\jquery-ui\jquery-ui.min.css" />
     <Content Include="js\jquery-ui.min.js" />

@@ -9,6 +9,15 @@ geral.ConverterDecimal = function () {
 
     });
 
+    $(".inteiro").focusout(function () {
+
+        var valor = numeral($(this).val()).format('0,0');
+        if (valor == 0)
+            valor = "";
+        $(this).val(valor);
+
+    });
+
 };
 
 geral.ConverterValorDecimalDuasCasas = function (controle) {

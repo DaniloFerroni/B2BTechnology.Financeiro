@@ -92,7 +92,7 @@
         <div class="form-group col-md-3">
             <label>Comissão: </label>
             <input class="form-control" id="Comissao" type="text" disabled="disabled" value="@Model.Comissao.ToString("N2")" />
-            <input type="hidden" name="Comissao" value="@Model.Comissao" />
+            <input type="hidden" name="Comissao" value="@Model.Comissao"/>
         </div>
     </div>
 </div>
@@ -155,17 +155,17 @@
 
 
         if ($("#canal").is(":checked")) {
-            $("#Comissao").val("5,00");
+            $("#Comissao").val("5,00%");
             $("input[name='Comissao']").val("5,00");
         }
 
         $("input[name='tipoVendedor']").click(function() {
 
             if ($(this).val() == "2") {
-                $("#Comissao").val("5,00");
+                $("#Comissao").val("5,00%");
                 $("input[name='Comissao']").val("5,00");
             } else {
-                $("#Comissao").val("10,00");
+                $("#Comissao").val("10,00%");
                 $("input[name='Comissao']").val("10,00");
             }
         });

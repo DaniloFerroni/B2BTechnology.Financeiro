@@ -7,9 +7,11 @@ namespace B2BTecnology.Financeiro.DTO
     {
         public int IdContrato { get; set; }
         public int ClienteId { get; set; }
+
+        
         public int? EquipamentoId { get; set; }
 
-        [Range(0.01, double.MaxValue, ErrorMessage = "Valor Inválido")]
+        [Range(0.01, double.MaxValue, ErrorMessage = "Valor Tarifa Local Inválido")]
         [Required(ErrorMessage = "Tarifa Local é Obrigatório.")]
         public decimal ValorTarifaLocal { get; set; }
 
@@ -49,6 +51,9 @@ namespace B2BTecnology.Financeiro.DTO
 
         [Required(ErrorMessage = "Prazo Contratual é Obrigatório.")]
         public int PrazoContratual { get; set; }
+
+        [Range(1, int.MaxValue, ErrorMessage = "Vendedor é obrigatório.")]
+        [Required(ErrorMessage = "Vendedor é obrigatório.")]
         public int VendedorId { get; set; }
         public decimal? ValorMensalidade { get; set; }
 

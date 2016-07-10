@@ -21,17 +21,7 @@
         <div class="form-group col-md-6">
             <label class="control-label">Dia Vencimento: </label>
             <br />
-            <div class="radio-inline">
-                <input type="radio" name="vencimento" value="5" @((Model.DiaVencimento == 5 ||
-                                                                        Model.IdContrato == 0) ? "checked" : "") /> 5
-            </div>
-            <div class="radio-inline">
-                <input type="radio" name="vencimento" value="10" @((Model.DiaVencimento == 10) ? "checked" : "") /> 10
-            </div>
-            <div class="radio-inline">
-                <input type="radio" name="vencimento" value="15" @((Model.DiaVencimento == 15) ? "checked" : "") /> 15
-            </div>
-            <input type="hidden" id="DiaVencimento" name="Contratos[0].DiaVencimento" value="@Model.DiaVencimento" />
+            <input class="form-control inteiro" id="diavencimento" name="Contratos[0].DiaVencimento" type="text" value="@(Model.DiaVencimento == 0 ? "" : Model.DiaVencimento.ToString())" />
         </div>
     </div>
 </div>

@@ -125,7 +125,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             {
                 new SelectListItem
                 {
-                    Value = null,
+                    Value = "0",
                     Text = "Selecione"
                 }
             };
