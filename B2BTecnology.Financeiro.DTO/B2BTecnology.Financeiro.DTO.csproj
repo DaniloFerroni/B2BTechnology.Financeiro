@@ -46,6 +46,7 @@
     <Compile Include="ContatoDTO.cs" />
     <Compile Include="EnderecoDTO.cs" />
     <Compile Include="Enumeradores.cs" />
+    <Compile Include="EquipamentoContratoDTO.cs" />
     <Compile Include="EquipamentosDTO.cs" />
     <Compile Include="PagamentoDTO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

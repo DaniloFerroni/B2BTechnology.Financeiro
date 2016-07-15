@@ -57,6 +57,7 @@
     <Compile Include="Map\EnderecoMap.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Map\EquipamentoContratoMap.cs" />
     <Compile Include="Map\EquipamentoMap.cs">
       <SubType>Code</SubType>
     </Compile>

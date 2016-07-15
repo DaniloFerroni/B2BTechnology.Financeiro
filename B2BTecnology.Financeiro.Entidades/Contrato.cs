@@ -7,7 +7,7 @@ namespace B2BTecnology.Financeiro.Entidades
     {
         public int IdContrato { get; set; }
         public int ClienteId { get; set; }
-        public int? EquipamentoId { get; set; }
+        //public int? EquipamentoId { get; set; }
         public decimal ValorTarifaLocal { get; set; }
         public decimal ValorTarifaLdn { get; set; }
         public decimal ValorTarifaVc1 { get; set; }
@@ -24,8 +24,9 @@ namespace B2BTecnology.Financeiro.Entidades
         public decimal ValorMensalidade { get; set; }
 
         public virtual Cliente Cliente { get; set; }
-        public virtual Equipamentos Equipamento { get; set; }
+        //public virtual Equipamentos Equipamento { get; set; }
         public virtual Vendedores Vendedores { get; set; }
         public virtual List<Pagamento> Pagamentos { get; set; }
+        public virtual List<EquipamentoContrato> Equipamentos { get; set; }
     }
 }

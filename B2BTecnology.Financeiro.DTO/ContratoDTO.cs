@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace B2BTecnology.Financeiro.DTO
@@ -9,7 +10,7 @@ namespace B2BTecnology.Financeiro.DTO
         public int ClienteId { get; set; }
 
         
-        public int? EquipamentoId { get; set; }
+        //public int? EquipamentoId { get; set; }
 
         [Range(0.01, double.MaxValue, ErrorMessage = "Valor Tarifa Local Inválido")]
         [Required(ErrorMessage = "Tarifa Local é Obrigatório.")]
@@ -59,6 +60,8 @@ namespace B2BTecnology.Financeiro.DTO
 
         public string NomeVendedor { get; set; }
         public string NomeCliente { get; set; }
+
+        public List<EquipamentosDTO> Equipamentos { get; set; }
     }
 }
 
