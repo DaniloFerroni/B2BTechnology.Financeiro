@@ -122,6 +122,8 @@ namespace B2BTecnology.Financeiro.Negocio
         {
             var equipamentoContratoRepository = new EquipamentoContratoRepository();
 
+            equipamentosContratoDto = equipamentosContratoDto ?? new List<EquipamentoContratoDTO>();
+
             var incluidos = equipamentosContratoDto.Where(e => e.EquipamentoContratoId == 0).Select(e => new EquipamentoContrato
             {
                 ContratoId = contratoId,
