@@ -74,6 +74,7 @@
     <Compile Include="Repository\ContatoRepository.cs" />
     <Compile Include="Repository\ContratoRepository.cs" />
     <Compile Include="Repository\EnderecoRepository.cs" />
+    <Compile Include="Repository\EquipamentoContratoRepository.cs" />
     <Compile Include="Repository\EquipamentosRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Repository\PagamentoRepository.cs" />

@@ -59,6 +59,7 @@
     <Compile Include="ContratoService.cs" />
     <Compile Include="DadosPessoais.cs" />
     <Compile Include="EnderecoService.cs" />
+    <Compile Include="EquipamentoContratoService.cs" />
     <Compile Include="EquipamentosService.cs" />
     <Compile Include="Financas.cs" />
     <Compile Include="Map\Mapeamento.cs" />

@@ -62,6 +62,9 @@ namespace B2BTecnology.Financeiro.DTO
         public string NomeCliente { get; set; }
 
         public List<EquipamentosDTO> Equipamentos { get; set; }
+
+        public List<EquipamentoContratoDTO> EquipamentoContrato { get; set; }
+
     }
 }
 

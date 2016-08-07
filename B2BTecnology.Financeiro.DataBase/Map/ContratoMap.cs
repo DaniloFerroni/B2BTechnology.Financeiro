@@ -13,7 +13,7 @@ namespace B2BTecnology.Financeiro.DataBase.Map
 
             Property(c => c.IdContrato).HasColumnName("ID_CONTRATO").HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
             Property(c => c.ClienteId).HasColumnName("ID_CLIENTE");
-            //Property(c => c.EquipamentoId).HasColumnName("ID_EQUIPAMENTO");
+            Property(c => c.EquipamentoId).HasColumnName("ID_EQUIPAMENTO");
             Property(c => c.ValorConsumoMinimo).HasColumnName("VL_CONSUMO_MINIMO");
             Property(c => c.CadenciaFixa).HasMaxLength(6).HasColumnName("DS_CADENCIA_FIXA");
             Property(c => c.CadenciaMovel).HasMaxLength(6).HasColumnName("DS_CADENCIA_MOVEL");
@@ -37,9 +37,9 @@ namespace B2BTecnology.Financeiro.DataBase.Map
                 .WithMany(c => c.Contrato)
                 .HasForeignKey(c => c.VendedorId);
 
-            //HasOptional(c => c.Equipamento)
-            //    .WithMany(c => c.Contratos)
-            //    .HasForeignKey(c => c.EquipamentoId);
+            HasOptional(c => c.Equipamento)
+                .WithMany(c => c.Contratos)
+                .HasForeignKey(c => c.EquipamentoId);
         }
     }
 }

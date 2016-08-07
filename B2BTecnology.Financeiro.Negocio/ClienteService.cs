@@ -45,9 +45,16 @@ namespace B2BTecnology.Financeiro.Negocio
             SalvarEndereco(cliente.Endereco, clienteExiste != null ? clienteExiste.Endereco : new Endereco());
 
             if (clienteExiste == null)
+            {
                 Inserir(cliente);
+                clienteExiste = new Cliente();
+            }
             else
                 Alterar(cliente, clienteExiste);
+
+            var contratoDto = cliente.Contratos.First();
+
+            SalvarEquipamentos(contratoDto.EquipamentoContrato, clienteExiste.Contratos.First().EquipamentoContrato, contratoDto.IdContrato);
         }
 
         private void Inserir(ClienteDTO clienteDto)
@@ -109,6 +116,22 @@ namespace B2BTecnology.Financeiro.Negocio
         {
             DadosPessoais<EnderecoDTO, Endereco> enderecoService = new EnderecoService();
             enderecoService.Salvar(enderecoDto, atual);
+        }
+
+        private void SalvarEquipamentos(List<EquipamentoContratoDTO> equipamentosContratoDto, List<EquipamentoContrato> equipamentosContrato, int contratoId)
+        {
+            var equipamentoContratoRepository = new EquipamentoContratoRepository();
+
+            var incluidos = equipamentosContratoDto.Where(e => e.EquipamentoContratoId == 0).Select(e => new EquipamentoContrato
+            {
+                ContratoId = contratoId,
+                EquipamentoId = e.EquipamentoId
+            }).ToList();
+
+            var deletados = equipamentosContrato.Where(e => !equipamentosContratoDto.Exists(d => d.EquipamentoContratoId == e.EquipamentoContratoId)).ToList();
+
+            equipamentoContratoRepository.Inserir(incluidos);
+            equipamentoContratoRepository.Deletar(deletados);
         }
     }
 }
