@@ -157,6 +157,7 @@
                     <tr id="@(equipamentoContrato.EquipamentoContratoId)">
                         <td>
                             @equipamentoContrato.Equipamento.Modelo
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].EquipamentoContratoId", i))" value="@(equipamentoContrato.EquipamentoContratoId)" />
                             <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].ContratoId", i))" value="@(equipamentoContrato.ContratoId)" />
                             <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].EquipamentoId", i))" value="@(equipamentoContrato.EquipamentoId)" />
                             <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].Equipamento.Modelo", i))" value="@(equipamentoContrato.Equipamento.Modelo)" />
@@ -190,7 +191,7 @@
         </div>
     </div>
 </div>
-
+@Html.Partial("Partials/_Confirmacao")
 <script>
 
     $(function () {
@@ -205,7 +206,7 @@
             var modeloInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].Equipamento.Modelo" value="' + $("#ddlEquipamento :selected").text().split('/')[0] + '" />';
             var numeroSerieInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].Equipamento.NumeroSerie" value="' + $("#ddlEquipamento :selected").text().split('/')[1] + '" />';
 
-            var tr = '<tr><td>' + $("#ddlEquipamento :selected").text().split('/')[0] + contratoIdInput + equipamentoIdInput + modeloInput + '</td><td>' + $("#ddlEquipamento :selected").text().split('/')[1] + numeroSerieInput + '</td><td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td></tr>';
+            var tr = '<tr id="row-' + $("#tblEquipamentos tbody tr").length + '"><td>' + $("#ddlEquipamento :selected").text().split('/')[0] + contratoIdInput + equipamentoIdInput + modeloInput + '</td><td>' + $("#ddlEquipamento :selected").text().split('/')[1] + numeroSerieInput + '</td><td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td></tr>';
 
             $("#tblEquipamentos tbody").append(tr);
 
@@ -215,7 +216,7 @@
 
         });
 
-        
+
 
     });
 
@@ -223,12 +224,23 @@
 
         $("#tblEquipamentos tbody tr td button").click(function() {
 
-            var tr = $(this).closest("tr");
-            $(tr).remove();
+            //var tr = $(this).closest("tr");
+            //$(tr).remove();
 
-            $("#tblEquipamentos tbody tr").each(function(index) {
+            var tr = $(this).closest("tr").prop("id");
+            geral.ModalExluir('Excluir - Equipamento', tr, $($(this).closest('tr').find('td')[0]).text() + '/' + $($(this).closest('tr').find('td')[1]).text());
 
-                $(this).find("td input[type='hidden']").each(function() {
+
+
+        });
+
+        $("#deleteModal .modal-footer .btn-success").click(function () {
+
+            geral.ModalConfirmarExluisao();
+
+            $("#tblEquipamentos tbody tr").each(function (index) {
+
+                $(this).find("td input[type='hidden']").each(function () {
 
                     //var name = "Contratos[0].EquipamentoContrato[" + index + "].";
                     var name = "";
@@ -243,7 +255,7 @@
                                 name += ".";
 
                         }
-                        
+
                     }
 
                     $(this).prop("name", "Contratos[0].EquipamentoContrato[" + index + "]." + name);

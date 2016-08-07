@@ -9,9 +9,6 @@ namespace B2BTecnology.Financeiro.DTO
         public int IdContrato { get; set; }
         public int ClienteId { get; set; }
 
-        
-        //public int? EquipamentoId { get; set; }
-
         [Range(0.01, double.MaxValue, ErrorMessage = "Valor Tarifa Local Inválido")]
         [Required(ErrorMessage = "Tarifa Local é Obrigatório.")]
         public decimal ValorTarifaLocal { get; set; }
@@ -60,8 +57,6 @@ namespace B2BTecnology.Financeiro.DTO
 
         public string NomeVendedor { get; set; }
         public string NomeCliente { get; set; }
-
-        public List<EquipamentosDTO> Equipamentos { get; set; }
 
         public List<EquipamentoContratoDTO> EquipamentoContrato { get; set; }
 

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using B2BTecnology.Financeiro.Entidades;
 
 namespace B2BTecnology.Financeiro.DataBase.Repository
@@ -17,7 +14,11 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
         public void Deletar(List<EquipamentoContrato> equipamentosContrato)
         {
-            equipamentosContrato.ForEach(e => DbSet.Remove(e));
+            equipamentosContrato.ForEach(e =>
+            {
+                var entity = DbSet.First(d => d.EquipamentoContratoId == e.EquipamentoContratoId);
+                DbSet.Remove(entity);
+            });
             Context.SaveChanges();
         }
 
