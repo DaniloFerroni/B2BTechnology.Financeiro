@@ -25,6 +25,8 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
                 .Include("Contato")
                 .Include("Endereco")
                 .Include("Contratos")
+                .Include("Contratos.EquipamentoContrato")
+                .Include("Contratos.EquipamentoContrato.Equipamentos")
                 .FirstOrDefault(c => c.Documento == documento);
         }
 
@@ -34,6 +36,8 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             return DbSet
                 .Include("Contato")
                 .Include("Contratos")
+                .Include("Contratos.EquipamentoContrato")
+                .Include("Contratos.EquipamentoContrato.Equipamentos")
                 .First(c => c.IdCliente == clienteId);
         }
 

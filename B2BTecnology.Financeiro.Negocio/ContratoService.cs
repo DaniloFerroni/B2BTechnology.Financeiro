@@ -48,7 +48,7 @@ namespace B2BTecnology.Financeiro.Negocio
                 ValorTarifaVc2 = contratoDto.ValorTarifaVc2,
                 ValorTarifaVc3 = contratoDto.ValorTarifaVc3,
                 VendedorId = contratoDto.VendedorId,
-                EquipamentoId = contratoDto.EquipamentoId == 0 ? null : contratoDto.EquipamentoId,
+                //EquipamentoId = contratoDto.EquipamentoId == 0 ? null : contratoDto.EquipamentoId,
                 DiaVencimento = contratoDto.DiaVencimento,
                 DataContrato = (DateTime)contratoDto.DataContrato,
                 ClienteId = contratoDto.ClienteId,
@@ -69,7 +69,7 @@ namespace B2BTecnology.Financeiro.Negocio
             contrato.ValorTarifaVc2 = contratoDto.ValorTarifaVc2;
             contrato.ValorTarifaVc3 = contratoDto.ValorTarifaVc3;
             contrato.VendedorId = contratoDto.VendedorId;
-            contrato.EquipamentoId = contratoDto.EquipamentoId == 0 ? null : contratoDto.EquipamentoId;
+            //contrato.EquipamentoId = contratoDto.EquipamentoId == 0 ? null : contratoDto.EquipamentoId;
             contrato.DiaVencimento = contratoDto.DiaVencimento;
             contrato.DataContrato = (DateTime) contratoDto.DataContrato;
             contrato.ClienteId = contratoDto.ClienteId;

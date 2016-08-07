@@ -58,8 +58,7 @@
             <label class="control-label">Prazo Contratual: </label>
             <br />
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="1" @((Model.PrazoContratual == Enumeradores.PrazoContratual.SeisMeses.GetHashCode() ||
-                                                                        Model.IdContrato == 0) ? "checked" : "") /> 6 Meses                
+                <input type="radio" name="prazocontratual" value="1" @((Model.PrazoContratual == Enumeradores.PrazoContratual.SeisMeses.GetHashCode() || Model.IdContrato == 0) ? "checked" : "") /> 6 Meses
             </div>
             <div class="radio-inline">
                 <input type="radio" name="prazocontratual" value="2" @((Model.PrazoContratual == Enumeradores.PrazoContratual.DozeMeses.GetHashCode()) ? "checked" : "") /> 12 Meses
@@ -120,13 +119,59 @@
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
-            <label>Equipamentos: </label>
-            @Html.DropDownList("Contratos[0].EquipamentoId", (IEnumerable<SelectListItem>)ViewBag.Equipamentos, new { @class = "form-control" })
-        </div>
-        <div class="form-group col-md-5">
             <label>Valor Instalação: </label>
             <input type="text" class="form-control numeral" name="Contratos[0].ValorInstalacao" value="@Model.ValorInstalacao.ToString("N2")">
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>Equipamentos: </label>
+            @Html.DropDownList("ddlEquipamento", (IEnumerable<SelectListItem>)ViewBag.Equipamentos, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table  id="tblEquipamentos"class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 45%">
+                        Modelo
+                    </th>
+                    <th style="width: 45%">
+                        Série
+                    </th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < (Model.EquipamentoContrato == null ? 0 : Model.EquipamentoContrato.Count); i++)
+                {
+                    var equipamentoContrato = Model.EquipamentoContrato[i];
+                    
+                    <tr id="@(equipamentoContrato.EquipamentoContratoId)">
+                        <td>
+                            @equipamentoContrato.Equipamento.Modelo
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].EquipamentoContratoId", i))" value="@(equipamentoContrato.EquipamentoContratoId)" />
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].ContratoId", i))" value="@(equipamentoContrato.ContratoId)" />
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].EquipamentoId", i))" value="@(equipamentoContrato.EquipamentoId)" />
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].Equipamento.Modelo", i))" value="@(equipamentoContrato.Equipamento.Modelo)" />
+                        </td>
+                        <td>
+                            @equipamentoContrato.Equipamento.NumeroSerie
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].Equipamento.NumeroSerie", i))" value="@(equipamentoContrato.Equipamento.NumeroSerie)" />
+                        </td>
+                        <td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -146,3 +191,81 @@
         </div>
     </div>
 </div>
+@Html.Partial("Partials/_Confirmacao")
+<script>
+
+    $(function () {
+
+        ExcluirEquipamentos();
+
+
+        $("#ddlEquipamento").change(function() {
+
+            var contratoIdInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].ContratoId" value="' + @Model.IdContrato + '" />';
+            var equipamentoIdInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].EquipamentoId" value="' + $("#ddlEquipamento :selected").val() + '" />';
+            var modeloInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].Equipamento.Modelo" value="' + $("#ddlEquipamento :selected").text().split('/')[0] + '" />';
+            var numeroSerieInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].Equipamento.NumeroSerie" value="' + $("#ddlEquipamento :selected").text().split('/')[1] + '" />';
+
+            var tr = '<tr id="row-' + $("#tblEquipamentos tbody tr").length + '"><td>' + $("#ddlEquipamento :selected").text().split('/')[0] + contratoIdInput + equipamentoIdInput + modeloInput + '</td><td>' + $("#ddlEquipamento :selected").text().split('/')[1] + numeroSerieInput + '</td><td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td></tr>';
+
+            $("#tblEquipamentos tbody").append(tr);
+
+            $("#ddlEquipamento").val("0");
+
+            ExcluirEquipamentos();
+
+        });
+
+
+
+    });
+
+    function ExcluirEquipamentos() {
+
+        $("#tblEquipamentos tbody tr td button").click(function() {
+
+            //var tr = $(this).closest("tr");
+            //$(tr).remove();
+
+            var tr = $(this).closest("tr").prop("id");
+            geral.ModalExluir('Excluir - Equipamento', tr, $($(this).closest('tr').find('td')[0]).text() + '/' + $($(this).closest('tr').find('td')[1]).text());
+
+
+
+        });
+
+        $("#deleteModal .modal-footer .btn-success").click(function () {
+
+            geral.ModalConfirmarExluisao();
+
+            $("#tblEquipamentos tbody tr").each(function (index) {
+
+                $(this).find("td input[type='hidden']").each(function () {
+
+                    //var name = "Contratos[0].EquipamentoContrato[" + index + "].";
+                    var name = "";
+
+                    for (var i = 0; i < $(this).prop("name").split(".").length; i++) {
+
+                        if (i > 1 && $(this).prop("name").split(".")[i] != "") {
+
+                            name += $(this).prop("name").split(".")[i];
+
+                            if (i < $(this).prop("name").split(".").length - 1)
+                                name += ".";
+
+                        }
+
+                    }
+
+                    $(this).prop("name", "Contratos[0].EquipamentoContrato[" + index + "]." + name);
+
+                });
+
+            });
+
+        });
+
+    }
+
+</script>

@@ -27,5 +27,7 @@ namespace B2BTecnology.Financeiro.Entidades
         public virtual Equipamentos Equipamento { get; set; }
         public virtual Vendedores Vendedores { get; set; }
         public virtual List<Pagamento> Pagamentos { get; set; }
+        public virtual List<EquipamentoContrato> EquipamentoContrato { get; set; }
+        
     }
 }

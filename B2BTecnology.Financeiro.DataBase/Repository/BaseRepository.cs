@@ -24,6 +24,8 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
         public void LazyLoadingEnabled()
         {
+            _context.Configuration.ProxyCreationEnabled = false;
+            _context.Configuration.AutoDetectChangesEnabled = false;
             _context.Configuration.LazyLoadingEnabled = false;
         }
 

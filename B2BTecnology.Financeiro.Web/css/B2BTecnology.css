@@ -53,7 +53,7 @@ label {
 #Footer .actions {
     display: inline-block !important;
     float: right !important;
-    width: 250px;
+    width: 80px;
 }
 #Footer .actions a {
     margin-right: 0.85em !important;
