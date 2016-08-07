@@ -58,6 +58,18 @@ namespace B2BTecnology.Financeiro.DTO
         public string NomeVendedor { get; set; }
         public string NomeCliente { get; set; }
 
+        public decimal? Did { get; set; }
+        public string AssinaturaDid { get; set; }
+
+        public decimal? Valor0800 { get; set; }
+        public string Assinatura0800 { get; set; }
+
+        public decimal? Valor0300 { get; set; }
+        public string Assinatura0300 { get; set; }
+
+        public decimal? Valor4000 { get; set; }
+        public string Assinatura4000 { get; set; }
+
         public List<EquipamentoContratoDTO> EquipamentoContrato { get; set; }
 
     }
