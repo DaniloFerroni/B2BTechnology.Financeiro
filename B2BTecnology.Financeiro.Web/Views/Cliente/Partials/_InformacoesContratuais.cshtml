@@ -109,13 +109,17 @@
 
 <div class="row">
     <div class="col-lg-12 ">
-        <div class="form-group col-md-5">
+        @*<div class="form-group col-md-5">
             <label>DID: </label>
-            <input class="form-control numeral" id="Did" name="Contrato[0].Did" type="text" value="@Model.Did" />
+            <input class="form-control" id="Did" name="Contrato[0].Did" type="text" value="@Model.Did" />
+        </div>*@
+        <div class="form-group col-lg-5">
+            <label class="control-label">DID: </label>
+            <input class="form-control" id="txtDid" name="Contratos[0].Did" maxlength="4" type="text" value="@Model.Did" />
         </div>
         <div class="form-group col-md-6">
             <label>Assinatura: </label>
-            <input class="form-control" id="AssinaturaDid" name="Contrato[0].AssinaturaDid" type="text" value="@Model.AssinaturaDid" />
+            <input class="form-control numeral" id="AssinaturaDid" name="Contratos[0].AssinaturaDid" type="text" value="@(Model.AssinaturaDid == null ? "" : Model.AssinaturaDid.Value.ToString("N2"))" />
         </div>
     </div>
 </div>
@@ -123,11 +127,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
             <label>0800: </label>
-            <input class="form-control numeral" id="Valor0800" name="Contrato[0].Valor0800" type="text" value="@Model.Valor0800" />
+            <input class="form-control" id="Valor0800" name="Contratos[0].Valor0800" type="text" value="@Model.Valor0800" />
         </div>
         <div class="form-group col-md-6">
             <label>Assinatura: </label>
-            <input class="form-control" id="Assinatura0800" name="Contrato[0].Assinatura0800" type="text" value="@Model.Assinatura0800" />
+            <input class="form-control numeral" id="Assinatura0800" name="Contratos[0].Assinatura0800" type="text" value="@(Model.Assinatura0800 == null ? "" : Model.Assinatura0800.Value.ToString("N2"))" />
         </div>
     </div>
 </div>
@@ -135,11 +139,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
             <label>0300: </label>
-            <input class="form-control numeral" id="Valor0300" name="Contrato[0].Valor0300" type="text" value="@Model.Valor0300" />
+            <input class="form-control" id="Valor0300" name="Contratos[0].Valor0300" type="text" value="@Model.Valor0300" />
         </div>
         <div class="form-group col-md-6">
             <label>Assinatura: </label>
-            <input class="form-control" id="Assinatura0300" name="Contrato[0].Assinatura0300" type="text" value="@Model.Assinatura0300" />
+            <input class="form-control numeral" id="Assinatura0300" name="Contratos[0].Assinatura0300" type="text" value="@(Model.Assinatura0300 == null ? "" : Model.Assinatura0300.Value.ToString("N2"))" />
         </div>
     </div>
 </div>
@@ -147,11 +151,11 @@
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
             <label>4000: </label>
-            <input class="form-control numeral" id="Valor4000" name="Contrato[0].Valor4000" type="text" value="@Model.Valor4000" />
+            <input class="form-control" id="Valor4000" name="Contratos[0].Valor4000" type="text" value="@Model.Valor4000" />
         </div>
         <div class="form-group col-md-6">
             <label>Assinatura: </label>
-            <input class="form-control" id="Assinatura4000" name="Contrato[0].Assinatura4000" type="text" value="@Model.Assinatura4000" />
+            <input class="form-control numeral" id="Assinatura4000" name="Contratos[0].Assinatura4000" type="text" value="@(Model.Assinatura4000 == null ? "" : Model.Assinatura4000.Value.ToString("N2"))" />
         </div>
     </div>
 </div>

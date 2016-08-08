@@ -17,6 +17,32 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
         public void Alterar(Contrato contrato)
         {
+            var entry = Context.Entry(contrato);
+            entry.State = EntityState.Unchanged;
+            entry.Property(p => p.CadenciaFixa).IsModified = true;
+            entry.Property(p => p.PrazoContratual).IsModified = true;
+            entry.Property(p => p.ValorConsumoMinimo).IsModified = true;
+            entry.Property(p => p.ValorInstalacao).IsModified = true;
+            entry.Property(p => p.ValorMensalidade).IsModified = true;
+            entry.Property(p => p.ValorTarifaLdn).IsModified = true;
+            entry.Property(p => p.ValorTarifaLocal).IsModified = true;
+            entry.Property(p => p.ValorTarifaVc1).IsModified = true;
+            entry.Property(p => p.ValorTarifaVc2).IsModified = true;
+            entry.Property(p => p.ValorTarifaVc3).IsModified = true;
+            entry.Property(p => p.VendedorId).IsModified = true;
+            entry.Property(p => p.DiaVencimento).IsModified = true;
+            entry.Property(p => p.DataContrato).IsModified = true;
+            entry.Property(p => p.ClienteId).IsModified = true;
+            entry.Property(p => p.CadenciaMovel).IsModified = true;
+            entry.Property(p => p.Did).IsModified = true;
+            entry.Property(p => p.AssinaturaDid).IsModified = true;
+            entry.Property(p => p.Valor0800).IsModified = true;
+            entry.Property(p => p.Assinatura0800).IsModified = true;
+            entry.Property(p => p.Valor0300).IsModified = true;
+            entry.Property(p => p.Assinatura0300).IsModified = true;
+            entry.Property(p => p.Valor4000).IsModified = true;
+            entry.Property(p => p.Assinatura4000).IsModified = true;
+
             Context.SaveChanges();
         }
 
@@ -33,3 +59,4 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
         }
     }
 }
+
