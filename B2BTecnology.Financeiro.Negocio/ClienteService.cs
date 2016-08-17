@@ -12,6 +12,15 @@ namespace B2BTecnology.Financeiro.Negocio
     {
         private readonly ClienteRepository _clienteRepository = new ClienteRepository();
 
+        public ClienteDTO Pesquisar(int idCliente)
+        {
+            var cliente = _clienteRepository.GetClienteId(idCliente);
+
+            var clienteDto = Mapper.Map<ClienteDTO>(cliente);
+
+            return clienteDto;
+        }
+
         public ClienteDTO Pesquisar(string documento)
         {
             var cliente = _clienteRepository.GetCliente(documento);

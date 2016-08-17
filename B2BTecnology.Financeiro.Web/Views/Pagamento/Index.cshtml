@@ -73,19 +73,21 @@
     <script>
 
         $(function () {
-
+            
             if ($("#ClienteId :selected").val() != 0)
                 gerarPdfUrl();
 
             ManterManterValorGasto();
             ExcluirPagamento();
             HiddenCheckValue();
+            SetValorAPgar();
+
             $("#ClienteId, #Mes").on("change", function () {
 
                 CarregarDetalhe();
-
                 gerarPdfUrl();
-                
+                SetValorAPgar();
+
             });
 
             $("#deleteModal .modal-footer .btn-success").click(function () {
@@ -97,7 +99,18 @@
             });
 
             HabilitarDownload();
+            
         });
+
+        function SetValorAPgar() {
+
+            $("#ValorGasto").focusout(function () {
+                
+                CompararConsumoMinimo();
+
+            });
+
+        }
 
         function gerarPdfUrl() {
             $("#lnkDownload").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
@@ -125,11 +138,12 @@
                 $("#detalhe").html(data);
                 ClinckIncluir();
                 geral.ConverterDecimal();
-                CompararConsumoMinimo();
                 ManterManterValorGasto();
                 ExcluirPagamento();
                 HiddenCheckValue();
                 HabilitarDownload();
+
+                SetValorAPgar();
 
             });
         }
@@ -148,37 +162,32 @@
         function ManterManterValorGasto() {
 
             $("#ManterValorGasto").change(function() {
-                var manterValorGasto = $("#ManterValorGasto").is(":checked");
-
-                ValorPagar(manterValorGasto);
-
+                CompararConsumoMinimo();
             });
 
         }
 
         function CompararConsumoMinimo() {
+            
+            $.ajax({
 
-            $("#ValorGasto").keyup(function () {
+                type: "POST",
+                url: "/Pagamento/ReturnValorPagar",
+                data: {
 
-                ValorPagar(numeral($(this).val()) > numeral($("#ValorConsumoMinimo").text()));
+                    idCliente: $("#ClienteId :selected").val(),
+                    manter: $("#ManterValorGasto").is(":checked"),
+                    valorGasto: $("#ValorGasto").val()
+
+                }
+
+            })
+            .done(function (data) {
+                    
+                $("#ValorPago").text(data);
 
             });
 
-        }
-
-        function ValorPagar(manterValorGasto) {
-
-            var valorCalculo = 0;
-
-            if (manterValorGasto) {
-                valorCalculo = numeral($("#ValorGasto").val());
-            } else {
-                valorCalculo = numeral($("#ValorConsumoMinimo").text());
-            }
-
-            var mensalidade = numeral($("#ValorMensalidade").text());
-        
-            $("#ValorPago").text(numeral(mensalidade + valorCalculo).format('0,0.00'));
         }
 
         function ClinckIncluir() {
