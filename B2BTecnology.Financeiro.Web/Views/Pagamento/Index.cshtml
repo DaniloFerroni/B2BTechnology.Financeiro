@@ -49,7 +49,7 @@
 
 @section actions{
         
-    <div class="actions form-inline form-group">
+    <div class="actions form-inline form-group" style="width: 250px">
         @*<button id="lnkDownload" type="button" style="margin-top: 15px; margin-left: 15px;" class="btn btn-default"><i class="fa fa-download"></i> Gerar PDF</button>*@
 
 
@@ -81,12 +81,14 @@
             ExcluirPagamento();
             HiddenCheckValue();
             SetValorAPgar();
+            ClinckIncluir();
 
             $("#ClienteId, #Mes").on("change", function () {
 
                 CarregarDetalhe();
                 gerarPdfUrl();
                 SetValorAPgar();
+                HabilitarDownload();
 
             });
 
@@ -95,6 +97,11 @@
                 geral.ModalConfirmarExluisao();
 
                 AjusteNames();
+
+                HabilitarDownload();
+
+                ClinckIncluir();
+                ExcluirPagamento();
 
             });
 
@@ -195,6 +202,7 @@
             $("#inserir").click(function () {
 
                 IncluirPagamento();
+
                 HabilitarDownload();
 
             });
@@ -204,7 +212,12 @@
         function HabilitarDownload() {
 
             gerarPdfUrl();
-            if ($("#tabelaPagamentos tbody tr").length > 0)
+            
+            var itensNaoSalvos = $("#tabelaPagamentos tbody tr").filter(function() {
+                return $($(this).find('td')[0]).text() == 0;
+            }).length;
+
+            if ($("#tabelaPagamentos tbody tr").length > 0 || itensNaoSalvos > 0)
                 $("#divDownload").show();
             else 
                 $("#divDownload").hide();
@@ -242,6 +255,7 @@
                 '</tr>';
 
             $("#tabelaPagamentos tbody").append(linha);
+            
             ExcluirPagamento();
 
         }
