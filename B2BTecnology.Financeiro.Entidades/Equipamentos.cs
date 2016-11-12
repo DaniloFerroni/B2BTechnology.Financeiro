@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace B2BTecnology.Financeiro.Entidades
 {
@@ -14,5 +10,6 @@ namespace B2BTecnology.Financeiro.Entidades
         public string NumeroSerie { get; set; }
 
         public virtual List<Contrato> Contratos { get; set; }
+        public virtual List<EquipamentoContrato> EquipamentoContrato { get; set; }
     }
 }

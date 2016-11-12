@@ -15,7 +15,8 @@ namespace B2BTecnology.Financeiro.DataBase
         public B2BSolution()
             : base("Name=B2BSolution")
         {
-            Configuration.LazyLoadingEnabled = true;
+            Database.SetInitializer<B2BSolution>(null);
+            //Configuration.LazyLoadingEnabled = true;
         }
 
         public IDbSet<Contato> Contatos { get; set; }
@@ -26,17 +27,19 @@ namespace B2BTecnology.Financeiro.DataBase
         public IDbSet<Contrato> Contratos { get; set; }
         public IDbSet<Pagamento> Pagamentos { get; set; }
         public IDbSet<Usuario> Usuarios { get; set; }
+        public IDbSet<EquipamentoContrato> EquipamentoContratos { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Configurations.Add(new ContatoMap());
             modelBuilder.Configurations.Add(new EnderecoMap());
-            modelBuilder.Configurations.Add(new EquipamentoMap());
             modelBuilder.Configurations.Add(new ClienteMap());
             modelBuilder.Configurations.Add(new VendedoresMap());
             modelBuilder.Configurations.Add(new ContratoMap());
             modelBuilder.Configurations.Add(new PagamentoMap());
             modelBuilder.Configurations.Add(new UsuarioMap());
+            modelBuilder.Configurations.Add(new EquipamentoMap());
+            modelBuilder.Configurations.Add(new EquipamentoContratoMap());
         }
     }
 }

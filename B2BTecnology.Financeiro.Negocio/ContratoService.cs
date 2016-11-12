@@ -48,11 +48,19 @@ namespace B2BTecnology.Financeiro.Negocio
                 ValorTarifaVc2 = contratoDto.ValorTarifaVc2,
                 ValorTarifaVc3 = contratoDto.ValorTarifaVc3,
                 VendedorId = contratoDto.VendedorId,
-                EquipamentoId = contratoDto.EquipamentoId,
+                //EquipamentoId = contratoDto.EquipamentoId == 0 ? null : contratoDto.EquipamentoId,
                 DiaVencimento = contratoDto.DiaVencimento,
                 DataContrato = (DateTime)contratoDto.DataContrato,
                 ClienteId = contratoDto.ClienteId,
-                CadenciaMovel = contratoDto.CadenciaMovel
+                CadenciaMovel = contratoDto.CadenciaMovel,
+                Did = contratoDto.Did,
+                AssinaturaDid = contratoDto.AssinaturaDid,
+                Valor0800 = contratoDto.Valor0800,
+                Assinatura0800 = contratoDto.Assinatura0800,
+                Valor0300 = contratoDto.Valor0300,
+                Assinatura0300 = contratoDto.Assinatura0300,
+                Valor4000 = contratoDto.Valor4000,
+                Assinatura4000 = contratoDto.Assinatura4000
             };
         }
 
@@ -69,11 +77,21 @@ namespace B2BTecnology.Financeiro.Negocio
             contrato.ValorTarifaVc2 = contratoDto.ValorTarifaVc2;
             contrato.ValorTarifaVc3 = contratoDto.ValorTarifaVc3;
             contrato.VendedorId = contratoDto.VendedorId;
-            contrato.EquipamentoId = contratoDto.EquipamentoId;
+            //contrato.EquipamentoId = contratoDto.EquipamentoId == 0 ? null : contratoDto.EquipamentoId;
             contrato.DiaVencimento = contratoDto.DiaVencimento;
             contrato.DataContrato = (DateTime) contratoDto.DataContrato;
             contrato.ClienteId = contratoDto.ClienteId;
             contrato.CadenciaMovel = contratoDto.CadenciaMovel;
+
+            contrato.Did = contratoDto.Did;
+            contrato.AssinaturaDid = contratoDto.AssinaturaDid;
+            contrato.Valor0800 = contratoDto.Valor0800;
+            contrato.Assinatura0800 = contratoDto.Assinatura0800;
+            contrato.Valor0300 = contratoDto.Valor0300;
+            contrato.Assinatura0300 = contratoDto.Assinatura0300;
+            contrato.Valor4000 = contratoDto.Valor4000;
+            contrato.Assinatura4000 = contratoDto.Assinatura4000;
+            
         }
 
         public ContratoDTO ContratoCliente(int clienteId)

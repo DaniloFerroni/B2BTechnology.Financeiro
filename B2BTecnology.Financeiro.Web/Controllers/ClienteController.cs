@@ -84,10 +84,9 @@ namespace B2BTecnology.Financeiro.Web.Controllers
         private void CarregarViewBag(ClienteDTO cliente)
         {
             var contratos = cliente.Contratos.FirstOrDefault();
-            var equipamentoId = contratos == null ? 0 : contratos.EquipamentoId;
             var vendedorId = contratos == null ? 0 : contratos.VendedorId;
 
-            CarregarViewBagEquipamentos(equipamentoId);
+            CarregarViewBagEquipamentos();
             CarregarViewBagVendedores(vendedorId);
         }
 
@@ -104,19 +103,16 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             }).ToList());
         }
 
-        private void CarregarViewBagEquipamentos(int? equipamentoId)
+        private void CarregarViewBagEquipamentos()
         {
             var equipamentosService = new EquipamentosService();
             var equipamentos = equipamentosService.Todos();
-
-
+            
             ViewBag.Equipamentos = SelectListItems(equipamentos.Select(e => new SelectListItem
             {
                 Value = e.IdEquipamento.ToString(),
-                Text = string.Format("{0}/{1}", e.Modelo, e.NumeroSerie),
-                Selected = equipamentoId == e.IdEquipamento
+                Text = string.Format("{0}/{1}", e.Modelo, e.NumeroSerie)
             }).ToList());
-
         }
 
         private List<SelectListItem> SelectListItems(List<SelectListItem> selectListItems)
@@ -125,7 +121,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             {
                 new SelectListItem
                 {
-                    Value = null,
+                    Value = "0",
                     Text = "Selecione"
                 }
             };

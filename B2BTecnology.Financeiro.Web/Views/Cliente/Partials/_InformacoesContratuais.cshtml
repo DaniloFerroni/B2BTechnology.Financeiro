@@ -21,17 +21,7 @@
         <div class="form-group col-md-6">
             <label class="control-label">Dia Vencimento: </label>
             <br />
-            <div class="radio-inline">
-                <input type="radio" name="vencimento" value="5" @((Model.DiaVencimento == 5 ||
-                                                                        Model.IdContrato == 0) ? "checked" : "") /> 5
-            </div>
-            <div class="radio-inline">
-                <input type="radio" name="vencimento" value="10" @((Model.DiaVencimento == 10) ? "checked" : "") /> 10
-            </div>
-            <div class="radio-inline">
-                <input type="radio" name="vencimento" value="15" @((Model.DiaVencimento == 15) ? "checked" : "") /> 15
-            </div>
-            <input type="hidden" id="DiaVencimento" name="Contratos[0].DiaVencimento" value="@Model.DiaVencimento" />
+            <input class="form-control inteiro" id="diavencimento" name="Contratos[0].DiaVencimento" type="text" value="@(Model.DiaVencimento == 0 ? "" : Model.DiaVencimento.ToString())" />
         </div>
     </div>
 </div>
@@ -68,8 +58,7 @@
             <label class="control-label">Prazo Contratual: </label>
             <br />
             <div class="radio-inline">
-                <input type="radio" name="prazocontratual" value="1" @((Model.PrazoContratual == Enumeradores.PrazoContratual.SeisMeses.GetHashCode() ||
-                                                                        Model.IdContrato == 0) ? "checked" : "") /> 6 Meses                
+                <input type="radio" name="prazocontratual" value="1" @((Model.PrazoContratual == Enumeradores.PrazoContratual.SeisMeses.GetHashCode() || Model.IdContrato == 0) ? "checked" : "") /> 6 Meses
             </div>
             <div class="radio-inline">
                 <input type="radio" name="prazocontratual" value="2" @((Model.PrazoContratual == Enumeradores.PrazoContratual.DozeMeses.GetHashCode()) ? "checked" : "") /> 12 Meses
@@ -118,6 +107,58 @@
     </div>
 </div>
 
+<div class="row">
+    <div class="col-lg-12 ">
+        @*<div class="form-group col-md-5">
+            <label>DID: </label>
+            <input class="form-control" id="Did" name="Contrato[0].Did" type="text" value="@Model.Did" />
+        </div>*@
+        <div class="form-group col-lg-5">
+            <label class="control-label">DID: </label>
+            <input class="form-control" id="txtDid" name="Contratos[0].Did" maxlength="4" type="text" value="@Model.Did" />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Assinatura: </label>
+            <input class="form-control numeral" id="AssinaturaDid" name="Contratos[0].AssinaturaDid" type="text" value="@(Model.AssinaturaDid == null ? "" : Model.AssinaturaDid.Value.ToString("N2"))" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>0800: </label>
+            <input class="form-control" id="Valor0800" name="Contratos[0].Valor0800" type="text" value="@Model.Valor0800" />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Assinatura: </label>
+            <input class="form-control numeral" id="Assinatura0800" name="Contratos[0].Assinatura0800" type="text" value="@(Model.Assinatura0800 == null ? "" : Model.Assinatura0800.Value.ToString("N2"))" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>0300: </label>
+            <input class="form-control" id="Valor0300" name="Contratos[0].Valor0300" type="text" value="@Model.Valor0300" />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Assinatura: </label>
+            <input class="form-control numeral" id="Assinatura0300" name="Contratos[0].Assinatura0300" type="text" value="@(Model.Assinatura0300 == null ? "" : Model.Assinatura0300.Value.ToString("N2"))" />
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>4000: </label>
+            <input class="form-control" id="Valor4000" name="Contratos[0].Valor4000" type="text" value="@Model.Valor4000" />
+        </div>
+        <div class="form-group col-md-6">
+            <label>Assinatura: </label>
+            <input class="form-control numeral" id="Assinatura4000" name="Contratos[0].Assinatura4000" type="text" value="@(Model.Assinatura4000 == null ? "" : Model.Assinatura4000.Value.ToString("N2"))" />
+        </div>
+    </div>
+</div>
 
 <div class="row">
     <div class="col-lg-12">
@@ -130,13 +171,59 @@
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-md-5">
-            <label>Equipamentos: </label>
-            @Html.DropDownList("Contratos[0].EquipamentoId", (IEnumerable<SelectListItem>)ViewBag.Equipamentos, new { @class = "form-control" })
-        </div>
-        <div class="form-group col-md-5">
             <label>Valor Instalação: </label>
             <input type="text" class="form-control numeral" name="Contratos[0].ValorInstalacao" value="@Model.ValorInstalacao.ToString("N2")">
         </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-5">
+            <label>Equipamentos: </label>
+            @Html.DropDownList("ddlEquipamento", (IEnumerable<SelectListItem>)ViewBag.Equipamentos, new { @class = "form-control" })
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <table  id="tblEquipamentos"class="table table-hover table-striped">
+            <thead>
+                <tr>
+                    <th style="width: 45%">
+                        Modelo
+                    </th>
+                    <th style="width: 45%">
+                        Série
+                    </th>
+                    <th style="width: 10%"></th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @for (int i = 0; i < (Model.EquipamentoContrato == null ? 0 : Model.EquipamentoContrato.Count); i++)
+                {
+                    var equipamentoContrato = Model.EquipamentoContrato[i];
+                    
+                    <tr id="@(equipamentoContrato.EquipamentoContratoId)">
+                        <td>
+                            @equipamentoContrato.Equipamento.Modelo
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].EquipamentoContratoId", i))" value="@(equipamentoContrato.EquipamentoContratoId)" />
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].ContratoId", i))" value="@(equipamentoContrato.ContratoId)" />
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].EquipamentoId", i))" value="@(equipamentoContrato.EquipamentoId)" />
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].Equipamento.Modelo", i))" value="@(equipamentoContrato.Equipamento.Modelo)" />
+                        </td>
+                        <td>
+                            @equipamentoContrato.Equipamento.NumeroSerie
+                            <input type="hidden" name="@(string.Format("Contratos[0].EquipamentoContrato[{0}].Equipamento.NumeroSerie", i))" value="@(equipamentoContrato.Equipamento.NumeroSerie)" />
+                        </td>
+                        <td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -156,3 +243,81 @@
         </div>
     </div>
 </div>
+@Html.Partial("Partials/_Confirmacao")
+<script>
+
+    $(function () {
+
+        ExcluirEquipamentos();
+
+
+        $("#ddlEquipamento").change(function() {
+
+            var contratoIdInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].ContratoId" value="' + @Model.IdContrato + '" />';
+            var equipamentoIdInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].EquipamentoId" value="' + $("#ddlEquipamento :selected").val() + '" />';
+            var modeloInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].Equipamento.Modelo" value="' + $("#ddlEquipamento :selected").text().split('/')[0] + '" />';
+            var numeroSerieInput = '<input type="hidden" name="Contratos[0].EquipamentoContrato[' + $("#tblEquipamentos tbody tr").length + '].Equipamento.NumeroSerie" value="' + $("#ddlEquipamento :selected").text().split('/')[1] + '" />';
+
+            var tr = '<tr id="row-' + $("#tblEquipamentos tbody tr").length + '"><td>' + $("#ddlEquipamento :selected").text().split('/')[0] + contratoIdInput + equipamentoIdInput + modeloInput + '</td><td>' + $("#ddlEquipamento :selected").text().split('/')[1] + numeroSerieInput + '</td><td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td></tr>';
+
+            $("#tblEquipamentos tbody").append(tr);
+
+            $("#ddlEquipamento").val("0");
+
+            ExcluirEquipamentos();
+
+        });
+
+
+
+    });
+
+    function ExcluirEquipamentos() {
+
+        $("#tblEquipamentos tbody tr td button").click(function() {
+
+            //var tr = $(this).closest("tr");
+            //$(tr).remove();
+
+            var tr = $(this).closest("tr").prop("id");
+            geral.ModalExluir('Excluir - Equipamento', tr, $($(this).closest('tr').find('td')[0]).text() + '/' + $($(this).closest('tr').find('td')[1]).text());
+
+
+
+        });
+
+        $("#deleteModal .modal-footer .btn-success").click(function () {
+
+            geral.ModalConfirmarExluisao();
+
+            $("#tblEquipamentos tbody tr").each(function (index) {
+
+                $(this).find("td input[type='hidden']").each(function () {
+
+                    //var name = "Contratos[0].EquipamentoContrato[" + index + "].";
+                    var name = "";
+
+                    for (var i = 0; i < $(this).prop("name").split(".").length; i++) {
+
+                        if (i > 1 && $(this).prop("name").split(".")[i] != "") {
+
+                            name += $(this).prop("name").split(".")[i];
+
+                            if (i < $(this).prop("name").split(".").length - 1)
+                                name += ".";
+
+                        }
+
+                    }
+
+                    $(this).prop("name", "Contratos[0].EquipamentoContrato[" + index + "]." + name);
+
+                });
+
+            });
+
+        });
+
+    }
+
+</script>

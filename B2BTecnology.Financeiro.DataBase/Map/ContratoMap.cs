@@ -29,6 +29,15 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(c => c.ValorTarifaVc3).HasColumnName("VL_TARIFA_VC3");
             Property(c => c.ValorMensalidade).HasColumnName("VL_MENSALIDADE");
 
+            Property(c => c.Did).HasColumnName("Vl_Did");
+            Property(c => c.AssinaturaDid).HasColumnName("Ds_AssinaturaDid");
+            Property(c => c.Valor0800).HasColumnName("Vl_0800");
+            Property(c => c.Assinatura0800).HasColumnName("Ds_Assinatura0800");
+            Property(c => c.Valor0300).HasColumnName("Vl_0300");
+            Property(c => c.Assinatura0300).HasColumnName("Ds_Assinatura0300");
+            Property(c => c.Valor4000).HasColumnName("Vl_4000");
+            Property(c => c.Assinatura4000).HasColumnName("Ds_Assinatura4000");
+
             HasRequired(c => c.Cliente)
                 .WithMany(c => c.Contratos)
                 .HasForeignKey(c => c.ClienteId);

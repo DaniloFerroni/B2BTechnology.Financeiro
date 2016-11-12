@@ -45,6 +45,7 @@
     <Compile Include="Contrato.cs" />
     <Compile Include="DadosComissao.cs" />
     <Compile Include="Endereco.cs" />
+    <Compile Include="EquipamentoContrato.cs" />
     <Compile Include="Equipamentos.cs" />
     <Compile Include="Equipes.cs" />
     <Compile Include="Pagamento.cs" />

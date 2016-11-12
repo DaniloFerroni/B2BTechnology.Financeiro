@@ -49,9 +49,17 @@
 
 @section actions{
         
-    <div class="actions">
-        <a class="hidden-print" style="margin-left: 10px" target="_blank" title="Download"><i class="fa fa-download">Gerar PDF</i></a>
-        <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
+    <div class="actions form-inline form-group" style="width: 250px">
+        @*<button id="lnkDownload" type="button" style="margin-top: 15px; margin-left: 15px;" class="btn btn-default"><i class="fa fa-download"></i> Gerar PDF</button>*@
+
+
+        <div id="divDownload" style="width: 150px">
+            <a id="lnkDownload" class="hidden-print" style="margin-left: 10px" target="_blank" title="Download"><i class="fa fa-download">Gerar PDF</i></a>
+        </div>
+        <div style="width: 100px; float: right">
+            <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
+
+        </div>
     </div>
 }
 
@@ -65,19 +73,23 @@
     <script>
 
         $(function () {
-
+            
             if ($("#ClienteId :selected").val() != 0)
                 gerarPdfUrl();
 
             ManterManterValorGasto();
             ExcluirPagamento();
             HiddenCheckValue();
+            SetValorAPgar();
+            ClinckIncluir();
+
             $("#ClienteId, #Mes").on("change", function () {
 
                 CarregarDetalhe();
-
                 gerarPdfUrl();
-                
+                SetValorAPgar();
+                HabilitarDownload();
+
             });
 
             $("#deleteModal .modal-footer .btn-success").click(function () {
@@ -86,13 +98,29 @@
 
                 AjusteNames();
 
+                HabilitarDownload();
+
+                ClinckIncluir();
+                ExcluirPagamento();
+
             });
 
-
+            HabilitarDownload();
+            
         });
 
+        function SetValorAPgar() {
+
+            $("#ValorGasto").focusout(function () {
+                
+                CompararConsumoMinimo();
+
+            });
+
+        }
+
         function gerarPdfUrl() {
-            $(".actions a").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
+            $("#lnkDownload").attr("href", "/Pagamento/BaixarArquivo?data=" + $("#Mes :selected").val() + "&clienteId=" + $("#ClienteId :selected").val() + "&nome=" + $("#ClienteId :selected").text());
         }
 
         function CarregarDetalhe() {
@@ -117,10 +145,12 @@
                 $("#detalhe").html(data);
                 ClinckIncluir();
                 geral.ConverterDecimal();
-                CompararConsumoMinimo();
                 ManterManterValorGasto();
                 ExcluirPagamento();
                 HiddenCheckValue();
+                HabilitarDownload();
+
+                SetValorAPgar();
 
             });
         }
@@ -139,26 +169,29 @@
         function ManterManterValorGasto() {
 
             $("#ManterValorGasto").change(function() {
-                var manterValorGasto = $("#ManterValorGasto").is(":checked");
-
-                if (manterValorGasto) {
-                    $("#ValorPago").text(numeral($("#ValorGasto").val()).format('0,0.00'));
-                } else {
-                    $("#ValorPago").text(numeral($("#ValorConsumoMinimo").text()).format('0,0.00'));
-                }
+                CompararConsumoMinimo();
             });
 
         }
 
         function CompararConsumoMinimo() {
+            
+            $.ajax({
 
-            $("#ValorGasto").keyup(function () {
+                type: "POST",
+                url: "/Pagamento/ReturnValorPagar",
+                data: {
 
-                if (numeral($(this).val()) > numeral($("#ValorConsumoMinimo").text())) {
-                    $("#ValorPago").text(numeral($(this).val()).format('0,0.00'));
-                } else {
-                    $("#ValorPago").text(numeral($("#ValorConsumoMinimo").text()).format('0,0.00'));
+                    idCliente: $("#ClienteId :selected").val(),
+                    manter: $("#ManterValorGasto").is(":checked"),
+                    valorGasto: $("#ValorGasto").val()
+
                 }
+
+            })
+            .done(function (data) {
+                    
+                $("#ValorPago").text(data);
 
             });
 
@@ -170,8 +203,25 @@
 
                 IncluirPagamento();
 
+                HabilitarDownload();
+
             });
 
+        }
+
+        function HabilitarDownload() {
+
+            gerarPdfUrl();
+            
+            var itensNaoSalvos = $("#tabelaPagamentos tbody tr").filter(function() {
+                return $($(this).find('td')[0]).text() == 0;
+            }).length;
+
+            if ($("#tabelaPagamentos tbody tr").length > 0 || itensNaoSalvos > 0)
+                $("#divDownload").show();
+            else 
+                $("#divDownload").hide();
+            
         }
 
         function IncluirPagamento() {
@@ -205,6 +255,7 @@
                 '</tr>';
 
             $("#tabelaPagamentos tbody").append(linha);
+            
             ExcluirPagamento();
 
         }
@@ -217,6 +268,8 @@
                 var nome = $($(this).closest('tr').find('td')[1]).text();
 
                 geral.ModalExluir('Excluir - Pagamento', id, nome);
+
+                HabilitarDownload();
 
             });
 
