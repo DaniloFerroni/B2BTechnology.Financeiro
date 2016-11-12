@@ -23,6 +23,18 @@ namespace B2BTecnology.Financeiro.Entidades
         public int VendedorId { get; set; }
         public decimal ValorMensalidade { get; set; }
 
+        public string Did { get; set; }
+        public decimal? AssinaturaDid { get; set; }
+
+        public string Valor0800 { get; set; }
+        public decimal? Assinatura0800 { get; set; }
+
+        public string Valor0300 { get; set; }
+        public decimal? Assinatura0300 { get; set; }
+
+        public string Valor4000 { get; set; }
+        public decimal? Assinatura4000 { get; set; }
+
         public virtual Cliente Cliente { get; set; }
         public virtual Equipamentos Equipamento { get; set; }
         public virtual Vendedores Vendedores { get; set; }
