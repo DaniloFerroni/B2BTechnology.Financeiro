@@ -19,7 +19,7 @@ namespace B2BTecnology.Financeiro.Negocio
             var pagamento = listaPagamento.FirstOrDefault();
             if (pagamento == null) return null;
 
-            const string caminho = @"C:\B2B Tecnology PDF";
+            const string caminho = @"C:\PDF";
             if (!Directory.Exists(caminho))
                 Directory.CreateDirectory(caminho);
 
