@@ -12,7 +12,7 @@
         </h1>
         <ol class="breadcrumb">
             <li>
-                <a href="/Home">B2B Tecnology</a>
+                <a href="/Home">Horus</a>
             </li>
             <li class="active">
                 <i class="fa fa-edit fa-fw"></i> Comissão
@@ -73,8 +73,8 @@
                     data: {
                         
                         data: $("#Meses").val(),
-                        vendedor: $("#Vendedor").val(),
-                        canal: $("#Canais").val()
+                        vendedor: $("#Vendedor").val() == "Selecione" ? 0 : $("#Vendedor").val(),
+                        canal: $("#Canais").val() == "Selecione" ? 0 : $("#Canais").val()
 
                     }
 
