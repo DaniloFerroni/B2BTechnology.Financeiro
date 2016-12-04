@@ -36,7 +36,12 @@ namespace B2BTecnology.Financeiro.Negocio
 
             var clientesDto = Mapper.Map<List<ClienteDTO>>(clientes);
 
-            clientes.ForEach(c => clientesDto.First(cl => cl.IdCliente == c.IdCliente).Contratos.First().NomeVendedor = c.Contratos.First().Vendedores.Nome);
+            clientes.ForEach(c =>
+            {
+                var contratoDto = clientesDto.First(cl => cl.IdCliente == c.IdCliente).Contratos.FirstOrDefault();
+                
+                if (contratoDto != null) contratoDto.NomeVendedor = c.Contratos.First().Vendedores.Nome;
+            });
 
             return clientesDto;
         }
