@@ -15,7 +15,7 @@ namespace B2BTecnology.Financeiro.Negocio
         protected readonly PagamentoRepository _pagamentoRepository = new PagamentoRepository();
         protected readonly VendedoresRepository _vendedoresRepository = new VendedoresRepository();
 
-        public virtual List<ComissaoDTO> ComissaoCanal(int? canal, DateTime mes, int vendedor)
+        public virtual List<ComissaoDTO> ComissaoCanal(int? canal, DateTime mes, int vendedor, decimal imposto)
         {
             return new List<ComissaoDTO>();
         }
@@ -41,10 +41,10 @@ namespace B2BTecnology.Financeiro.Negocio
             return vendedoresDto;
         }
 
-        public byte[] GerarArquivo<T>(List<T> pagamentos, string nome, DateTime mes, TipoPdf tipoPdf)
+        public byte[] GerarArquivo<T>(List<T> pagamentos, string nome, DateTime mes, TipoPdf tipoPdf, decimal imposto)
         {
             var arquivo = new Arquivo();
-            return arquivo.GerarPdf(pagamentos, nome, mes, tipoPdf);
+            return arquivo.GerarPdf(pagamentos, nome, mes, tipoPdf, imposto);
         }
 
     }

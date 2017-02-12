@@ -24,12 +24,14 @@ namespace B2BTecnology.Financeiro.Negocio
         public void Salvar(List<EquipamentosDTO> equipamentosAlterados)
         {
             var incluidos = equipamentosAlterados.Where(e => e.IdEquipamento == 0).ToList();
-            Incluir(incluidos);
 
             var equipamentos = _equipamentosRepository.GetAll();
+            equipamentosAlterados = equipamentosAlterados.Where(e => e.IdEquipamento != 0).ToList();
 
-            var excluidos = equipamentos.Where(atual => !equipamentosAlterados.Exists(e => e.IdEquipamento != 0 && e.IdEquipamento == atual.IdEquipamento)).ToList();
-            
+            var excluidos = equipamentos.Where(atual => !equipamentosAlterados.Exists(e => e.IdEquipamento == atual.IdEquipamento))
+                            .ToList();
+
+            Incluir(incluidos);
             Excluir(excluidos);
         }
 
@@ -40,7 +42,8 @@ namespace B2BTecnology.Financeiro.Negocio
                 IdEquipamento = e.IdEquipamento,
                 Marca = e.Marca,
                 Modelo = e.Modelo,
-                NumeroSerie = e.NumeroSerie
+                NumeroSerie = e.NumeroSerie,
+                NumeroSerieB2b = e.NumeroSerieB2b,
             }).ToList();
 
             _equipamentosRepository.Inserir(incluidos);

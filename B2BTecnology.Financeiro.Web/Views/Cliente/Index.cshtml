@@ -23,7 +23,7 @@
         </h1>
         <ol class="breadcrumb">
             <li>
-                <a href="/Home">B2B Tecnology</a>
+                <a href="/Home">B2B Technology</a>
             </li>
             <li class="active">
                 <i class="fa fa-dashboard fa-fw"></i> Cliente
@@ -32,7 +32,7 @@
     </div>
 </div>
 
-@Html.Partial("Error")
+@*@Html.Partial("Error")*@
 @Html.Partial("ErrorMessage")
 @Html.Partial("Success")
 <div class="row">
@@ -141,8 +141,65 @@
                 $("#TipoPessoa").val($(this).val());
 
             });
-            
+
+            $("input[assinatura]").keyup(function() {
+
+                $("input[name='ContratoAssinaturas." + $(this).prop("id") + "']").val($(this).val().replace(',', '.'));
+
+            });
+
+            $("#btnAssinatura").click(function() {
+
+                $.ajax({
+                    url: "/Cliente/AdicionarAssinatura",
+                    data: $("#tblListaAssinaturas :input").serialize() + "&" + $("#divParametersAssinatura :input").serialize(),
+                    type: "GET"
+                }).done(function(data) {
+
+                    $("#divContratoAssinaturas").html(data);
+                    ExcluirAssinatura();
+                    ZerarAssinatura();
+
+                });
+
+            });
+
+            ExcluirAssinatura();
+
         });
+
+        function ExcluirAssinatura() {
+            $("#tblListaAssinaturas tbody tr td button").click(function () {
+
+                $.ajax({
+                    url: "/Cliente/ExcluirAssinatura",
+                    data: $("#tblListaAssinaturas :input").serialize() + "&index=" + $(this).attr("data-index"),
+                    type: "GET"
+                }).done(function (data) {
+
+                    $("#divContratoAssinaturas").html(data);
+                    ExcluirAssinatura();
+                    ZerarAssinatura();
+                });
+
+            });
+        }
+
+        function ZerarAssinatura() {
+            
+            $("#txtDid").val("");
+            $("input[name='ContratoAssinaturas.AssinaturaDid']").val("");
+            $("#AssinaturaDid").val("");
+            $("#Valor0800").val("");
+            $("input[name='ContratoAssinaturas.Assinatura0800']").val("");
+            $("#Assinatura0800").val("");
+            $("#Valor0300").val("");
+            $("input[name='ContratoAssinaturas.Assinatura0300']").val("");
+            $("#Assinatura0300").val("");
+            $("#Valor4000").val("");
+            $("input[name='ContratoAssinaturas.Assinatura4000']").val("");
+            $("#Assinatura4000").val("");
+        }
 
     </script>
 

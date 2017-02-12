@@ -14,7 +14,7 @@ namespace B2BTecnology.Financeiro.Negocio
 {
     public class Arquivo
     {
-        public byte[] GerarPdf<T>(List<T> listaPagamento, string nome, DateTime dataMesPagamento, TipoPdf tipoPdf)
+        public byte[] GerarPdf<T>(List<T> listaPagamento, string nome, DateTime dataMesPagamento, TipoPdf tipoPdf, decimal imposto)
         {
             var pagamento = listaPagamento.FirstOrDefault();
             if (pagamento == null) return null;
@@ -38,10 +38,10 @@ namespace B2BTecnology.Financeiro.Negocio
             corpoEmail = corpoEmail.Replace("[tabela]", TipoPdf.Comissao == tipoPdf ? TabelaComissao() : TabelaPagamento());
             corpoEmail = corpoEmail.Replace("[canal]", nome);
             corpoEmail = corpoEmail.Replace("[body]", TipoPdf.Comissao == tipoPdf ?
-                                                        BodyTabelaComissao(listaPagamento.Cast<ComissaoDTO>().ToList()) :
+                                                        BodyTabelaComissao(listaPagamento.Cast<ComissaoDTO>().ToList(), imposto) :
                                                         BodyTabelaPagamento(listaPagamento.Cast<PagamentoDTO>().ToList()));
             corpoEmail = corpoEmail.Replace("[foot]", TipoPdf.Comissao == tipoPdf ?
-                                                        FooterTabelaComissao(listaPagamento.Cast<ComissaoDTO>().ToList()) :
+                                                        FooterTabelaComissao(listaPagamento.Cast<ComissaoDTO>().ToList(), imposto) :
                                                         FooterTabelaPagamento(listaPagamento.Cast<PagamentoDTO>().ToList()));
 
             var hw = new HTMLWorker(doc);
@@ -118,26 +118,38 @@ namespace B2BTecnology.Financeiro.Negocio
             return html.ToString();
         }
 
-        private static string BodyTabelaComissao(List<ComissaoDTO> listaPagamento)
+        private static string BodyTabelaComissao(List<ComissaoDTO> listaPagamento, decimal imposto)
         {
             var tbody = new StringBuilder();
             listaPagamento.ForEach(p =>
-            tbody.AppendFormat("<tr><td>{0}</th><td>{1}</th><td>{2}</th><td>{3}</th></tr>"
+            //tbody.AppendFormat("<tr><td>{0}</th><td>{1}</th><td>{2}</th><td>{3}</th></tr>"
+            //    , p.NomeCliente
+            //    , p.ValorPagar.ToString("C")
+            //    , (p.ValorPagar - (p.ValorPagar * (imposto/100))).ToString("C")
+            //    , p.Comissao.ToString("C")
+            //    ));
+
+            tbody.AppendFormat("<tr><td>{0}</th><td>{1}</th><td>{2}</th></tr>"
                 , p.NomeCliente
-                , p.ValorPagar.ToString("C")
-                , (p.ValorPagar - (p.ValorPagar * 0.06m)).ToString("C")
+                //, p.ValorPagar.ToString("C")
+                , (p.ValorPagar - (p.ValorPagar * (imposto / 100))).ToString("C")
                 , p.Comissao.ToString("C")
                 ));
 
             return tbody.ToString();
         }
 
-        private static string FooterTabelaComissao(List<ComissaoDTO> listaPagamento)
+        private static string FooterTabelaComissao(List<ComissaoDTO> listaPagamento, decimal imposto)
         {
-            return string.Format("<tr><td>{0}</th><td>{1}</th><td>{2}</th><td>{3}</th></tr>"
+            //return string.Format("<tr><td>{0}</th><td>{1}</th><td>{2}</th><td>{3}</th></tr>"
+            //    , "Total: "
+            //    , listaPagamento.Sum(p => p.ValorPagar).ToString("C")
+            //    , listaPagamento.Sum(p => p.ValorPagar - (p.ValorPagar * (imposto / 100))).ToString("C")
+            //    , listaPagamento.Sum(p => p.Comissao).ToString("C"));
+            return string.Format("<tr><td>{0}</th><td>{1}</th><td>{2}</th></tr>"
                 , "Total: "
-                , listaPagamento.Sum(p => p.ValorPagar).ToString("C")
-                , listaPagamento.Sum(p => p.ValorPagar - (p.ValorPagar * 0.06m)).ToString("C")
+                //, listaPagamento.Sum(p => p.ValorPagar).ToString("C")
+                , listaPagamento.Sum(p => p.ValorPagar - (p.ValorPagar * (imposto / 100))).ToString("C")
                 , listaPagamento.Sum(p => p.Comissao).ToString("C"));
         }
 
@@ -150,9 +162,9 @@ namespace B2BTecnology.Financeiro.Negocio
                 .AppendLine("<th style='width: 200px; text-align: center;'>")
                 .AppendLine("<b>Empresa</b>")
                 .AppendLine("</th>")
-                .AppendLine("<th style='width: 200px; text-align: center;'>")
-                .AppendLine("<b>Faturamento Bruto</b>")
-                .AppendLine("</th>")
+                //.AppendLine("<th style='width: 200px; text-align: center;'>")
+                //.AppendLine("<b>Faturamento Bruto</b>")
+                //.AppendLine("</th>")
                 .AppendLine("<th style='width: 200px; text-align: center;'>")
                 .AppendLine("<b>Faturamento Líquido</b>")
                 .AppendLine("</th>")

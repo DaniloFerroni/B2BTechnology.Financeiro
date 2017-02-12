@@ -59,16 +59,15 @@ namespace B2BTecnology.Financeiro.Negocio
             SalvarEndereco(cliente.Endereco, clienteExiste != null ? clienteExiste.Endereco : new Endereco());
 
             if (clienteExiste == null)
-            {
                 Inserir(cliente);
-                clienteExiste = new Cliente();
-            }
             else
                 Alterar(cliente, clienteExiste);
 
             var contratoDto = cliente.Contratos.First();
+            clienteExiste = _clienteRepository.GetCliente(cliente.Documento);
 
             SalvarEquipamentos(contratoDto.EquipamentoContrato, clienteExiste.Contratos.First().EquipamentoContrato, contratoDto.IdContrato);
+            SalvarAssinaturas(cliente.Contratos.First().ContratoAssinaturas, contratoDto.IdContrato);
         }
 
         private void Inserir(ClienteDTO clienteDto)
@@ -86,6 +85,7 @@ namespace B2BTecnology.Financeiro.Negocio
             var clienteAlteracao = ClienteAlteracao(clienteDto, cliente);
             _clienteRepository.Alterar(clienteAlteracao);
             var contrato = clienteDto.Contratos.First();
+            contrato.ClienteId = clienteAlteracao.IdCliente;
             SalvarContrato(contrato, cliente.Contratos.First());
         }
 
@@ -148,6 +148,30 @@ namespace B2BTecnology.Financeiro.Negocio
 
             equipamentoContratoRepository.Inserir(incluidos);
             equipamentoContratoRepository.Deletar(deletados);
+        }
+
+        private void SalvarAssinaturas(List<ContratoAssinaturaDTO> contratoAssinaturaDto, int contratoId)
+        {
+            contratoAssinaturaDto = contratoAssinaturaDto ?? new List<ContratoAssinaturaDTO>();
+
+            var contratoAssinaturaRepository = new ContratoAssinaturaRepository();
+            
+            var contratoAssinatura = contratoAssinaturaDto.Select(s => new ContratoAssinaturas
+            {
+                Assinatura0300 = s.Assinatura0300,
+                Valor0300 = s.Valor0300,
+                Assinatura0800 = s.Assinatura0800,
+                Valor0800 = s.Valor0800,
+                Assinatura4000 = s.Assinatura4000,
+                Valor4000 = s.Valor4000,
+                AssinaturaDid = s.AssinaturaDid,
+                Did = s.Did,
+                IdContrato = contratoId
+
+            }).ToList();
+
+            contratoAssinaturaRepository.Salvar(contratoAssinatura, contratoId);
+
         }
     }
 }

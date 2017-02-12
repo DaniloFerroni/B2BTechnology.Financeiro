@@ -8,6 +8,7 @@ namespace B2BTecnology.Financeiro.Entidades
         public string Marca { get; set; }
         public string Modelo { get; set; }
         public string NumeroSerie { get; set; }
+        public string NumeroSerieB2b { get; set; }
 
         public virtual List<Contrato> Contratos { get; set; }
         public virtual List<EquipamentoContrato> EquipamentoContrato { get; set; }

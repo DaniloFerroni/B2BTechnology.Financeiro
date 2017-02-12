@@ -28,6 +28,7 @@ namespace B2BTecnology.Financeiro.DataBase
         public IDbSet<Pagamento> Pagamentos { get; set; }
         public IDbSet<Usuario> Usuarios { get; set; }
         public IDbSet<EquipamentoContrato> EquipamentoContratos { get; set; }
+        public IDbSet<ContratoAssinaturas> ContratoAssinaturas { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -40,6 +41,7 @@ namespace B2BTecnology.Financeiro.DataBase
             modelBuilder.Configurations.Add(new UsuarioMap());
             modelBuilder.Configurations.Add(new EquipamentoMap());
             modelBuilder.Configurations.Add(new EquipamentoContratoMap());
+            modelBuilder.Configurations.Add(new ContratoAssinaturasMap());
         }
     }
 }

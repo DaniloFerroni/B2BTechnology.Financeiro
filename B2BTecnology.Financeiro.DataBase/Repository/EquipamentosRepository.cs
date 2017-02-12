@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,7 +25,13 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
         public void Excluir(List<Equipamentos> equipamentos)
         {
-            equipamentos.ForEach(e => DbSet.Remove(e));
+            equipamentos.ForEach(e =>
+            {
+                var entry = Context.Entry(e);
+                DbSet.Attach(e);
+                entry.State = EntityState.Deleted;
+                DbSet.Remove(e);
+            });
 
             Context.SaveChanges();
         }

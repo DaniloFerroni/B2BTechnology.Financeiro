@@ -24,10 +24,23 @@ namespace B2BTecnology.Financeiro.Web.Controllers
         [HttpPost]
         public ActionResult Salvar(List<EquipamentosDTO> equipamentos)
         {
-            _equipamentosService.Salvar(equipamentos);
+            try
+            {
+                _equipamentosService.Salvar(equipamentos);
 
-            TempData["success"] = true;
-            return RedirectToAction("Index");
+                TempData["success"] = "Salvo com sucesso!";
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                var message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+                if (ex.InnerException != null && ex.InnerException.InnerException != null && ex.InnerException.InnerException.Message.Contains("A instrução DELETE conflitou com a restrição do REFERENCE"))
+                    message = "Este equipamento não pode ser excluído pois esta alocado em algum cliente.";
+
+                TempData["ErrorMessage"] = message;
+                return RedirectToAction("Index");
+            }
+
         }
     }
 }

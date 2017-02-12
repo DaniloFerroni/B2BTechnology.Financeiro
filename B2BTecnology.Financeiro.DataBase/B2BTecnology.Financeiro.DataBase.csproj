@@ -51,6 +51,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Map\ContatoMap.cs" />
+    <Compile Include="Map\ContratoAssinaturasMap.cs" />
     <Compile Include="Map\ContratoMap.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -72,6 +73,7 @@
     <Compile Include="Repository\BaseRepository.cs" />
     <Compile Include="Repository\ClienteRepository.cs" />
     <Compile Include="Repository\ContatoRepository.cs" />
+    <Compile Include="Repository\ContratoAssinaturaRepository.cs" />
     <Compile Include="Repository\ContratoRepository.cs" />
     <Compile Include="Repository\EnderecoRepository.cs" />
     <Compile Include="Repository\EquipamentoContratoRepository.cs" />

@@ -49,17 +49,16 @@
 
 @section actions{
         
-    <div class="actions form-inline form-group" style="width: 250px">
+    <div class="actions" style="width: 250px">
         @*<button id="lnkDownload" type="button" style="margin-top: 15px; margin-left: 15px;" class="btn btn-default"><i class="fa fa-download"></i> Gerar PDF</button>*@
 
 
-        <div id="divDownload" style="width: 150px">
+        <div id="divDownload">
             <a id="lnkDownload" class="hidden-print" style="margin-left: 10px" target="_blank" title="Download"><i class="fa fa-download">Gerar PDF</i></a>
         </div>
-        <div style="width: 100px; float: right">
+        
             <input type="submit" id="Salvar" value="Salvar" class="btn btn-default" />
-
-        </div>
+        
     </div>
 }
 
@@ -218,9 +217,9 @@
             }).length;
 
             if ($("#tabelaPagamentos tbody tr").length > 0 || itensNaoSalvos > 0)
-                $("#divDownload").show();
+                $("#lnkDownload").removeAttr("disabled");
             else 
-                $("#divDownload").hide();
+                $("#lnkDownload").Attr("disabled", "disabled");
             
         }
 

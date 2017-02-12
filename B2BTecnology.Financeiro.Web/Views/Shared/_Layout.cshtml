@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - B2B Tecnology</title>
+    <title>@ViewBag.Title - B2B Technology</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link href="~/css/jquery-ui/jquery-ui.min.css" rel="stylesheet" />
@@ -51,14 +51,25 @@
                             </li>
                         </ul>
                     </li>
-                    <li>
+                    @*<li>
                         <a href="/Vendedores"><i class="fa fa-bar-chart-o fa-fw"></i> Vendedores</a>
+                    </li>*@
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#DropVendedores"><i class="fa fa-bar-chart-o fa-fw"></i> Vendedores <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="DropVendedores" class="collapse">
+                            <li>
+                                <a href="/Vendedores">Vendedores</a>
+                            </li>
+                            <li>
+                                <a href="/Vendedores/Listar"> Listar</a>
+                            </li>
+                        </ul>
                     </li>
                     <li>
                         <a href="/Equipamentos"><i class="fa fa-table fa-fw"></i> Equipamentos</a>
                     </li>
                     <li>
-                        <a href="/Pagamento"><i class="fa fa-wrench fa-fw"></i> Pagamentos</a>
+                        <a href="/Pagamento"><i class="fa fa-wrench fa-fw"></i> Faturamento</a>
                     </li>
                     <li>
                         <a href="/Comissao"><i class="fa fa-edit fa-fw"></i> Comissão</a>
