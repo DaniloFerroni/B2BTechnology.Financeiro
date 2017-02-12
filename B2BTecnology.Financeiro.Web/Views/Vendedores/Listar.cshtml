@@ -38,14 +38,17 @@
                 </tr>
                 </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                    @*@foreach (var item in Model)*@
+                        @for (int i = 0; i < Model.Count(); i++)
                         {
-                            <tr id="@item.Documento">
+                            <tr id="@Model.ToList()[i].Documento">
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Nome)
+                                    @Model.ToList()[i].Nome
+                                    @*@Html.DisplayFor(modelItem => item.Nome)*@
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Documento)
+                                    @Model.ToList()[i].Documento.DocumentoComMascara()
+                                    @*@Html.DisplayFor(modelItem => item.Documento.DocumentoComMascara())*@
                                 </td>
                             </tr>
                         }
