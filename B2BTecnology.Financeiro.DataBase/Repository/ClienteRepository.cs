@@ -27,6 +27,7 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
                 .Include("Contratos")
                 .Include("Contratos.EquipamentoContrato")
                 .Include("Contratos.EquipamentoContrato.Equipamentos")
+                .Include("Contratos.ContratoAssinaturas")
                 .FirstOrDefault(c => c.Documento == documento);
         }
 

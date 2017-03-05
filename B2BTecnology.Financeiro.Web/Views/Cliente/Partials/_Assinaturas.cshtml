@@ -1,0 +1,71 @@
+﻿@using B2BTecnology.Financeiro.DTO
+@model ContratoDTO
+
+<div id="divParametersAssinatura">
+    <div class="row">
+        <div class="col-lg-12 ">
+            @*<div class="form-group col-md-5">
+                    <label>DID: </label>
+                    <input class="form-control" id="Did" name="Contrato[0].Did" type="text" value="@Model.Did" />
+                </div>*@
+            <div class="form-group col-lg-5">
+                <label class="control-label">DID: </label>
+                <input class="form-control" id="txtDid" name="ContratoAssinaturas.Did" type="text"/>
+            </div>
+            <div class="form-group col-md-6">
+                <label>Assinatura: </label>
+                <input type="hidden" name="ContratoAssinaturas.AssinaturaDid" /> 
+                <input class="form-control numeral" id="AssinaturaDid" assinatura type="text"  />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label>0800: </label>
+                <input class="form-control" id="Valor0800" name="ContratoAssinaturas.Valor0800" type="text" />
+            </div>
+            <div class="form-group col-md-6">
+                <label>Assinatura: </label>
+                <input type="hidden" name="ContratoAssinaturas.Assinatura0800" /> 
+                <input class="form-control numeral" id="Assinatura0800" assinatura type="text" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label>0300: </label>
+                <input class="form-control" id="Valor0300" name="ContratoAssinaturas.Valor0300" type="text"  />
+            </div>
+            <div class="form-group col-md-6">
+                <label>Assinatura: </label>
+                <input type="hidden" name="ContratoAssinaturas.Assinatura0300" /> 
+                <input class="form-control numeral" id="Assinatura0300" assinatura type="text" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label>4000: </label>
+                <input class="form-control" id="Valor4000" name="ContratoAssinaturas.Valor4000" type="text" />
+            </div>
+            <div class="form-group col-md-6">
+                <label>Assinatura: </label>
+                <input type="hidden" name="ContratoAssinaturas.Assinatura4000" /> 
+                <input class="form-control numeral" id="Assinatura4000" assinatura type="text" />
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-1">
+                <button class="btn btn-default" id="btnAssinatura" type="button">Adicionar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="divContratoAssinaturas">
+    @Html.Partial("Partials/_ListaAssinaturas", @Model.ContratoAssinaturas ?? new List<ContratoAssinaturaDTO>())
+</div>

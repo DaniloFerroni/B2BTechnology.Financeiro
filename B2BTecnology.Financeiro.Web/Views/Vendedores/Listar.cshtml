@@ -1,0 +1,78 @@
+﻿@using B2BTecnology.Financeiro.Web.Extencion
+@model IEnumerable<B2BTecnology.Financeiro.DTO.VendedoresDTO>
+@{
+    ViewBag.Title = "Listar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">
+            Vendedores
+        </h1>
+        <ol class="breadcrumb">
+            <li>
+                <a href="/Home">B2B Technology</a>
+            </li>
+            <li class="active">
+                <i class="fa fa-bar-chart-o fa-fw"></i> Vendedores
+            </li>
+        </ol>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-12">
+            <div class="table-responsive">
+            <table id="tblVendedores" class="table table-hover table-striped hand">
+                <thead>
+                <tr>
+                    <th>
+                        Nome
+                    </th>
+                    <th>
+                        Documento
+                    </th>
+                </tr>
+                </thead>
+                    <tbody>
+                    @*@foreach (var item in Model)*@
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            <tr id="@Model.ToList()[i].Documento">
+                                <td>
+                                    @Model.ToList()[i].Nome
+                                    @*@Html.DisplayFor(modelItem => item.Nome)*@
+                                </td>
+                                <td>
+                                    @Model.ToList()[i].Documento.DocumentoComMascara()
+                                    @*@Html.DisplayFor(modelItem => item.Documento.DocumentoComMascara())*@
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts{
+
+    <script>
+
+        $(function() {
+
+            $("#tblVendedores tbody tr").dblclick(function () {
+
+                geral.Redirect("/Vendedores/Detalhe/" + $(this).attr("id"));
+
+            });
+
+        });
+
+    </script>
+
+}

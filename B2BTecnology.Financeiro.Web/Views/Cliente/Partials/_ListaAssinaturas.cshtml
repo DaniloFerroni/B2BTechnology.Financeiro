@@ -1,0 +1,68 @@
+﻿@model List<B2BTecnology.Financeiro.DTO.ContratoAssinaturaDTO>
+
+<div class="row">
+    <div class="col-lg-12 ">
+        <div class="form-group col-md-12">
+            <div class="table-responsive">
+                <table id="tblListaAssinaturas" class="table table-hover table-striped">
+                    <thead>
+                    <tr>
+                        <th>
+                            DID
+                        </th>
+                        <th>
+                            Assinatura DID
+                        </th>
+                        <th>
+                            0800
+                        </th>
+                        <th>
+                            Assinatura 0800
+                        </th>
+                        <th>
+                            0300
+                        </th>
+                        <th>
+                            Assinatura 0300
+                        </th>
+                        <th>
+                            4000
+                        </th>
+                        <th>
+                            Assinatura 4000
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.Count(); i++)
+                        {
+                            var assinatura = Model.ToList()[i];
+                            <tr id="@(string.Format("row-{0}", i))">
+                                <td>
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].IdContratoAssinatura", assinatura.IdContratoAssinatura)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].IdContrato", assinatura.IdContrato)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].Did", assinatura.Did)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].AssinaturaDid", assinatura.AssinaturaDid)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].Valor0800", assinatura.Valor0800)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].Assinatura0800", assinatura.Assinatura0800)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].Valor0300", assinatura.Valor0300)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].Assinatura0300", assinatura.Assinatura0300)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].Valor4000", assinatura.Valor4000)
+                                    @Html.Hidden("Contratos[0].ContratoAssinaturas[" + i + "].Assinatura4000", assinatura.Assinatura4000)
+                                    <label>@assinatura.Did</label>
+                                </td>
+                                <td><label>@assinatura.AssinaturaDid</label></td>
+                                <td><label>@assinatura.Valor0800</label></td>
+                                <td><label>@assinatura.Assinatura0800</label></td>
+                                <td><label>@assinatura.Valor0300</label></td>
+                                <td><label>@assinatura.Assinatura0300</label></td>
+                                <td><label>@assinatura.Valor4000</label></td>
+                                <td><label>@assinatura.Assinatura4000</label></td>
+                                <td><button class="btn btn-warning" type="button" data-index="@i" value=""><i class="fa fa-trash"> Excluir</i></button></td>
+                            </tr>
+                        }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

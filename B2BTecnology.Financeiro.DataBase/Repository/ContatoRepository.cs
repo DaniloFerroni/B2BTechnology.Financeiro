@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Data.Entity;
+using System.Linq;
 using B2BTecnology.Financeiro.Entidades;
 
 namespace B2BTecnology.Financeiro.DataBase.Repository
@@ -14,11 +15,13 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
         public void Alterar(Contato contato)
         {
-            //var contatoAtual = DbSet.First(c => c.IdContato == contato.IdContato);
-            contato.Celular = contato.Celular;
-            contato.Email = contato.Email;
-            contato.Telefone = contato.Telefone;
-            contato.Nome = contato.Nome;
+            var entry = Context.Entry(contato);
+            entry.State = EntityState.Modified;
+
+            entry.Property(p => p.Celular).IsModified = true;
+            entry.Property(p => p.Email).IsModified = true;
+            entry.Property(p => p.Telefone).IsModified = true;
+            entry.Property(p => p.Nome).IsModified = true;
             
             Context.SaveChanges();
         }
