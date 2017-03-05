@@ -55,6 +55,7 @@
     <Compile Include="Map\ContratoMap.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Map\DocumentoMap.cs" />
     <Compile Include="Map\EnderecoMap.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -75,6 +76,7 @@
     <Compile Include="Repository\ContatoRepository.cs" />
     <Compile Include="Repository\ContratoAssinaturaRepository.cs" />
     <Compile Include="Repository\ContratoRepository.cs" />
+    <Compile Include="Repository\DocumentoRepository.cs" />
     <Compile Include="Repository\EnderecoRepository.cs" />
     <Compile Include="Repository\EquipamentoContratoRepository.cs" />
     <Compile Include="Repository\EquipamentosRepository.cs" />

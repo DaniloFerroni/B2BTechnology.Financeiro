@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using B2BTecnology.Financeiro.DataBase.Repository;
 using B2BTecnology.Financeiro.DTO;
-using B2BTecnology.Financeiro.Entidades;
 using iTextSharp.text;
 using iTextSharp.text.html.simpleparser;
 using iTextSharp.text.pdf;
@@ -54,42 +54,8 @@ namespace B2BTecnology.Financeiro.Negocio
 
         private string CorpoEmail()
         {
-            var htmlText = new StringBuilder()
-                 .AppendLine("<html>")
-                 .AppendLine("<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />")
-                 .AppendLine("<head style='font-size: 8px;'>")
-                 .AppendLine("</head>")
-                 .AppendLine("<body style='font-size: 8px;'>")
-                 .AppendLine("<div>")
-                 .AppendLine("<div >")
-                 .AppendLine(@"<img src='http://assets.lwsite.com.br/uploads/widget_image/image/287/586/287586/topo_site.png' height='100px' width='520px' />")
-                 .AppendLine("</div>")
-                 .AppendLine("<div>")
-                 .AppendLine("<p>")
-                 .AppendLine("<b>")
-                 .AppendLine("B2B TECHNOLOGY SERVIÇOS DE TELECOMUNICAÇÕES<br/>")
-                 .AppendLine("CNPJ: 22.206.715/0001-38<br/>")
-                 .AppendLine("RUA AMPARO, 315/319 - Sala 33 – BAETA NEVES – 09751-350 – SÃO BERNARDO DO CAMPO<br/>")
-                 .AppendLine("E-mail: financeiro@b2btechnology.com.br<br/>")
-                 .AppendLine("</b>")
-                 .AppendLine("</p>")
-                 .AppendLine("</div>")
-                 .AppendLine("<br />")
-                 .AppendLine("<br />")
-                 .AppendLine("[InformacaoBody]")
-                 .AppendLine("<div style='border-top: 3px solid #000;'>")
-                 .AppendLine("</div>")
-                 .AppendLine("<br/>")
-                 .AppendLine("<br/>")
-                 .AppendLine("<br/>")
-                 .AppendLine("[tabela]")
-                 .AppendLine("<br/>")
-                 .AppendLine("Salientamos que neste momento não há necessidade de emissão de nota fiscal.")
-                 .AppendLine("</div>")
-                 .AppendLine("</body>")
-                 .AppendLine("</html>");
-
-            return htmlText.ToString();
+            var documentoRepository = new DocumentoRepository();
+            return documentoRepository.GetDocumento().Layout;
         }
 
         private static string InformacaoBodyComissao()
