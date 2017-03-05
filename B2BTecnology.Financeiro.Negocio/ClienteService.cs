@@ -98,7 +98,8 @@ namespace B2BTecnology.Financeiro.Negocio
                 Documento = clienteDto.Documento,
                 EnderecoId = clienteDto.Endereco.IdEndereco,
                 Nome = clienteDto.Nome,
-                TipoPessoa = clienteDto.TipoPessoa
+                TipoPessoa = clienteDto.TipoPessoa,
+                Apelido = clienteDto.Apelido
             };
         }
 
@@ -110,7 +111,8 @@ namespace B2BTecnology.Financeiro.Negocio
             cliente.EnderecoId = clienteDto.Endereco.IdEndereco;
             cliente.Nome = clienteDto.Nome;
             cliente.TipoPessoa = clienteDto.TipoPessoa;
-            
+            cliente.Apelido = clienteDto.Apelido;
+
             return cliente;
         }
 

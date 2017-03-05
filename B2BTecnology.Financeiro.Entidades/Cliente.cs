@@ -12,6 +12,7 @@ namespace B2BTecnology.Financeiro.Entidades
         public int EnderecoId { get; set; }
         public int ContatoId { get; set; }
         public bool Ativo { get; set; }
+        public string Apelido { get; set; }
 
         public virtual Endereco Endereco { get; set; }
         public virtual Contato Contato { get; set; }

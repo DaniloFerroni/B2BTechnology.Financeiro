@@ -35,7 +35,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
                 CarregarViewBag(cliente);
                 //if (!ModelState.IsValid)
                 var mensagem = ValidacaoCadastroCliente(cliente);
-                if (!string.IsNullOrEmpty(ValidacaoCadastroCliente(cliente)))
+                if (!string.IsNullOrEmpty(mensagem))
                 {
                     TempData["Error"] = false;
                     throw new Exception(mensagem);
@@ -46,15 +46,12 @@ namespace B2BTecnology.Financeiro.Web.Controllers
 
                 TempData["success"] = "Dados Salvos com Sucesso!";
 
-                return RedirectToAction("Detalhe", new { documento = cliente.Documento });
+                return RedirectToAction("Detalhe", new { documento = cliente.Documento.DocumentoSemMascara() });
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = ex.Message;
-                if (!string.IsNullOrEmpty(cliente.Documento))
-                    return RedirectToAction("Detalhe", new { documento = cliente.Documento });
-                else
-                    return View("Index", cliente);
+                return View("Index", cliente);
             }
         }
 
@@ -87,7 +84,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
                 if (cliente.Contratos == null || cliente.Contratos.First().DiaVencimento <= 0)
                     mensagem.AppendLine("- Dia do Vencimento é Obrigatório.");
 
-                if (cliente.Contratos == null || string.IsNullOrEmpty(cliente.Contratos.First().NomeVendedor))
+                if (cliente.Contratos == null || cliente.Contratos.First().VendedorId == 0)
                     mensagem.AppendLine("- Vendedor é obrigatório.");
             }
 
@@ -96,7 +93,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
 
         public ActionResult Listar()
         {
-            var clientes = _clienteService.Todos();
+            var clientes = _clienteService.Todos().OrderBy(c => c.Nome).ToList();
             return View(clientes);
         }
 

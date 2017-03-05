@@ -18,6 +18,7 @@ namespace B2BTecnology.Financeiro.DTO
         public int EnderecoId { get; set; }
         public int ContatoId { get; set; }
         public bool Ativo { get; set; }
+        public string Apelido { get; set; }
 
         public EnderecoDTO Endereco { get; set; }
         public ContatoDTO Contato { get; set; }
