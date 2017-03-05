@@ -320,6 +320,10 @@
     <Content Include="Views\Pagamento\Partials\Detalhe.cshtml" />
     <Content Include="Views\Shared\Partials\_Progress.cshtml" />
     <Content Include="Views\Autenticacao\Login.cshtml" />
+    <Content Include="Views\Cliente\Partials\_Assinaturas.cshtml" />
+    <Content Include="Views\Cliente\Partials\_ListaAssinaturas.cshtml" />
+    <Content Include="Views\Vendedores\Listar.cshtml" />
+    <Content Include="Views\Pagamento\Partials\_Listar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

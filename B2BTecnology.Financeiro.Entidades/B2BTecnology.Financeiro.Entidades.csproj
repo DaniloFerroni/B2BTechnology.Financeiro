@@ -43,6 +43,7 @@
     <Compile Include="Cliente.cs" />
     <Compile Include="Contato.cs" />
     <Compile Include="Contrato.cs" />
+    <Compile Include="ContratoAssinaturas.cs" />
     <Compile Include="DadosComissao.cs" />
     <Compile Include="Endereco.cs" />
     <Compile Include="EquipamentoContrato.cs" />

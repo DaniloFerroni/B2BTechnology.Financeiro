@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,6 +39,15 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
         public void Alterar(Vendedores vendedor)
         {
+            var entry = Context.Entry(vendedor);
+            entry.State = EntityState.Modified;
+
+            entry.Property(p => p.Nome).IsModified = true;
+            entry.Property(p => p.Documento).IsModified = true;
+            entry.Property(p => p.Comissao).IsModified = true;
+            entry.Property(p => p.TipoVendedor).IsModified = true;
+            entry.Property(p => p.SuperiorId).IsModified = true;
+
             Context.SaveChanges();
         }
     }

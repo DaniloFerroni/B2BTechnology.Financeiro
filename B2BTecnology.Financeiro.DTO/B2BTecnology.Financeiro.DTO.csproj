@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComissaoDTO.cs" />
+    <Compile Include="ContratoAssinaturaDTO.cs" />
     <Compile Include="ContratoDTO.cs" />
     <Compile Include="ClienteDTO.cs" />
     <Compile Include="ContatoDTO.cs" />

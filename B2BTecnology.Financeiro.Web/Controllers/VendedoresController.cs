@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 using B2BTecnology.Financeiro.DTO;
@@ -26,17 +27,28 @@ namespace B2BTecnology.Financeiro.Web.Controllers
 
         public ActionResult Salvar(VendedoresDTO vendedoresDto)
         {
-            TempData["Error"] = !ModelState.IsValid;
-            CarregarViewBag(vendedoresDto.SuperiorId);
-            if (!ModelState.IsValid)
+            try
+            {
+                TempData["Error"] = !ModelState.IsValid;
+                CarregarViewBag(vendedoresDto.SuperiorId);
+                if (!ModelState.IsValid)
+                    return View("Index", vendedoresDto);
+
+                vendedoresDto.Documento = vendedoresDto.Documento.DocumentoSemMascara();
+                _vendedoresService.Salvar(vendedoresDto);
+
+                TempData["success"] = "Dados Salvos com Sucesso!";
+
+                return RedirectToAction("Detalhe", new { documento = vendedoresDto.Documento });
+            }
+            catch (Exception ex)
+            {
+                var message = ex.InnerException == null ? ex.Message : ex.InnerException.Message;
+
+                TempData["ErrorMessage"] = message;
                 return View("Index", vendedoresDto);
+            }
 
-            vendedoresDto.Documento = vendedoresDto.Documento.DocumentoSemMascara();
-            _vendedoresService.Salvar(vendedoresDto);
-
-            TempData["success"] = "Dados Salvos com Sucesso!";
-
-            return RedirectToAction("Detalhe", new { documento = vendedoresDto.Documento });
         }
 
         [Route("Vendedores/Detalhe/{documento}")]
@@ -46,6 +58,14 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             CarregarViewBag(vendedorDto.SuperiorId);
 
             return View("Index", vendedorDto);
+        }
+
+        [Route("Vendedores/Listar")]
+        public ActionResult Listar()
+        {
+            var vendedoresDto = _vendedoresService.GetAll().OrderBy(v => v.Nome);
+
+            return View("Listar", vendedoresDto);
         }
 
         public JsonResult PesquisarClientesPorNome(string nome)

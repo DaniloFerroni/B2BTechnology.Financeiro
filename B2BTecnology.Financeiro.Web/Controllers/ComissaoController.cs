@@ -20,20 +20,20 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             return View(new List<ComissaoDTO>());
         }
 
-        public PartialViewResult Pesquisar(DateTime data, int vendedor, int? canal)
+        public PartialViewResult Pesquisar(DateTime data, int vendedor, int? canal, decimal? imposto)
         {
             var comissaoService = (ComissaoService)_financeiro;
-            var comissaoDto = comissaoService.ComissaoCanal(canal, data, vendedor);
+            var comissaoDto = comissaoService.ComissaoCanal(canal, data, vendedor, imposto ?? 0);
 
             return PartialView("Partials/_Comissoes", comissaoDto);
         }
 
-        public FileResult BaixarArquivo(DateTime data, int vendedor, int? canal)
+        public FileResult BaixarArquivo(DateTime data, int vendedor, int? canal, decimal? imposto)
         {
             var comissaoService = (ComissaoService)_financeiro;
-            var comissaoDto = comissaoService.ComissaoCanal(canal, data, vendedor);
+            var comissaoDto = comissaoService.ComissaoCanal(canal, data, vendedor, imposto ?? 0);
             var nome = _financeiro.Vendedores().First(v => v.IdVendedor == (canal ?? vendedor)).Nome;
-            byte[] filedata = _financeiro.GerarArquivo(comissaoDto, nome, data, Enumeradores.TipoPdf.Comissao);
+            byte[] filedata = _financeiro.GerarArquivo(comissaoDto, nome, data, Enumeradores.TipoPdf.Comissao, imposto ?? 0);
             return File(filedata, System.Net.Mime.MediaTypeNames.Application.Octet, string.Format("{0}_{1}.pdf", nome, data.ToString("y")));
         }
 
@@ -97,7 +97,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
                     new SelectListItem
                     {
                         Value = mesSelecionado.ToString("yyyy-MM-dd"),
-                        Text = mesSelecionado.ToString("y"),
+                        Text = (mesSelecionado.ToString("y")).Substring(0, 1).ToUpper() + (mesSelecionado.ToString("y")).Substring(1, mesSelecionado.ToString("y").Length - 1),
                         Selected = mesSelecionado.ToString("dd/MM/yyyy") == DateTime.Now.ToString("dd/MM/yyyy")
                     });
             }

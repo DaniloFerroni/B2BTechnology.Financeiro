@@ -34,14 +34,14 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             entry.Property(p => p.DataContrato).IsModified = true;
             entry.Property(p => p.ClienteId).IsModified = true;
             entry.Property(p => p.CadenciaMovel).IsModified = true;
-            entry.Property(p => p.Did).IsModified = true;
-            entry.Property(p => p.AssinaturaDid).IsModified = true;
-            entry.Property(p => p.Valor0800).IsModified = true;
-            entry.Property(p => p.Assinatura0800).IsModified = true;
-            entry.Property(p => p.Valor0300).IsModified = true;
-            entry.Property(p => p.Assinatura0300).IsModified = true;
-            entry.Property(p => p.Valor4000).IsModified = true;
-            entry.Property(p => p.Assinatura4000).IsModified = true;
+            //entry.Property(p => p.Did).IsModified = true;
+            //entry.Property(p => p.AssinaturaDid).IsModified = true;
+            //entry.Property(p => p.Valor0800).IsModified = true;
+            //entry.Property(p => p.Assinatura0800).IsModified = true;
+            //entry.Property(p => p.Valor0300).IsModified = true;
+            //entry.Property(p => p.Assinatura0300).IsModified = true;
+            //entry.Property(p => p.Valor4000).IsModified = true;
+            //entry.Property(p => p.Assinatura4000).IsModified = true;
 
             Context.SaveChanges();
         }

@@ -15,6 +15,7 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(e => e.Marca).HasMaxLength(200).HasColumnName("MARCA");
             Property(e => e.Modelo).HasMaxLength(200).HasColumnName("MODELO");
             Property(e => e.NumeroSerie).HasMaxLength(200).HasColumnName("NUMERO_SERIE");
+            Property(e => e.NumeroSerieB2b).HasMaxLength(200).HasColumnName("NUMERO_SERIE_B2B");
         }
     }
 }
