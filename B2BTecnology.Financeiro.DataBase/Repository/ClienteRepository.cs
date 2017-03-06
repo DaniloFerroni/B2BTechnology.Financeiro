@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using B2BTecnology.Financeiro.Entidades;
 
@@ -14,8 +15,36 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
         public void Alterar(Cliente cliente)
         {
-            
+            var entry = Context.Entry(cliente);
+            entry.State = EntityState.Modified;
+
+            entry.Property(p => p.Nome).IsModified = true;
+            entry.Property(p => p.TipoPessoa).IsModified = true;
+            entry.Property(p => p.Apelido).IsModified = true;
+
             Context.SaveChanges();
+        }
+
+        public void Excluir(int idCliente)
+        {
+            LazyLoadingEnabled();
+            var cliente = DbSet
+                            .Include("Contato")
+                            .Include("Endereco")
+                            .First(c => c.IdCliente == idCliente);
+
+            var endereco = cliente.Endereco;
+            var contato = cliente.Contato;
+
+            var entry = Context.Entry(cliente);
+            entry.State = EntityState.Deleted;
+            Context.SaveChanges();
+
+            var enderecoRepository = new EnderecoRepository();
+            if (endereco != null) enderecoRepository.Excluir(endereco);
+
+            var contatoRepository = new ContatoRepository();
+            if (contato != null) contatoRepository.Excluir(contato);
         }
 
         public Cliente GetCliente(string documento)

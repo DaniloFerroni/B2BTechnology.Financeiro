@@ -42,6 +42,8 @@ namespace B2BTecnology.Financeiro.DataBase
             modelBuilder.Configurations.Add(new UsuarioMap());
             modelBuilder.Configurations.Add(new EquipamentoMap());
             modelBuilder.Configurations.Add(new EquipamentoContratoMap());
+            modelBuilder.Configurations.Add(new ContratoAssinaturasMap());
+            modelBuilder.Configurations.Add(new DocumentoMap());
         }
     }
 }

@@ -20,44 +20,49 @@
         </ol>
     </div>
 </div>
-
+@*@Html.Partial("Error")*@
+@Html.Partial("ErrorMessage")
 
 <div class="row">
     <div class="col-lg-12 ">
         <div class="form-group col-md-12">
             <div class="table-responsive">
-            <table id="tblVendedores" class="table table-hover table-striped hand">
-                <thead>
-                <tr>
-                    <th>
-                        Nome
-                    </th>
-                    <th>
-                        Documento
-                    </th>
-                </tr>
-                </thead>
+                <table id="tblVendedores" class="table table-hover table-striped hand">
+                    <thead>
+                    <tr>
+                        <th>
+                            Nome
+                        </th>
+                        <th>
+                            Documento
+                        </th>
+                        <th style="width: 10%"></th>
+                    </tr>
+                    </thead>
                     <tbody>
                     @*@foreach (var item in Model)*@
-                        @for (int i = 0; i < Model.Count(); i++)
-                        {
-                            <tr id="@Model.ToList()[i].Documento">
-                                <td>
-                                    @Model.ToList()[i].Nome
-                                    @*@Html.DisplayFor(modelItem => item.Nome)*@
-                                </td>
-                                <td>
-                                    @Model.ToList()[i].Documento.DocumentoComMascara()
-                                    @*@Html.DisplayFor(modelItem => item.Documento.DocumentoComMascara())*@
-                                </td>
-                            </tr>
-                        }
+                    @for (int i = 0; i < Model.Count(); i++)
+                    {
+                        var vendendor = Model.ToList()[i];
+                        <tr id="@vendendor.IdVendedor">
+                            <td name>
+                                @vendendor.Nome
+                                @*@Html.DisplayFor(modelItem => item.Nome)*@
+                            </td>
+                            <td documento="@vendendor.Documento">
+                                @vendendor.Documento.DocumentoComMascara()
+                                @*@Html.DisplayFor(modelItem => item.Documento.DocumentoComMascara())*@
+                            </td>
+                            <td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+@Html.Partial("Partials/_Confirmacao")
 
 @section scripts{
 
@@ -67,11 +72,45 @@
 
             $("#tblVendedores tbody tr").dblclick(function () {
 
-                geral.Redirect("/Vendedores/Detalhe/" + $(this).attr("id"));
+                geral.Redirect("/Vendedores/Detalhe/" + $(this).find("td[documento]").attr("documento"));
+
+            });
+
+
+            $("#deleteModal .modal-footer .btn-success").click(function () {
+
+                $.ajax({
+
+                    url: "/Vendedores/Excluir/",
+                    data: {
+                        idVendedor: $('#deleteModal .modal-body input[type=hidden]').val()
+                    },
+                    type: "post"
+
+                })
+                .done(function () {
+
+                    geral.Redirect("/Vendedores/Listar");
+
+                })
+                ;
+
+            });
+
+            $("table tbody tr td button").each(function () {
+
+                $(this).click(function () {
+                    var id = $(this).closest('tr').attr('id');
+                    var nome = $($(this).closest('tr').find('td[name]')).text();
+                    geral.ModalExluir('Excluir - Vendedor', id, nome);
+
+                });
 
             });
 
         });
+
+
 
     </script>
 

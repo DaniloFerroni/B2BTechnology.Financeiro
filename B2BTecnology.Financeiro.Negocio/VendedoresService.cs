@@ -109,5 +109,10 @@ namespace B2BTecnology.Financeiro.Negocio
             DadosPessoais<EnderecoDTO, Endereco> enderecoService = new EnderecoService();
             enderecoService.Salvar(enderecoDto, atual);
         }
+
+        public void Excluir(int idVendedor)
+        {
+            _vendedoresRepository.Excluir(idVendedor);
+        }
     }
 }

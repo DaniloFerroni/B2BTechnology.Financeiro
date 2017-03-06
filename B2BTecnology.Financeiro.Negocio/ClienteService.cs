@@ -175,5 +175,10 @@ namespace B2BTecnology.Financeiro.Negocio
             contratoAssinaturaRepository.Salvar(contratoAssinatura, contratoId);
 
         }
+
+        public void Excluir(int idCliente)
+        {
+            _clienteRepository.Excluir(idCliente);
+        }
     }
 }

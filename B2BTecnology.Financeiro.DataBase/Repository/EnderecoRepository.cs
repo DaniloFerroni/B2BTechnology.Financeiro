@@ -27,5 +27,15 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
             Context.SaveChanges();
         }
+
+        public void Excluir(Endereco endereco)
+        {
+            endereco.Clientes = null;
+            endereco.Vendedores = null;
+            var entry = Context.Entry(endereco);
+            entry.State = EntityState.Deleted;
+
+            Context.SaveChanges();
+        }
     }
 }

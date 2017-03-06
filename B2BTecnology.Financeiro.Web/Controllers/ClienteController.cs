@@ -105,6 +105,11 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             return View("Index", CarregarClientes(cliente));
         }
 
+        public void Excluir(int idCliente)
+        {
+            _clienteService.Excluir(idCliente);
+        }
+
         public PartialViewResult AdicionarAssinatura(ClienteDTO cliente, ContratoAssinaturaDTO contratoAssinaturas)
         {
             var listAssinaturas = new List<ContratoAssinaturaDTO>();

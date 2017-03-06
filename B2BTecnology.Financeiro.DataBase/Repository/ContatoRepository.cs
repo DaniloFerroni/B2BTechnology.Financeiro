@@ -25,5 +25,13 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             
             Context.SaveChanges();
         }
+
+        public void Excluir(Contato contato)
+        {
+            var entry = Context.Entry(contato);
+            entry.State = EntityState.Deleted;
+
+            Context.SaveChanges();
+        }
     }
 }

@@ -50,5 +50,27 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 
             Context.SaveChanges();
         }
+
+        public void Excluir(int idVendedor)
+        {
+            LazyLoadingEnabled();
+            var vendedor = DbSet
+                            .Include("Contato")
+                            .Include("Endereco")
+                            .First(c => c.IdVendedor == idVendedor);
+
+            var endereco = vendedor.Endereco;
+            var contato = vendedor.Contato;
+
+            var entry = Context.Entry(vendedor);
+            entry.State = EntityState.Deleted;
+            Context.SaveChanges();
+
+            var enderecoRepository = new EnderecoRepository();
+            if (endereco != null) enderecoRepository.Excluir(endereco);
+
+            var contatoRepository = new ContatoRepository();
+            if (contato != null) contatoRepository.Excluir(contato);
+        }
     }
 }

@@ -68,6 +68,20 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             return View("Listar", vendedoresDto);
         }
 
+        public void Excluir(int idVendedor)
+        {
+            try
+            {
+                _vendedoresService.Excluir(idVendedor);
+            }
+            catch (Exception)
+            {
+                TempData["ErrorMessage"] = "Vendedor com contratos atívos não podem ser excluído";
+            }
+
+            //RedirectToAction("Listar");
+        }
+
         public JsonResult PesquisarClientesPorNome(string nome)
         {
             var clientes = _vendedoresService.VendedoresPorNome(nome);

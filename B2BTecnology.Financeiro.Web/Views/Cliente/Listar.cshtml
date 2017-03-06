@@ -29,21 +29,23 @@
                 <table id="tabelaEquipamentos" class="table table-hover table-striped hand">
                     <thead>
                         <tr>
-                            <th style="width: 15%">Código Cliente</th>
+                            <th style="width: 5%">Código</th>
                             <th style="width: 30%">Nome Cliente</th>
                             <th style="width: 25%">CNPJ/CPF</th>
                             <th style="width: 30%">Nome Vendedor</th>
+                            <th style="width: 10%"></th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (int i = 0; i < Model.Count(); i++)
                         {
                             var cliente = Model.ToList()[i];
-                            <tr id="@cliente.Documento">
+                            <tr id="@cliente.IdCliente">
                                 <td><label>@cliente.IdCliente</label></td>
-                                <td><label>@cliente.Nome</label></td>
-                                <td><label>@cliente.Documento.DocumentoComMascara()</label></td>
+                                <td name><label>@cliente.Nome</label></td>
+                                <td documento="@cliente.Documento"><label>@cliente.Documento.DocumentoComMascara()</label></td>
                                 <td><label>@(cliente.Contratos.Any() ? cliente.Contratos.First().NomeVendedor : "")</label></td>
+                                <td><button class="btn btn-warning" type="button" value="" ><i class="fa fa-trash"> Excluir</i></button></td>
                             </tr>
                         }
                     </tbody>
@@ -52,7 +54,7 @@
         </div>
     </div>
 </div>
-
+@Html.Partial("Partials/_Confirmacao")
 
 @section scripts{
     
@@ -62,7 +64,37 @@
 
             $("#tabelaEquipamentos tbody tr").dblclick(function() {
                 
-                geral.Redirect("/Cliente/Detalhe/" + $(this).attr("id"));
+                geral.Redirect("/Cliente/Detalhe/" + $(this).find("td[documento]").attr("documento"));
+
+            });
+
+            $("#deleteModal .modal-footer .btn-success").click(function () {
+
+                $.ajax({
+                
+                    url: "/Cliente/Excluir/",
+                    data: {
+                        idCliente: $('#deleteModal .modal-body input[type=hidden]').val()
+                    },
+                    type: "post"
+
+                })
+                .done(function() {
+                    
+                    geral.Redirect("/Cliente/Listar");
+
+                });
+
+            });
+
+            $("table tbody tr td button").each(function() {
+
+                $(this).click(function() {
+                    var id = $(this).closest('tr').attr('id');
+                    var nome = $($(this).closest('tr').find('td[name]')).text();
+                    geral.ModalExluir('Excluir - Cliente', id, nome);
+
+                });
 
             });
 
