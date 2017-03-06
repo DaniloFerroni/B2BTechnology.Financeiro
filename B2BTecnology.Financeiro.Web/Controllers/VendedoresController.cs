@@ -73,6 +73,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             try
             {
                 _vendedoresService.Excluir(idVendedor);
+                TempData["success"] = "Excluido com Sucesso!";
             }
             catch (Exception)
             {

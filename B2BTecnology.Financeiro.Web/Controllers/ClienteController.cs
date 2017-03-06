@@ -107,7 +107,15 @@ namespace B2BTecnology.Financeiro.Web.Controllers
 
         public void Excluir(int idCliente)
         {
-            _clienteService.Excluir(idCliente);
+            try
+            {
+                _clienteService.Excluir(idCliente);
+                TempData["success"] = "Excluido com Sucesso!";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+            }
         }
 
         public PartialViewResult AdicionarAssinatura(ClienteDTO cliente, ContratoAssinaturaDTO contratoAssinaturas)
