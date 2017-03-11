@@ -9,6 +9,7 @@ namespace B2BTecnology.Financeiro.Entidades
         public string Email { get; set; }
         public string Telefone { get; set; }
         public string Celular { get; set; }
+        public int IdTipoContato { get; set; }
 
         public virtual List<Cliente> Clientes { get; set; }
         public virtual List<Vendedores> Vendedores { get; set; }

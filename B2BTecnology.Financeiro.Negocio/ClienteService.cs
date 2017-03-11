@@ -54,8 +54,9 @@ namespace B2BTecnology.Financeiro.Negocio
         public void Salvar(ClienteDTO cliente)
         {
             var clienteExiste = _clienteRepository.GetCliente(cliente.Documento);
+            var clientesDto = Mapper.Map<ClienteDTO>(clienteExiste);
 
-            SalvarContato(cliente.Contato, clienteExiste != null ? clienteExiste.Contato : new Contato());
+            //SalvarContato(cliente.Contatos, clientesDto.Contatos);
             SalvarEndereco(cliente.Endereco, clienteExiste != null ? clienteExiste.Endereco : new Endereco());
 
             if (clienteExiste == null)
@@ -94,7 +95,7 @@ namespace B2BTecnology.Financeiro.Negocio
             return new Cliente
             {
                 Ativo = clienteDto.Ativo,
-                ContatoId = clienteDto.Contato.IdContato,
+                //ContatoId = clienteDto.Contato.IdContato,
                 Documento = clienteDto.Documento,
                 EnderecoId = clienteDto.Endereco.IdEndereco,
                 Nome = clienteDto.Nome,
@@ -106,7 +107,7 @@ namespace B2BTecnology.Financeiro.Negocio
         private Cliente ClienteAlteracao(ClienteDTO clienteDto, Cliente cliente)
         {
             cliente.Ativo = clienteDto.Ativo;
-            cliente.ContatoId = clienteDto.Contato.IdContato;
+            //cliente.ContatoId = clienteDto.Contato.IdContato;
             cliente.Documento = clienteDto.Documento;
             cliente.EnderecoId = clienteDto.Endereco.IdEndereco;
             cliente.Nome = clienteDto.Nome;
@@ -122,11 +123,11 @@ namespace B2BTecnology.Financeiro.Negocio
             contratoRepository.Salvar(contratoDto, contrato);
         }
 
-        private void SalvarContato(ContatoDTO contatoDto, Contato atual)
-        {
-            DadosPessoais<ContatoDTO, Contato> contatoService = new ContatoService();
-            contatoService.Salvar(contatoDto, atual);
-        }
+        //private void SalvarContato(List<ContatoDTO> contatoDto, List<ContatoDTO> atual)
+        //{
+            
+        //    contatoService.Salvar(contatoDto, atual);
+        //}
 
         private void SalvarEndereco(EnderecoDTO enderecoDto, Endereco atual)
         {

@@ -65,14 +65,11 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             if (string.IsNullOrEmpty(cliente.Nome))
                 mensagem.AppendLine("- Digite o Nome do Cliente.");
 
-            if (cliente.Contato == null || string.IsNullOrEmpty(cliente.Contato.Nome))
-                mensagem.AppendLine("- Digite o Nome do Contato.");
+            //if (cliente.Contato == null || string.IsNullOrEmpty(cliente.Contato.Nome))
+            //    mensagem.AppendLine("- Digite o Nome do Contato.");
 
-            if (cliente.Contato == null || string.IsNullOrEmpty(cliente.Contato.Nome))
-                mensagem.AppendLine("- Digite o E-mail do Contato.");
-
-            if (cliente.Contato == null || string.IsNullOrEmpty(cliente.Contato.Nome))
-                mensagem.AppendLine("- Digite o E-mail do Contato.");
+            //if (cliente.Contato == null || string.IsNullOrEmpty(cliente.Contato.Nome))
+            //    mensagem.AppendLine("- Digite o E-mail do Contato.");
 
             if (cliente.Contratos == null || !cliente.Contratos.Any())
             {
@@ -136,6 +133,20 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             return PartialView("Partials/_ListaAssinaturas", contratoAssinaturas);
         }
 
+        public PartialViewResult AdicionarContato(ClienteDTO cliente, ContatoDTO contato)
+        {
+            cliente.Contatos = cliente.Contatos ?? new List<ContatoDTO>();
+            cliente.Contatos.Add(contato);
+
+            return PartialView("Partials/_ListaContato", cliente.Contatos);
+        }
+
+        public PartialViewResult ExcluirContato(ClienteDTO cliente, int index)
+        {
+            cliente.Contatos.RemoveAt(index);
+
+            return PartialView("Partials/_ListaContato", cliente.Contatos);
+        }
 
         public JsonResult PesquisarClientesPorNome(string nome)
         {
@@ -152,7 +163,7 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             {
                 Endereco = new EnderecoDTO(),
                 Contratos = new List<ContratoDTO>(),
-                Contato = new ContatoDTO(),
+                Contatos = new List<ContatoDTO>(),
                 Equipamento = new EquipamentosDTO()
             };
         }

@@ -86,7 +86,7 @@
 </div>
 
 @Html.Partial("Partials/_Endereco", Model.Endereco)
-@Html.Partial("Partials/_Contato", Model.Contato)
+@Html.Partial("Partials/_Contato", Model.Contatos ?? new List<ContatoDTO>())
 @Html.Partial("Partials/_InformacoesContratuais", Model.Contratos.FirstOrDefault() ?? new ContratoDTO())
 
 
@@ -155,7 +155,7 @@
 
                 $("input[name='ContratoAssinaturas." + $(this).prop("id") + "']").val($(this).val().replace(',', '.'));
 
-        });
+             });
 
             $("#btnAssinatura").click(function() {
 
@@ -174,8 +174,52 @@
             });
 
             ExcluirAssinatura();
+            ExcluirContato();
+
+            $("#btnContato").click(function () {
+
+                if ($("#idTipoContato :selected").val() == "0" ||
+                    $("#NomeContato").val() == "" ||
+                    $("#Email").val() == "") return;
+
+                $.ajax({
+                    url: "/Cliente/AdicionarContato/",
+                    data: $("form").serialize() + "&" + $("#tabContato :input, #tabContato select selected").serialize(),
+                    type: "GET"
+                }).done(function (data) {
+
+                    $("#divListaContato").html(data);
+                    ExcluirContato();
+
+                });
+
+            });
+
+
 
         });
+
+        function ExcluirContato() {
+            
+            $("#tblListaAssinaturas tbody tr td button").each(function () {
+
+                $(this).click(function () {
+                    
+                    $.ajax({
+                        url: "/Cliente/ExcluirContato/",
+                        data: $("form").serialize() + "&index=" + $(this).attr("data-index"),
+                        type: "GET"
+                    }).done(function (data) {
+
+                        $("#divListaContato").html(data);
+                        ExcluirContato();
+
+                    });
+
+                });
+
+            });
+        }
 
         function ExcluirAssinatura() {
             $("#tblListaAssinaturas tbody tr td button").click(function () {

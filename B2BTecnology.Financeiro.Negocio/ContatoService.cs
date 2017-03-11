@@ -45,7 +45,7 @@ namespace B2BTecnology.Financeiro.Negocio
             {
                 Celular = contatoDto.Celular,
                 Email = contatoDto.Email,
-                Nome = contatoDto.Nome,
+                Nome = contatoDto.NomeContato,
                 Telefone = contatoDto.Telefone,
             };
         }
@@ -54,7 +54,7 @@ namespace B2BTecnology.Financeiro.Negocio
         {
             contatoAtual.Celular = contatoDto.Celular;
             contatoAtual.Email = contatoDto.Email;
-            contatoAtual.Nome = contatoDto.Nome;
+            contatoAtual.Nome = contatoDto.NomeContato;
             contatoAtual.Telefone = contatoDto.Telefone;
         }
     }

@@ -1,4 +1,4 @@
-﻿@model B2BTecnology.Financeiro.DTO.ContatoDTO
+﻿@model List<B2BTecnology.Financeiro.DTO.ContatoDTO>
 
 <div class="row">
     <div class="col-lg-12">
@@ -8,19 +8,45 @@
     </div>
 </div>
 
-@Html.Hidden("Contato.IdContato", Model.IdContato)
-
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-5">
-            <label class="control-label">Nome: </label>
-            <input class="form-control" id="Nome" name="Contato.Nome" type="text" value="@Model.Nome" />
+<div id="tabContato">
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label class="control-label">Tipo Contato: </label>
+                <select class="form-control" id="idTipoContato" name="idTipoContato">
+                    <option value="0">Selecione</option>
+                    <option value="1">Geral</option>
+                    <option value="2">Técnico</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group col-md-5">
-            <label class="control-label">E-mail: </label>
-            <div class="form-group input-group">
-                <span class="input-group-addon">@@</span>
-                <input class="form-control" id="Email" name="Contato.Email" type="text" value="@Model.Email" />
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label class="control-label">Nome: </label>
+                <input class="form-control" id="NomeContato" name="NomeContato" type="text" />
+            </div>
+            <div class="form-group col-md-5">
+                <label class="control-label">E-mail: </label>
+                <div class="form-group input-group">
+                    <span class="input-group-addon">@@</span>
+                    <input class="form-control" id="Email" name="Email" type="text" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label class="control-label">Telefone: </label>
+                <input class="form-control" id="Telefone" name="Telefone" type="text" />
+            </div>
+            <div class="form-group col-md-5">
+                <label class="control-label">Celular: </label>
+                <input class="form-control" id="Celular" name="Celular" type="text" />
             </div>
         </div>
     </div>
@@ -28,13 +54,12 @@
 
 <div class="row">
     <div class="col-lg-12 ">
-        <div class="form-group col-md-5">
-            <label class="control-label">Telefone: </label>
-            <input class="form-control" id="Telefone" name="Contato.Telefone" type="text" value="@Model.Telefone" />
-        </div>
-        <div class="form-group col-md-5">
-            <label class="control-label">Celular: </label>
-            <input class="form-control" id="Celular" name="Contato.Celular" type="text" value="@Model.Celular" />
+        <div class="form-group col-md-1">
+            <button class="btn btn-default" id="btnContato" type="button">Adicionar</button>
         </div>
     </div>
+</div>
+
+<div id="divListaContato">
+    @Html.Partial("../Cliente/Partials/_ListaContato", Model)
 </div>

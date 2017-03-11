@@ -21,7 +21,7 @@ namespace B2BTecnology.Financeiro.DTO
         public string Apelido { get; set; }
 
         public EnderecoDTO Endereco { get; set; }
-        public ContatoDTO Contato { get; set; }
+        public List<ContatoDTO> Contatos { get; set; }
         public List<ContratoDTO> Contratos { get; set; }
         public EquipamentosDTO Equipamento { get; set; }
     }

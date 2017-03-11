@@ -324,6 +324,7 @@
     <Content Include="Views\Cliente\Partials\_ListaAssinaturas.cshtml" />
     <Content Include="Views\Vendedores\Listar.cshtml" />
     <Content Include="Views\Pagamento\Partials\_Listar.cshtml" />
+    <Content Include="Views\Cliente\Partials\_ListaContato.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
