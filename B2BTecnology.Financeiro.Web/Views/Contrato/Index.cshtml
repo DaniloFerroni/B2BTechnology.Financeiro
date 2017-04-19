@@ -1,20 +1,17 @@
 ﻿@using B2BTecnology.Financeiro.DTO
-@model B2BTecnology.Financeiro.DTO.ClienteDTO
+@model ContratoDTO
 
 @{
-    ViewBag.Title = "Cliente";
+    ViewBag.Title = "Contrato";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 @section BeginBody
 {
-    <form id="clienteForm" role="form" action="/Cliente/Salvar/" method="post">
+    <form id="clienteForm" role="form" action="/Contrato/Salvar/" method="post">
 }
 
-
-@Html.Hidden("IdCliente", Model.IdCliente)
-@Html.Hidden("ContatoId", Model.ContatoId)
-@Html.Hidden("EnderecoId", Model.EnderecoId)
+@Html.Hidden("ContatoId", Model.IdContrato)
 
 <div class="row">
     <div class="col-lg-12">
@@ -35,59 +32,9 @@
 @*@Html.Partial("Error")*@
 @Html.Partial("ErrorMessage")
 @Html.Partial("Success")
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-5">
-            <label class="control-label">CPF/CNPJ: </label>
-            <div class="form-group input-group">
-                <span class="input-group-btn"><button class="btn btn-default" id="pesquisarCliente" type="button"><i class="fa fa-search"></i></button></span>
-                <input class="form-control" id="Documento" name="Documento" maxlength="18" type="text" value="@Model.Documento" />
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            <label class="control-label">Tipo de Pessoa: </label>
-            <br />
-            <div class="radio-inline">
-                <input type="radio" id="pessoaFisica" name="pessoa" value="F" @((Model.TipoPessoa == "F") ? "checked" : "") /> Pessoa Física
-            </div>
-            <div class="radio-inline">
-                <input type="radio" id="pessoaJuridica" name="pessoa" value="J" @((Model.TipoPessoa == "J" || Model.IdCliente == 0) ? "checked" : "") /> Pessoa Jurídica
-            </div>
-            @Html.Hidden("TipoPessoa", Model.TipoPessoa)
-        </div>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-5">
-            <label>Nome: </label>
-            <div class="form-group input-group">
-                <span class="input-group-btn"><button class="btn btn-default" id="pesquisarClienteNome" type="button"><i class="fa fa-search"></i></button></span>
-                <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome"/>
-            </div>
-        </div>
-        <div class="form-group col-md-6">
-            <label>Clientes: </label>
-            <select class="form-control" id="nomesClientes">
-                <option value=''>Selecione</option>
-            </select>
-        </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-lg-12 ">
-        <div class="form-group col-md-5">
-            <label>Nome Fantasia: </label>
-            <input class="form-control" id="Apelido" name="Apelido" type="text" value="@Model.Apelido" />
-        </div>
-    </div>
-</div>
-
-@Html.Partial("Partials/_Endereco", Model.Endereco)
-@Html.Partial("Partials/_Contato", Model.Contatos ?? new List<ContatoDTO>())
-@Html.Partial("Partials/_InformacoesContratuais", Model.Contratos.FirstOrDefault() ?? new ContratoDTO())
+@Html.Partial("Partials/_Cliente", Model.Cliente)
+@Html.Partial("Partials/_InformacoesContratuais", Model)
 
 
 @section actions{
@@ -109,19 +56,20 @@
 
             $("#pesquisarCliente").click(function () {
 
-                geral.Redirect("/Cliente/Detalhe/" + $("#Documento").unmask().val());
+                geral.Redirect("/Contrato/Detalhe/" + $("#Documento").unmask().val());
 
             });
 
             $("#pesquisarClienteNome").click(function () {
 
-                $.getJSON("/Cliente/PesquisarClientesPorNome", { nome: $("#Nome").val() }, function (data) {
+                $.getJSON("/Contrato/PesquisarClientesPorNome", { nome: $("#Nome").val() }, function (data) {
 
                     $("#nomesClientes").empty();
                     $("#nomesClientes").append("<option value=''>Selecione</option>");
+                    
                     $(data).each(function () {
 
-                        var documento = $(this).prop("Documento");
+                        var documento = $(this).prop("IdCliente");
                         var nome = $(this).prop("Nome");
 
                         $("#nomesClientes").append("<option value='" + documento + "'>" + nome + "</option>");
@@ -135,7 +83,14 @@
 
             $("#nomesClientes").change(function () {
 
-                geral.Redirect("/Cliente/Detalhe/" + $(this).unmask().val());
+                $.ajax({
+                    url: "/Contrato/GetCliente?idCliente=" + $(this).val(),
+                    type: "GET"
+                }).done(function (data) {
+
+                    $("#divCliente").html(data);
+
+                });
 
             });
 
@@ -150,6 +105,12 @@
                 $("#TipoPessoa").val($(this).val());
 
             });
+
+            $("input[name='plano']").change(function () {
+
+                $("#PlanoId").val($(this).val());
+
+            });
             
             $("input[assinatura]").keyup(function() {
 
@@ -160,7 +121,7 @@
             $("#btnAssinatura").click(function() {
 
                 $.ajax({
-                    url: "/Cliente/AdicionarAssinatura",
+                    url: "/Contrato/AdicionarAssinatura",
                     data: $("#tblListaAssinaturas :input").serialize() + "&" + $("#divParametersAssinatura :input").serialize(),
                     type: "GET"
                 }).done(function(data) {
@@ -183,7 +144,7 @@
                     $("#Email").val() == "") return;
 
                 $.ajax({
-                    url: "/Cliente/AdicionarContato/",
+                    url: "/Contrato/AdicionarContato/",
                     data: $("form").serialize() + "&" + $("#tabContato :input, #tabContato select selected").serialize(),
                     type: "GET"
                 }).done(function (data) {
@@ -201,12 +162,12 @@
 
         function ExcluirContato() {
             
-            $("#tblListaAssinaturas tbody tr td button").each(function () {
+            $("#tblListaContatos tbody tr td button").each(function () {
 
                 $(this).click(function () {
                     
                     $.ajax({
-                        url: "/Cliente/ExcluirContato/",
+                        url: "/Contrato/ExcluirContato/",
                         data: $("form").serialize() + "&index=" + $(this).attr("data-index"),
                         type: "GET"
                     }).done(function (data) {
@@ -225,7 +186,7 @@
             $("#tblListaAssinaturas tbody tr td button").click(function () {
 
                 $.ajax({
-                    url: "/Cliente/ExcluirAssinatura",
+                    url: "/Contrato/ExcluirAssinatura",
                     data: $("#tblListaAssinaturas :input").serialize() + "&index=" + $(this).attr("data-index"),
                     type: "GET"
                 }).done(function (data) {

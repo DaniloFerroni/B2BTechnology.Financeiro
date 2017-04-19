@@ -1,5 +1,6 @@
-﻿@using B2BTecnology.Financeiro.Web.Extencion
-@model IEnumerable<B2BTecnology.Financeiro.DTO.ClienteDTO>
+﻿@using B2BTecnology.Financeiro.DTO
+@using B2BTecnology.Financeiro.Web.Extencion
+@model List<ContratoDTO>
 
 @{
     ViewBag.Title = "Listar";
@@ -21,6 +22,7 @@
         </ol>
     </div>
 </div>
+
 @Html.Partial("Success")
 @Html.Partial("ErrorMessage")
 
@@ -30,32 +32,33 @@
             <div class="table-responsive">
                 <table id="tabelaEquipamentos" class="table table-hover table-striped hand">
                     <thead>
-                        <tr>
-                            <th style="width: 5%">Código</th>
-                            <th style="width: 30%">Nome Cliente</th>
-                            <th style="width: 25%">CNPJ/CPF</th>
-                            <th style="width: 30%">Nome Vendedor</th>
-                            <th style="width: 10%"></th>
-                        </tr>
+                    <tr>
+                        <th style="width: 5%">Código</th>
+                        <th style="width: 30%">Nome Cliente</th>
+                        <th style="width: 25%">CNPJ/CPF</th>
+                        <th style="width: 30%">Nome Vendedor</th>
+                        <th style="width: 10%"></th>
+                    </tr>
                     </thead>
                     <tbody>
-                        @for (int i = 0; i < Model.Count(); i++)
-                        {
-                            var cliente = Model.ToList()[i];
-                            <tr id="@cliente.IdCliente">
-                                <td><label>@cliente.IdCliente</label></td>
-                                <td name><label>@cliente.Nome</label></td>
-                                <td documento="@cliente.Documento"><label>@cliente.Documento.DocumentoComMascara()</label></td>
-                                <td><label>@(cliente.Contratos.Any() ? cliente.Contratos.First().NomeVendedor : "")</label></td>
-                                <td><button class="btn btn-warning" type="button" value="" ><i class="fa fa-trash"> Excluir</i></button></td>
-                            </tr>
-                        }
+                    @foreach (var contrato in Model)
+                    {
+                        var cliente = contrato.Cliente;
+                        <tr id="@contrato.IdContrato">
+                            <td><label>@contrato.IdContrato</label></td>
+                            <td name><label>@cliente.Nome</label></td>
+                            <td documento="@cliente.Documento"><label>@cliente.Documento.DocumentoComMascara()</label></td>
+                            <td><label>@(contrato.Vendedores == null ? "" : contrato.Vendedores.Nome)</label></td>
+                            <td><button class="btn btn-warning" type="button" value=""><i class="fa fa-trash"> Excluir</i></button></td>
+                        </tr>
+                    }
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 </div>
+
 @Html.Partial("Partials/_Confirmacao")
 
 @section scripts{
@@ -66,7 +69,7 @@
 
             $("#tabelaEquipamentos tbody tr").dblclick(function() {
                 
-                geral.Redirect("/Cliente/Detalhe/" + $(this).find("td[documento]").attr("documento"));
+                geral.Redirect("/Contrato/Detalhe/" + $(this).attr("id"));
 
             });
 

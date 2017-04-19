@@ -69,8 +69,8 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             var enderecoRepository = new EnderecoRepository();
             if (endereco != null) enderecoRepository.Excluir(endereco);
 
-            var contatoRepository = new ContatoRepository();
-            if (contato != null) contatoRepository.Excluir(contato);
+            //var contatoRepository = new ContatoRepository();
+            //if (contato != null) contatoRepository.Excluir(contato);
         }
     }
 }

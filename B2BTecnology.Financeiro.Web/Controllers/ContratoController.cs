@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Infrastructure;
-using System.Data.SqlTypes;
 using System.Linq;
 using System.Text;
 using System.Web.Mvc;
-using System.Web.Routing;
 using B2BTecnology.Financeiro.DTO;
 using B2BTecnology.Financeiro.Negocio;
 using B2BTecnology.Financeiro.Web.Extencion;
@@ -13,51 +10,52 @@ using B2BTecnology.Financeiro.Web.Extencion;
 namespace B2BTecnology.Financeiro.Web.Controllers
 {
     [Authorize]
-    public class ClienteController : Controller
+    public class ContratoController : Controller
     {
         private readonly ClienteService _clienteService = new ClienteService();
+        private readonly ContratoService _contratoService = new ContratoService();
 
         // GET: Cliente
         public ActionResult Index()
         {
-            var cliente = CarregarClientes(new ClienteDTO());
-            cliente.TipoPessoa = "J";
-            CarregarViewBag(cliente);
-            return View(cliente);
+            var contrato = CarregarContrato(new ContratoDTO());
+            CarregarViewBag(contrato);
+            return View(contrato);
         }
 
-        public ActionResult Salvar(ClienteDTO cliente)
+        public ActionResult Salvar(ContratoDTO contrato)
         {
             try
             {
-                //TempData["Error"] = !ModelState.IsValid;
                 TempData["Error"] = true;
-                CarregarViewBag(cliente);
-                //if (!ModelState.IsValid)
-                var mensagem = ValidacaoCadastroCliente(cliente);
+                CarregarViewBag(contrato);
+
+                var mensagem = ValidacaoCadastroCliente(contrato);
                 if (!string.IsNullOrEmpty(mensagem))
                 {
                     TempData["Error"] = false;
                     throw new Exception(mensagem);
                 }
 
-                cliente.Documento = cliente.Documento.DocumentoSemMascara();
-                _clienteService.Salvar(cliente);
+                contrato.Cliente.Documento = contrato.Cliente.Documento.DocumentoSemMascara();
+                _contratoService.Salvar(contrato);
 
                 TempData["success"] = "Dados Salvos com Sucesso!";
 
-                return RedirectToAction("Detalhe", new { documento = cliente.Documento.DocumentoSemMascara() });
+                return RedirectToAction("Detalhe", new { idContrato = contrato.IdContrato });
             }
             catch (Exception ex)
             {
                 TempData["ErrorMessage"] = ex.Message;
-                return View("Index", cliente);
+                return View("Index", contrato);
             }
+            
         }
 
-        private string ValidacaoCadastroCliente(ClienteDTO cliente)
+        private string ValidacaoCadastroCliente(ContratoDTO contrato)
         {
             var mensagem = new StringBuilder();
+            var cliente = contrato.Cliente;
 
             if (string.IsNullOrEmpty(cliente.Documento))
                 mensagem.AppendLine("- CPF/CNPJ é Obrigatório.");
@@ -71,35 +69,28 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             //if (cliente.Contato == null || string.IsNullOrEmpty(cliente.Contato.Nome))
             //    mensagem.AppendLine("- Digite o E-mail do Contato.");
 
-            if (cliente.Contratos == null || !cliente.Contratos.Any())
-            {
-                mensagem.AppendLine("- Dia do Vencimento é Obrigatório.");
-                mensagem.AppendLine("- Vendedor é obrigatório.");
-            }
-            else
-            {
-                if (cliente.Contratos == null || cliente.Contratos.First().DiaVencimento <= 0)
-                    mensagem.AppendLine("- Dia do Vencimento é Obrigatório.");
 
-                if (cliente.Contratos == null || cliente.Contratos.First().VendedorId == 0)
-                    mensagem.AppendLine("- Vendedor é obrigatório.");
-            }
+            if (contrato.DiaVencimento <= 0)
+                mensagem.AppendLine("- Dia do Vencimento é Obrigatório.");
+
+            if (contrato.VendedorId == 0)
+                mensagem.AppendLine("- Vendedor é obrigatório.");
 
             return mensagem.ToString();
         }
 
         public ActionResult Listar()
         {
-            var clientes = _clienteService.Todos().OrderBy(c => c.Nome).ToList();
-            return View(clientes);
+            var contratos = _contratoService.Todos().OrderBy(c => c.Cliente.Nome).ToList();
+            return View(contratos);
         }
 
-        [Route("Cliente/Detalhe/{documento}")]
-        public ActionResult Detalhe(string documento)
+        [Route("Contrato/Detalhe/{idContrato}")]
+        public ActionResult Detalhe(int idContrato)
         {
-            var cliente = _clienteService.Pesquisar(documento.DocumentoSemMascara());
-            CarregarViewBag(cliente);
-            return View("Index", CarregarClientes(cliente));
+            var contrato = _contratoService.Pesquisar(idContrato);
+            CarregarViewBag(contrato);
+            return View("Index", CarregarContrato(contrato));
         }
 
         public void Excluir(int idCliente)
@@ -155,23 +146,34 @@ namespace B2BTecnology.Financeiro.Web.Controllers
             return Json(clientes, JsonRequestBehavior.AllowGet);
         }
 
-        private ClienteDTO CarregarClientes(ClienteDTO cliente)
+        public PartialViewResult GetCliente(int idCliente)
         {
-            if (cliente.IdCliente != 0) return cliente;
+            var cliente = _clienteService.Pesquisar(idCliente);
 
-            return new ClienteDTO
+            return PartialView("Partials/_Cliente", cliente);
+        }
+
+        private ContratoDTO CarregarContrato(ContratoDTO contrato)
+        {
+            if (contrato.IdContrato != 0) return contrato;
+
+            return new ContratoDTO
             {
-                Endereco = new EnderecoDTO(),
-                Contratos = new List<ContratoDTO>(),
-                Contatos = new List<ContatoDTO>(),
-                Equipamento = new EquipamentosDTO()
+                Cliente = new ClienteDTO
+                            {
+                                TipoPessoa = "J",
+                                Endereco = new EnderecoDTO(),
+                                Contratos = new List<ContratoDTO>(),
+                                Contatos = new List<ContatoDTO>(),
+                                Equipamento = new EquipamentosDTO()
+                            },
+                PlanoId = 1
             };
         }
 
-        private void CarregarViewBag(ClienteDTO cliente)
+        private void CarregarViewBag(ContratoDTO contrato)
         {
-            var contratos = cliente.Contratos.FirstOrDefault();
-            var vendedorId = contratos == null ? 0 : contratos.VendedorId;
+            var vendedorId = contrato == null ? 0 : contrato.VendedorId;
 
             CarregarViewBagEquipamentos();
             CarregarViewBagVendedores(vendedorId);

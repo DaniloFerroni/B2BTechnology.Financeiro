@@ -1,26 +1,28 @@
-﻿@using B2BTecnology.Financeiro.DTO
+﻿@using B2BTecnology.Financeiro.Web.Extencion
 @model B2BTecnology.Financeiro.DTO.ClienteDTO
 
-<div id="paginaCliente">
+<div id="divCliente">
+    @Html.Hidden("Cliente.IdCliente", Model.IdCliente)
+    @Html.Hidden("Cliente.EnderecoId", Model.EnderecoId)
     <div class="row">
         <div class="col-lg-12 ">
             <div class="form-group col-md-5">
                 <label class="control-label">CPF/CNPJ: </label>
                 <div class="form-group input-group">
                     <span class="input-group-btn"><button class="btn btn-default" id="pesquisarCliente" type="button"><i class="fa fa-search"></i></button></span>
-                    <input class="form-control" id="Documento" name="Documento" type="text" value="@Model.Documento" />
+                    <input class="form-control" id="Documento" name="Cliente.Documento" type="text" value="@Model.Documento.DocumentoComMascara()" />
                 </div>
             </div>
             <div class="form-group col-md-6">
                 <label class="control-label">Tipo de Pessoa: </label>
                 <br />
                 <div class="radio-inline">
-                    <input type="radio" name="pessoa" value="@(Model.TipoPessoa == "F")" @((Model.TipoPessoa == "F") ? "checked": "") /> Pessoa Física
+                    <input type="radio" name="pessoa" value="@(Model.TipoPessoa == "F")" @((Model.TipoPessoa == "F") ? "checked" : "") /> Pessoa Física
                 </div>
                 <div class="radio-inline">
                     <input type="radio" name="pessoa" value="@(Model.TipoPessoa == "J")" @((Model.TipoPessoa == "J") ? "checked" : "") /> Pessoa Jurídica
                 </div>
-                @Html.Hidden("TipoPessoa", Model.TipoPessoa)
+                @Html.Hidden("Cliente.TipoPessoa", Model.TipoPessoa)
             </div>
         </div>
     </div>
@@ -31,7 +33,7 @@
                 <label>Nome: </label>
                 <div class="form-group input-group">
                     <span class="input-group-btn"><button class="btn btn-default" id="pesquisarClienteNome" type="button"><i class="fa fa-search"></i></button></span>
-                    <input class="form-control" id="Nome" name="Nome" type="text" value="@Model.Nome" />
+                    <input class="form-control" id="Nome" name="Cliente.Nome" type="text" value="@Model.Nome" />
                 </div>
             </div>
             <div class="form-group col-md-6">
@@ -43,8 +45,16 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class="col-lg-12 ">
+            <div class="form-group col-md-5">
+                <label>Nome Fantasia: </label>
+                <input class="form-control" id="Apelido" name="Cliente.Apelido" type="text" value="@Model.Apelido" />
+            </div>
+        </div>
+    </div>
+
     @Html.Partial("Partials/_Endereco", Model.Endereco)
-    @Html.Partial("Partials/_Contato", Model.Contato)
-    @Html.Partial("Partials/_InformacoesContratuais", Model.Contratos.FirstOrDefault() ?? new ContratoDTO())
+    @Html.Partial("Partials/_Contato", Model.Contatos)
 
 </div>

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using B2BTecnology.Financeiro.Entidades;
@@ -34,6 +33,7 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             entry.Property(p => p.DataContrato).IsModified = true;
             entry.Property(p => p.ClienteId).IsModified = true;
             entry.Property(p => p.CadenciaMovel).IsModified = true;
+            entry.Property(p => p.PlanoId).IsModified = true;
             //entry.Property(p => p.Did).IsModified = true;
             //entry.Property(p => p.AssinaturaDid).IsModified = true;
             //entry.Property(p => p.Valor0800).IsModified = true;
@@ -49,7 +49,24 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
         public Contrato GetContrato(int idContrato)
         {
             LazyLoadingEnabled();
-            return DbSet.First(c => c.IdContrato == idContrato);
+            return DbSet
+                    .Include(c => c.Cliente)
+                    .Include(c => c.Cliente.Endereco)
+                    .Include(c => c.Cliente.Contatos)
+                    .Include(c => c.ContratoAssinaturas)
+                    .Include(c => c.Vendedores)
+                    .Include(c => c.EquipamentoContrato)
+                    .Include("EquipamentoContrato.Equipamentos")
+                    .First(c => c.IdContrato == idContrato);
+        }
+
+        public List<Contrato> GetAll()
+        {
+            LazyLoadingEnabled();
+            return DbSet
+                    .Include(c => c.Cliente)
+                    .Include(c => c.Vendedores)
+                    .ToList();
         }
 
         public Contrato GetContratoCliente(int idCliente)

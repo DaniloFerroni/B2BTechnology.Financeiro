@@ -10,5 +10,6 @@ namespace B2BTecnology.Financeiro.DTO
         public string Telefone { get; set; }
         public string Celular { get; set; }
         public int IdTipoContato { get; set; }
+        public int IdCliente { get; set; }
     }
 }

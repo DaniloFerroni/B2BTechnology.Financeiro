@@ -1,0 +1,9 @@
+﻿@using B2BTecnology.Financeiro.DTO
+@model B2BTecnology.Financeiro.DTO.ContratoDTO
+
+<div id="paginaCliente">
+
+    @Html.Partial("Partials/_Cliente", Model.Cliente)
+    @Html.Partial("Partials/_InformacoesContratuais", Model)
+
+</div>

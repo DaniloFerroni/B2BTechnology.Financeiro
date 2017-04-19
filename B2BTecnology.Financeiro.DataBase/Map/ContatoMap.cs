@@ -17,7 +17,11 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(c => c.Telefone).HasMaxLength(10).HasColumnName("TELEFONE");
             Property(c => c.Celular).HasMaxLength(11).HasColumnName("CELULAR");
             Property(c => c.IdTipoContato).HasColumnName("Id_TipoContato");
+            Property(c => c.IdCliente).HasColumnName("Id_Cliente");
 
+            HasRequired(c => c.Cliente)
+                .WithMany(c => c.Contatos)
+                .HasForeignKey(c => c.IdCliente);
         }
     }
 }

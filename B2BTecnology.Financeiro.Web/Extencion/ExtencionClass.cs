@@ -14,6 +14,7 @@ namespace B2BTecnology.Financeiro.Web.Extencion
 
         public static string DocumentoComMascara(this string documento)
         {
+            documento = documento ?? "";
             if (documento.Length == 11)
                 return string.Format("{0}.{1}.{2}-{3}", documento.Substring(0, 3), documento.Substring(3, 3), documento.Substring(6, 3), documento.Substring(9, 2));
 

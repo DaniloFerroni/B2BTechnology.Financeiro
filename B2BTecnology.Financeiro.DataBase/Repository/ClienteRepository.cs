@@ -7,19 +7,34 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
 {
     public class ClienteRepository : BaseRepository<B2BSolution, Cliente>
     {
-        public void Incluir(Cliente cliente)
+        public int Incluir(Cliente cliente)
         {
             DbSet.Add(cliente);
-            Context.SaveChanges();
+            return Context.SaveChanges();
         }
 
         public void Alterar(Cliente cliente)
         {
-            var entry = Context.Entry(cliente);
-            entry.State = EntityState.Modified;
+            Context.Enderecos.Attach(cliente.Endereco);
+            var entryEndereco = Context.Entry(cliente.Endereco);
+            entryEndereco.State = EntityState.Modified;
 
-            entry.Property(p => p.Nome).IsModified = true;
+            entryEndereco.Property(p => p.Rua).IsModified = true;
+            entryEndereco.Property(p => p.Numero).IsModified = true;
+            entryEndereco.Property(p => p.Complemento).IsModified = true;
+            entryEndereco.Property(p => p.Bairro).IsModified = true;
+            entryEndereco.Property(p => p.Cep).IsModified = true;
+            entryEndereco.Property(p => p.Cidade).IsModified = true;
+            entryEndereco.Property(p => p.Estado).IsModified = true;
+            
+            DbSet.Attach(cliente);
+            var entry = Context.Entry(cliente);
+            
+            entry.State = EntityState.Unchanged;
+
+            entry.Property(p => p.Documento).IsModified = true;
             entry.Property(p => p.TipoPessoa).IsModified = true;
+            entry.Property(p => p.Nome).IsModified = true;
             entry.Property(p => p.Apelido).IsModified = true;
 
             Context.SaveChanges();
@@ -34,7 +49,7 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
                             .First(c => c.IdCliente == idCliente);
 
             var endereco = cliente.Endereco;
-            var contato = cliente.Contato;
+            var contato = cliente.Contatos;
 
             var entry = Context.Entry(cliente);
             entry.State = EntityState.Deleted;
@@ -43,8 +58,8 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
             var enderecoRepository = new EnderecoRepository();
             if (endereco != null) enderecoRepository.Excluir(endereco);
 
-            var contatoRepository = new ContatoRepository();
-            if (contato != null) contatoRepository.Excluir(contato);
+            //var contatoRepository = new ContatoRepository();
+            //if (contato != null) contatoRepository.Excluir(contato);
         }
 
         public Cliente GetCliente(string documento)
@@ -71,14 +86,19 @@ namespace B2BTecnology.Financeiro.DataBase.Repository
                 .First(c => c.IdCliente == clienteId);
         }
 
+        public Cliente GetClienteBasic(int clienteId)
+        {
+            LazyLoadingEnabled();
+            return DbSet
+                .Include(c => c.Contatos)
+                .Include(c => c.Endereco)
+                .First(c => c.IdCliente == clienteId);
+        }
 
         public List<Cliente> GetAll()
         {
             LazyLoadingEnabled();
-            return DbSet
-                    .Include("Contratos")
-                    .Include("Contratos.Vendedores")
-                    .ToList();
+            return DbSet.ToList();
         }
     }
 }

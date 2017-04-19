@@ -20,9 +20,9 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(c => c.Documento).HasMaxLength(14).HasColumnName("DOCUMENTO");
             Property(c => c.Apelido).HasMaxLength(100).HasColumnName("Nm_Apelido");
 
-            HasRequired(c => c.Contato)
-                .WithMany(c => c.Clientes)
-                .HasForeignKey(c => c.ContatoId);
+            //HasRequired(c => c.Contatos)
+            //    .WithMany(c => c.Clientes)
+            //    .HasForeignKey(c => c.ContatoId);
 
             HasRequired(c => c.Endereco)
                 .WithMany(c => c.Clientes)

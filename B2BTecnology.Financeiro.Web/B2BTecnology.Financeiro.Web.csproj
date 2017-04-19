@@ -129,7 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutenticacaoController.cs" />
-    <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ContratoController.cs" />
     <Compile Include="Controllers\ComissaoController.cs" />
     <Compile Include="Controllers\EquipamentosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -303,16 +303,16 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Cliente\Index.cshtml" />
+    <Content Include="Views\Contrato\Index.cshtml" />
     <Content Include="Views\Vendedores\Index.cshtml" />
     <Content Include="Views\Equipamentos\Index.cshtml" />
     <Content Include="Views\Pagamento\Index.cshtml" />
     <Content Include="Views\Shared\Partials\_Contato.cshtml" />
     <Content Include="Views\Shared\Partials\_Endereco.cshtml" />
-    <Content Include="Views\Cliente\Partials\_InformacoesContratuais.cshtml" />
+    <Content Include="Views\Contrato\Partials\_InformacoesContratuais.cshtml" />
     <Content Include="Views\Shared\Partials\_Confirmacao.cshtml" />
-    <Content Include="Views\Cliente\Listar.cshtml" />
-    <Content Include="Views\Cliente\Partials\_Detalhes.cshtml" />
+    <Content Include="Views\Contrato\Listar.cshtml" />
+    <Content Include="Views\Contrato\Partials\_Detalhes.cshtml" />
     <Content Include="Views\Comissao\Index.cshtml" />
     <Content Include="Views\Shared\Success.cshtml" />
     <Content Include="Views\Shared\ErrorMessage.cshtml" />
@@ -320,11 +320,12 @@
     <Content Include="Views\Pagamento\Partials\Detalhe.cshtml" />
     <Content Include="Views\Shared\Partials\_Progress.cshtml" />
     <Content Include="Views\Autenticacao\Login.cshtml" />
-    <Content Include="Views\Cliente\Partials\_Assinaturas.cshtml" />
-    <Content Include="Views\Cliente\Partials\_ListaAssinaturas.cshtml" />
+    <Content Include="Views\Contrato\Partials\_Assinaturas.cshtml" />
+    <Content Include="Views\Contrato\Partials\_ListaAssinaturas.cshtml" />
     <Content Include="Views\Vendedores\Listar.cshtml" />
     <Content Include="Views\Pagamento\Partials\_Listar.cshtml" />
-    <Content Include="Views\Cliente\Partials\_ListaContato.cshtml" />
+    <Content Include="Views\Contrato\Partials\_ListaContato.cshtml" />
+    <Content Include="Views\Contrato\Partials\_Cliente.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -45,7 +45,7 @@ namespace B2BTecnology.Financeiro.Negocio
         {
             var vendedorExiste = _vendedoresRepository.GetVendedor(vendedoresDto.Documento);
 
-            SalvarContato(vendedoresDto.Contato, vendedorExiste != null ? vendedorExiste.Contato : new Contato());
+            //SalvarContato(vendedoresDto.Contato, vendedorExiste != null ? vendedorExiste.Contato : new Contato());
             SalvarEndereco(vendedoresDto.Endereco, vendedorExiste != null ? vendedorExiste.Endereco : new Endereco());
 
             if (vendedorExiste == null)
@@ -98,11 +98,11 @@ namespace B2BTecnology.Financeiro.Negocio
         }
 
 
-        private void SalvarContato(ContatoDTO contatoDto, Contato atual)
-        {
-            DadosPessoais<ContatoDTO, Contato> contatoService = new ContatoService();
-            contatoService.Salvar(contatoDto, atual);
-        }
+        //private void SalvarContato(ContatoDTO contatoDto, Contato atual)
+        //{
+        //    DadosPessoais<ContatoDTO, Contato> contatoService = new ContatoService();
+        //    contatoService.Salvar(contatoDto, atual);
+        //}
 
         private void SalvarEndereco(EnderecoDTO enderecoDto, Endereco atual)
         {

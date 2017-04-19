@@ -14,7 +14,8 @@ namespace B2BTecnology.Financeiro.Negocio
 
         public ClienteDTO Pesquisar(int idCliente)
         {
-            var cliente = _clienteRepository.GetClienteId(idCliente);
+            //var cliente = _clienteRepository.GetClienteId(idCliente);
+            var cliente = _clienteRepository.GetClienteBasic(idCliente);
 
             var clienteDto = Mapper.Map<ClienteDTO>(cliente);
 
@@ -36,12 +37,12 @@ namespace B2BTecnology.Financeiro.Negocio
 
             var clientesDto = Mapper.Map<List<ClienteDTO>>(clientes);
 
-            clientes.ForEach(c =>
-            {
-                var contratoDto = clientesDto.First(cl => cl.IdCliente == c.IdCliente).Contratos.FirstOrDefault();
+            //clientes.ForEach(c =>
+            //{
+            //    var contratoDto = clientesDto.First(cl => cl.IdCliente == c.IdCliente).Contratos.FirstOrDefault();
                 
-                if (contratoDto != null) contratoDto.NomeVendedor = c.Contratos.First().Vendedores.Nome;
-            });
+            //    if (contratoDto != null) contratoDto.NomeVendedor = c.Contratos.First().Vendedores.Nome;
+            //});
 
             return clientesDto;
         }
@@ -51,44 +52,73 @@ namespace B2BTecnology.Financeiro.Negocio
             return Todos().Where(c => c.Nome.ToUpper().Contains(nome.ToUpper()));
         }
 
-        public void Salvar(ClienteDTO cliente)
+        public void Salvar(ClienteDTO clienteDto)
         {
-            var clienteExiste = _clienteRepository.GetCliente(cliente.Documento);
-            var clientesDto = Mapper.Map<ClienteDTO>(clienteExiste);
+            var clienteAtual = _clienteRepository.GetClienteBasic(clienteDto.IdCliente);
+            var cliente = Mapper.Map<Cliente>(clienteDto);
+            int idCliente;
 
-            //SalvarContato(cliente.Contatos, clientesDto.Contatos);
-            SalvarEndereco(cliente.Endereco, clienteExiste != null ? clienteExiste.Endereco : new Endereco());
-
-            if (clienteExiste == null)
-                Inserir(cliente);
+            if (cliente.IdCliente == 0)
+                idCliente = _clienteRepository.Incluir(cliente);
             else
-                Alterar(cliente, clienteExiste);
+            {
+                clienteAtual.Documento = cliente.Documento;
+                clienteAtual.Nome = cliente.Nome;
+                clienteAtual.Apelido = cliente.Apelido;
+                clienteAtual.TipoPessoa = cliente.TipoPessoa;
+                clienteAtual.Endereco.Rua = cliente.Endereco.Rua;
+                clienteAtual.Endereco.Numero = cliente.Endereco.Numero;
+                clienteAtual.Endereco.Complemento = cliente.Endereco.Complemento;
+                clienteAtual.Endereco.Bairro = cliente.Endereco.Bairro;
+                clienteAtual.Endereco.Cep = cliente.Endereco.Cep;
+                clienteAtual.Endereco.Cidade = cliente.Endereco.Cidade;
+                clienteAtual.Endereco.Estado = cliente.Endereco.Estado;
+                _clienteRepository.Alterar(clienteAtual);
+                idCliente = clienteDto.IdCliente;
+            }
 
-            var contratoDto = cliente.Contratos.First();
-            clienteExiste = _clienteRepository.GetCliente(cliente.Documento);
-
-            SalvarEquipamentos(contratoDto.EquipamentoContrato, clienteExiste.Contratos.First().EquipamentoContrato, contratoDto.IdContrato);
-            SalvarAssinaturas(cliente.Contratos.First().ContratoAssinaturas, contratoDto.IdContrato);
+            var contatoService = new ContatoService();
+            contatoService.Salvar(clienteDto.Contatos, clienteAtual.Contatos, idCliente);
         }
 
-        private void Inserir(ClienteDTO clienteDto)
-        {
-            var cliente = Cliente(clienteDto);
-            _clienteRepository.Incluir(cliente);
+        //public void Salvar(ClienteDTO cliente)
+        //{
+        //    var clienteExiste = _clienteRepository.GetCliente(cliente.Documento);
+        //    var clientesDto = Mapper.Map<ClienteDTO>(clienteExiste);
 
-            var contrato = clienteDto.Contratos.First();
-            contrato.ClienteId = cliente.IdCliente;
-            SalvarContrato(contrato, new Contrato());
-        }
+        //    //SalvarContato(cliente.Contatos, clientesDto.Contatos);
+        //    SalvarEndereco(cliente.Endereco, clienteExiste != null ? clienteExiste.Endereco : new Endereco());
 
-        private void Alterar(ClienteDTO clienteDto, Cliente cliente)
-        {
-            var clienteAlteracao = ClienteAlteracao(clienteDto, cliente);
-            _clienteRepository.Alterar(clienteAlteracao);
-            var contrato = clienteDto.Contratos.First();
-            contrato.ClienteId = clienteAlteracao.IdCliente;
-            SalvarContrato(contrato, cliente.Contratos.First());
-        }
+        //    if (clienteExiste == null)
+        //        Inserir(cliente);
+        //    else
+        //        Alterar(cliente, clienteExiste);
+
+        //    var contratoDto = cliente.Contratos.First();
+        //    clienteExiste = _clienteRepository.GetCliente(cliente.Documento);
+
+        //    SalvarEquipamentos(contratoDto.EquipamentoContrato, clienteExiste.Contratos.First().EquipamentoContrato, contratoDto.IdContrato);
+        //    SalvarAssinaturas(cliente.Contratos.First().ContratoAssinaturas, contratoDto.IdContrato);
+        //}
+
+        //private void Inserir(ClienteDTO clienteDto)
+        //{
+        //    var cliente = Cliente(clienteDto);
+        //    _clienteRepository.Incluir(cliente);
+
+        //    //var contrato = clienteDto.Contratos.First();
+        //    //contrato.ClienteId = cliente.IdCliente;
+        //    //SalvarContrato(contrato, new Contrato());
+        //}
+
+        //private void Alterar(ClienteDTO clienteDto, Cliente cliente)
+        //{
+        //    var clienteAlteracao = ClienteAlteracao(clienteDto, cliente);
+        //    _clienteRepository.Alterar(clienteAlteracao);
+        //    //var contrato = clienteDto.Contratos.First();
+        //    //contrato.ClienteId = clienteAlteracao.IdCliente;
+        //    //SalvarContrato(contrato, cliente.Contratos.First());
+        //}
 
         private Cliente Cliente(ClienteDTO clienteDto)
         {
@@ -117,11 +147,11 @@ namespace B2BTecnology.Financeiro.Negocio
             return cliente;
         }
 
-        private void SalvarContrato(ContratoDTO contratoDto, Contrato contrato)
-        {
-            var contratoRepository = new ContratoService();
-            contratoRepository.Salvar(contratoDto, contrato);
-        }
+        //private void SalvarContrato(ContratoDTO contratoDto, Contrato contrato)
+        //{
+        //    var contratoRepository = new ContratoService();
+        //    contratoRepository.Salvar(contratoDto, contrato);
+        //}
 
         //private void SalvarContato(List<ContatoDTO> contatoDto, List<ContatoDTO> atual)
         //{

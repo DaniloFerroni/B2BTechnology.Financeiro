@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AutoMapper;
 using B2BTecnology.Financeiro.DataBase.Repository;
 using B2BTecnology.Financeiro.DTO;
@@ -11,12 +12,14 @@ namespace B2BTecnology.Financeiro.Negocio
     {
         private static readonly ContratoRepository _contratoRepository = new ContratoRepository();
 
-        public void Salvar(ContratoDTO contratoDto, Contrato contrato)
+        public void Salvar(ContratoDTO contratoDto)
         {
-            if(contratoDto.IdContrato == 0)
+            var clienteService = new ClienteService();
+            clienteService.Salvar(contratoDto.Cliente);
+            if (contratoDto.IdContrato == 0)
                 Incluir(contratoDto);
             else
-                Alterar(contratoDto, contrato);
+                Alterar(contratoDto);
         }
 
         public void Incluir(ContratoDTO contratoDto)
@@ -25,9 +28,23 @@ namespace B2BTecnology.Financeiro.Negocio
             _contratoRepository.Incluir(contrato);
         }
 
-        public void Alterar(ContratoDTO contratoDto, Contrato contrato)
+        public ContratoDTO Pesquisar(int idContrato)
         {
-            contrato = _contratoRepository.GetContrato(contratoDto.IdContrato);
+            var contrato = _contratoRepository.GetContrato(idContrato);
+            var contratoDto = Mapper.Map<ContratoDTO>(contrato);
+            return contratoDto;
+        }
+
+        public List<ContratoDTO> Todos()
+        {
+            var contratos = _contratoRepository.GetAll();
+            var contratosDto = Mapper.Map<List<ContratoDTO>>(contratos);
+            return contratosDto;
+        }
+
+        public void Alterar(ContratoDTO contratoDto)
+        {
+            var contrato = _contratoRepository.GetContrato(contratoDto.IdContrato);
             ContratoAtualizado(contratoDto, contrato);
 
             _contratoRepository.Alterar(contrato);
@@ -82,6 +99,7 @@ namespace B2BTecnology.Financeiro.Negocio
             contrato.DataContrato = contratoDto.DataContrato;
             contrato.ClienteId = contratoDto.ClienteId;
             contrato.CadenciaMovel = contratoDto.CadenciaMovel;
+            contrato.PlanoId = contratoDto.PlanoId;
 
             //contrato.Did = contratoDto.Did;
             //contrato.AssinaturaDid = contratoDto.AssinaturaDid;

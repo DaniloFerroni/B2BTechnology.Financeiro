@@ -28,6 +28,7 @@ namespace B2BTecnology.Financeiro.DataBase.Map
             Property(c => c.ValorTarifaVc2).HasColumnName("VL_TARIFA_VC2");
             Property(c => c.ValorTarifaVc3).HasColumnName("VL_TARIFA_VC3");
             Property(c => c.ValorMensalidade).HasColumnName("VL_MENSALIDADE");
+            Property(c => c.PlanoId).HasColumnName("Id_TipoPlano");
 
             //Property(c => c.Did).HasColumnName("Vl_Did");
             //Property(c => c.AssinaturaDid).HasColumnName("Ds_AssinaturaDid");
